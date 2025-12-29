@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(flatpak list:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(python3:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "default"
+  },
+  "model": "opus",
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754094150668
+  }
+}

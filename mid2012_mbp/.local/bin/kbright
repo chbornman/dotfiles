@@ -1,0 +1,38 @@
+#!/bin/bash
+# Keyboard backlight control with logarithmic steps
+
+dev="smc::kbd_backlight"
+# Get current brightness (raw value) - max is 255
+current=$(brightnessctl -d $dev -m | cut -d, -f3)
+
+case $1 in
+    up)
+        if [ "$current" -eq 0 ]; then
+            brightnessctl -d $dev set 1%
+        elif [ "$current" -le 3 ]; then   # 1%
+            brightnessctl -d $dev set 2%
+        elif [ "$current" -le 5 ]; then   # 2%
+            brightnessctl -d $dev set 5%
+        elif [ "$current" -le 13 ]; then  # 5%
+            brightnessctl -d $dev set 10%
+        else
+            brightnessctl -d $dev set +10%
+        fi
+        ;;
+    down)
+        if [ "$current" -gt 26 ]; then    # >10%
+            brightnessctl -d $dev set 10%-
+        elif [ "$current" -gt 13 ]; then  # >5%
+            brightnessctl -d $dev set 5%
+        elif [ "$current" -gt 5 ]; then   # >2%
+            brightnessctl -d $dev set 2%
+        elif [ "$current" -gt 3 ]; then   # >1%
+            brightnessctl -d $dev set 1%
+        else
+            brightnessctl -d $dev set 0
+        fi
+        ;;
+esac
+
+level=$(brightnessctl -d $dev -m | cut -d, -f4)
+notify-send -r 3 -t 1000 "Keyboard $level"

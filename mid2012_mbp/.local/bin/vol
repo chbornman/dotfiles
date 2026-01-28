@@ -1,0 +1,11 @@
+#!/bin/bash
+# Volume control with notifications
+case $1 in
+    up)   pactl set-sink-volume @DEFAULT_SINK@ +5% ;;
+    down) pactl set-sink-volume @DEFAULT_SINK@ -5% ;;
+    mute) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+esac
+vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+%' | head -1)
+mute=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes && echo " (muted)")
+notify-send -r 1 -t 1000 "Volume $vol$mute"
+polybar-msg action audio exec &>/dev/null &

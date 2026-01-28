@@ -1,0 +1,109 @@
+/* Rofi configuration - Capstan Cloud theme */
+
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    terminal: "alacritty";
+    font: "monospace 11";
+}
+
+* {
+    /* Capstan Cloud palette */
+    bg:       #1a1917;
+    bg-alt:   #262422;
+    fg:       #f7f7f5;
+    fg-dim:   #8c8985;
+    accent:   #d4a366;
+    urgent:   #ff4d4f;
+
+    background-color: transparent;
+    text-color: @fg;
+    spacing: 0;
+}
+
+window {
+    background-color: @bg;
+    border: 2px solid;
+    border-color: @accent;
+    padding: 20px;
+    width: 40%;
+}
+
+mainbox {
+    children: [inputbar, listview];
+    spacing: 12px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: @bg-alt;
+    padding: 8px 12px;
+    border-radius: 0px;
+}
+
+prompt {
+    text-color: @accent;
+    margin: 0 8px 0 0;
+}
+
+entry {
+    text-color: @fg;
+    placeholder: "Search...";
+    placeholder-color: @fg-dim;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px 12px;
+    spacing: 8px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.urgent {
+    background-color: transparent;
+    text-color: @urgent;
+}
+
+element normal.active {
+    background-color: transparent;
+    text-color: @accent;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @bg;
+}
+
+element selected.urgent {
+    background-color: @urgent;
+    text-color: @bg;
+}
+
+element selected.active {
+    background-color: @accent;
+    text-color: @bg;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 1.2em;
+}
+
+element-text {
+    text-color: inherit;
+    vertical-align: 0.5;
+}

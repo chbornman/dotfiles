@@ -1,0 +1,66 @@
+# Alacritty configuration - Capstan Cloud theme
+
+[window]
+padding = { x = 0, y = 0 }
+dynamic_padding = true
+decorations = "full"
+opacity = 1.0
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 8.0
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+
+# Capstan Cloud colors
+[colors.primary]
+background = "#1a1917"
+foreground = "#f7f7f5"
+
+[colors.cursor]
+cursor = "#d4a366"
+text = "#1a1917"
+
+[colors.selection]
+background = "#d4a366"
+text = "#1a1917"
+
+[colors.normal]
+black = "#1a1917"
+red = "#ff4d4f"
+green = "#52c41a"
+yellow = "#faad14"
+blue = "#5a6d76"
+magenta = "#b48ead"
+cyan = "#8fa5ae"
+white = "#f7f7f5"
+
+[colors.bright]
+black = "#524f4c"
+red = "#ff7875"
+green = "#73d13d"
+yellow = "#ffc53d"
+blue = "#8fa5ae"
+magenta = "#c9a0dc"
+cyan = "#b8c9ce"
+white = "#fafaf9"
+
+[colors.dim]
+black = "#0f0e0e"
+red = "#cf1322"
+green = "#389e0d"
+yellow = "#d48806"
+blue = "#3d4a51"
+magenta = "#8f3f71"
+cyan = "#5a6d76"
+white = "#8c8985"
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "C", mods = "Control|Shift", command = { program = "sh", args = [
+    "-c",
+    "sleep 0.05; c=$(xclip -sel clip -o); l=$(printf '%s' \"$c\" | wc -l); ch=$(printf '%s' \"$c\" | wc -c); notify-send -t 1500 \"Copied\" \"$((l+1)) lines, $ch chars\"",
+  ] } },
+]

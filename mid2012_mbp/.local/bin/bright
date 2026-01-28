@@ -1,0 +1,37 @@
+#!/bin/bash
+# Screen brightness control with logarithmic steps
+
+# Get current brightness (raw value)
+current=$(brightnessctl -m | cut -d, -f3)
+
+case $1 in
+    up)
+        if [ "$current" -eq 0 ]; then
+            brightnessctl set 1%
+        elif [ "$current" -le 18 ]; then  # 1%
+            brightnessctl set 2%
+        elif [ "$current" -le 36 ]; then  # 2%
+            brightnessctl set 5%
+        elif [ "$current" -le 90 ]; then  # 5%
+            brightnessctl set 10%
+        else
+            brightnessctl set +10%
+        fi
+        ;;
+    down)
+        if [ "$current" -gt 181 ]; then   # >10%
+            brightnessctl set 10%-
+        elif [ "$current" -gt 90 ]; then  # >5%
+            brightnessctl set 5%
+        elif [ "$current" -gt 36 ]; then  # >2%
+            brightnessctl set 2%
+        elif [ "$current" -gt 18 ]; then  # >1%
+            brightnessctl set 1%
+        else
+            brightnessctl set 0
+        fi
+        ;;
+esac
+
+level=$(brightnessctl -m | cut -d, -f4)
+notify-send -r 2 -t 1000 "Brightness $level"

@@ -1,9 +1,6 @@
 # If not running interactively, don't do anything (leave this at the top of this file)
 [[ $- != *i* ]] && return
 
-# Source omarchy if it exists
-[[ -f ~/.local/share/omarchy/default/bash/rc ]] && source ~/.local/share/omarchy/default/bash/rc
-
 export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
 export PATH="/opt/flutter/bin:$PATH"
 export ANDROID_HOME="$HOME/Android/Sdk"

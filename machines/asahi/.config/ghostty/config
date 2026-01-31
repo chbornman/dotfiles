@@ -23,7 +23,7 @@ cursor-color = #d4a366
 cursor-text = #0f0e0d
 
 # Selection
-selection-background = #d4a36640
+selection-background = #d4a366
 selection-foreground = #f7f7f5
 
 # Black
@@ -66,4 +66,4 @@ palette = 15=#f7f7f5
 scrollback-limit = 10000
 
 # Shell integration
-shell-integration = true
+shell-integration = detect

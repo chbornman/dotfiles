@@ -1,8 +1,5 @@
 # User-specific bash prompt configuration
 # This overrides the omarchy default prompt
 
-# Simple prompt showing only current folder name and arrow
-PS1='\[\e[36m\]\W\[\e[0m\] → '
-
-# Add current working directory to terminal title
-PS1="\[\e]0;\w\a\]$PS1"
+# Use Starship prompt (Capstan Cloud theme)
+eval "$(starship init bash)"

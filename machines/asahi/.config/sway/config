@@ -1,0 +1,221 @@
+# Sway config file
+# Ported from Mid-2012 MacBook Pro i3 config with Capstan Cloud theme
+#
+# See `man 5 sway` for a complete reference
+
+set $mod Mod4
+
+# Font for window titles
+font pango:monospace 8
+
+# Remove window title bars
+default_border pixel 1
+default_floating_border pixel 1
+for_window [app_id=".*"] border pixel 1
+for_window [class=".*"] border pixel 1
+
+# Input configuration
+# Map Caps Lock to Ctrl, Right Alt to Delete
+input type:keyboard {
+    xkb_options ctrl:nocaps,custom:ralt_delete
+}
+
+# Touchpad settings (adjust device name as needed)
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled
+}
+
+# Notification daemon
+exec mako
+
+# Audio routing applet (if you have a Wayland-compatible one)
+# exec pasystray
+
+# Volume controls with notification
+bindsym XF86AudioRaiseVolume exec ~/.local/bin/vol up
+bindsym XF86AudioLowerVolume exec ~/.local/bin/vol down
+bindsym XF86AudioMute exec ~/.local/bin/vol mute
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Screen brightness with notification
+bindsym XF86MonBrightnessUp exec ~/.local/bin/bright up
+bindsym XF86MonBrightnessDown exec ~/.local/bin/bright down
+
+# Keyboard backlight with notification
+bindsym XF86KbdBrightnessUp exec ~/.local/bin/kbright up
+bindsym XF86KbdBrightnessDown exec ~/.local/bin/kbright down
+
+# F3/F4 file manager shortcuts
+bindsym XF86LaunchA exec ghostty -e ranger
+bindsym XF86LaunchB exec thunar
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod normal
+
+# Start a terminal
+bindsym $mod+Return exec ghostty
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Application launcher
+bindsym $mod+space exec wofi --show drun
+
+# WiFi manager (impala TUI)
+bindsym $mod+n exec ghostty -e impala
+
+# Bluetooth manager (bluetui)
+bindsym $mod+Shift+b exec ghostty -e bluetui
+
+# Browser
+bindsym $mod+b exec flatpak run app.zen_browser.zen
+
+# File manager
+bindsym $mod+f exec ghostty -e ranger
+
+# LocalSend
+bindsym $mod+Shift+s exec flatpak run org.localsend.localsend_app
+
+# Claude AI
+bindsym $mod+a exec flatpak run app.zen_browser.zen --new-window https://claude.ai
+
+# Screenshot (grimshot: click=window, drag=area)
+bindsym $mod+p exec grimshot copy screen
+bindsym $mod+Shift+p exec grimshot copy anything
+
+# Screen recording (use wf-recorder for Wayland)
+# bindsym $mod+Mod1+Print exec wf-recorder
+
+# Change focus (vim-style hjkl)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window (vim-style hjkl)
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split orientation
+bindsym $mod+backslash splith
+bindsym $mod+minus splitv
+
+# Fullscreen
+bindsym $mod+F11 fullscreen toggle
+
+# Layout switching
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+d focus mode_toggle
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Reload config
+bindsym $mod+Shift+c reload
+
+# Exit sway
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes' 'swaymsg exit'
+
+# Resize mode
+mode "resize" {
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Capstan Cloud Window colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #d4a366 #1a1917 #f7f7f5 #f8ce9b   #d4a366
+client.focused_inactive #393634 #262422 #8c8985 #393634   #393634
+client.unfocused        #393634 #1a1917 #8c8985 #393634   #393634
+client.urgent           #ff4d4f #ff4d4f #f7f7f5 #ff4d4f   #ff4d4f
+client.placeholder      #1a1917 #1a1917 #8c8985 #1a1917   #1a1917
+client.background       #1a1917
+
+# Status bar (waybar instead of polybar)
+bar {
+    swaybar_command waybar
+}
+
+# Toggle bar visibility
+bindsym $mod+i exec killall -SIGUSR1 waybar
+
+# Move workspace to other monitor
+bindsym $mod+m move workspace to output next
+
+# Lock screen (swaylock instead of light-locker)
+bindsym $mod+Escape exec swaylock -f -c 1a1917
+
+# Idle configuration - modern laptop power management
+exec_always pkill swayidle; swayidle -w timeout 270 'brightnessctl set 10%' resume 'brightnessctl set 100%' timeout 300 'swaylock -f -c 1a1917' timeout 330 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' timeout 900 'systemctl suspend' before-sleep 'swaylock -f -c 1a1917'
+
+# Include additional config files from config.d
+include /etc/sway/config.d/*

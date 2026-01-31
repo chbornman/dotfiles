@@ -1,0 +1,80 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 24,
+    "spacing": 0,
+
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/screencast", "pulseaudio", "memory", "cpu", "battery", "network", "bluetooth"],
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": false,
+        "format": "{index}"
+    },
+
+    "sway/mode": {
+        "format": "{}"
+    },
+
+    "clock": {
+        "format": "{:%a %d %b  %H:%M}",
+        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+    },
+
+    "pulseaudio": {
+        "format": "vol {volume}%",
+        "format-muted": "vol muted",
+        "on-click": "ghostty -e wiremix",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+    },
+
+    "memory": {
+        "interval": 3,
+        "format": "mem {percentage}%",
+        "on-click": "ghostty -e btop"
+    },
+
+    "cpu": {
+        "interval": 3,
+        "format": "cpu {usage}%",
+        "on-click": "ghostty -e btop"
+    },
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "bat {capacity}%",
+        "format-charging": "bat {capacity}%+",
+        "format-full": "bat full"
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "wifi {essid}",
+        "format-ethernet": "eth {ipaddr}",
+        "format-disconnected": "wifi off",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "ghostty -e impala"
+    },
+
+    "bluetooth": {
+        "format": "bt {status}",
+        "format-connected": "bt {device_alias}",
+        "format-disabled": "bt off",
+        "on-click": "ghostty -e bluetui",
+        "tooltip-format": "{controller_alias}\n{device_enumerate}"
+    },
+
+    "custom/screencast": {
+        "exec": "pgrep wf-recorder && echo 'REC' || echo ''",
+        "interval": 1,
+        "format": "{}",
+        "on-click": "pkill wf-recorder || wf-recorder -f ~/Videos/screencast-$(date +%Y%m%d-%H%M%S).mp4"
+    }
+}

@@ -1,0 +1,46 @@
+# Mako notification daemon - Capstan Cloud theme
+
+# Display
+max-visible=5
+layer=overlay
+anchor=top-right
+
+# Geometry
+width=350
+height=150
+margin=20
+padding=12
+border-size=2
+border-radius=0
+icons=1
+max-icon-size=64
+icon-path=/usr/share/icons/Adwaita
+
+# Text
+font=monospace 10
+format=<b>%s</b>\n%b
+
+# Behavior
+default-timeout=10000
+ignore-timeout=0
+group-by=app-name
+
+# Default colors (normal urgency)
+background-color=#1a1917
+text-color=#f7f7f5
+border-color=#d4a366
+progress-color=over #d4a366
+
+# Low urgency
+[urgency=low]
+background-color=#1a1917
+text-color=#8c8985
+border-color=#393634
+default-timeout=5000
+
+# Critical urgency
+[urgency=critical]
+background-color=#1a1917
+text-color=#f7f7f5
+border-color=#ff4d4f
+default-timeout=0

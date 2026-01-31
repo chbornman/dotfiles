@@ -1,0 +1,43 @@
+#!/bin/bash
+# Keyboard backlight control script with notification support
+
+DEVICE="kbd_backlight"
+
+get_brightness() {
+    brightnessctl -d "$DEVICE" get
+}
+
+get_max_brightness() {
+    brightnessctl -d "$DEVICE" max
+}
+
+get_brightness_percent() {
+    local current=$(get_brightness)
+    local max=$(get_max_brightness)
+    if [ "$max" -eq 0 ]; then
+        echo 0
+    else
+        echo $((current * 100 / max))
+    fi
+}
+
+send_notification() {
+    local percent=$(get_brightness_percent)
+    notify-send -t 1000 -h string:x-canonical-private-synchronous:kbd-brightness \
+        -h int:value:$percent "Keyboard Backlight: ${percent}%" -u low
+}
+
+case "$1" in
+    up)
+        brightnessctl -d "$DEVICE" set +10%
+        send_notification
+        ;;
+    down)
+        brightnessctl -d "$DEVICE" set 10%-
+        send_notification
+        ;;
+    *)
+        echo "Usage: $0 {up|down}"
+        exit 1
+        ;;
+esac

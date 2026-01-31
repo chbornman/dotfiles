@@ -1,0 +1,89 @@
+#!/bin/bash
+# Screen brightness control script with notification support
+
+DEVICE="apple-panel-bl"
+
+get_brightness() {
+    brightnessctl -d "$DEVICE" get
+}
+
+get_max_brightness() {
+    brightnessctl -d "$DEVICE" max
+}
+
+get_brightness_percent() {
+    local current=$(get_brightness)
+    local max=$(get_max_brightness)
+    echo $((current * 100 / max))
+}
+
+is_display_on() {
+    swaymsg -t get_outputs | grep -q '"power": true'
+}
+
+send_notification() {
+    local percent=$(get_brightness_percent)
+    notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
+        -h int:value:$percent "Brightness: ${percent}%" -u low
+}
+
+case "$1" in
+    up)
+        # If display is off, turn it back on
+        if ! is_display_on; then
+            swaymsg "output * power on"
+            notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
+                "Display: ON" -u low
+        else
+            # Use 1% absolute steps below 5%, otherwise 5% steps
+            current=$(get_brightness)
+            max=$(get_max_brightness)
+            threshold=$((max * 5 / 100))  # 5% threshold (25 for max=500)
+            one_percent=$((max / 100))     # 1% in absolute units (5 for max=500)
+            
+            if [ "$current" -lt "$threshold" ]; then
+                # Below 5%: increase by 1% absolute value
+                brightnessctl -d "$DEVICE" set +$one_percent
+            else
+                # Above 5%: increase by 5%
+                brightnessctl -d "$DEVICE" set +5%
+            fi
+            send_notification
+        fi
+        ;;
+    down)
+        # Check if display is on
+        if ! is_display_on; then
+            # Display already off, do nothing
+            notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
+                "Display: OFF" -u low
+        else
+            current=$(get_brightness)
+            
+            # If at 0%, turn off display
+            if [ "$current" -eq 0 ]; then
+                swaymsg "output * power off"
+                notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
+                    "Display: OFF" -u low
+            else
+                # Use 1% absolute steps below 5%, otherwise 5% steps
+                max=$(get_max_brightness)
+                threshold=$((max * 5 / 100))  # 5% threshold (25 for max=500)
+                one_percent=$((max / 100))     # 1% in absolute units (5 for max=500)
+                
+                if [ "$current" -le "$threshold" ]; then
+                    # At or below 5%: decrease by 1% absolute value
+                    brightnessctl -d "$DEVICE" set $one_percent-
+                else
+                    # Above 5%: decrease by 5%
+                    brightnessctl -d "$DEVICE" set 5%-
+                fi
+                send_notification
+            fi
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {up|down}"
+        exit 1
+        ;;
+esac

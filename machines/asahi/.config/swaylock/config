@@ -1,0 +1,30 @@
+# Swaylock configuration - Capstan Cloud theme
+color=1a1917
+font=monospace
+show-failed-attempts
+
+# Ring colors (default state)
+inside-color=1a1917
+ring-color=393634
+line-color=1a1917
+
+# When typing password
+inside-clear-color=1a1917
+ring-clear-color=d4a366
+text-clear-color=f7f7f5
+
+# When verifying password
+inside-ver-color=1a1917
+ring-ver-color=8cb369
+text-ver-color=f7f7f5
+
+# When wrong password
+inside-wrong-color=1a1917
+ring-wrong-color=ff4d4f
+text-wrong-color=f7f7f5
+
+# Text colors
+text-color=8c8985
+key-hl-color=d4a366
+bs-hl-color=ff4d4f
+separator-color=00000000

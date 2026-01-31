@@ -1,0 +1,43 @@
+#!/bin/bash
+# Volume control script with notification support
+
+get_volume() {
+    pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -n1 | tr -d '%'
+}
+
+get_mute_status() {
+    pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo "muted" || echo "unmuted"
+}
+
+send_notification() {
+    local volume=$(get_volume)
+    local mute=$(get_mute_status)
+    
+    if [ "$mute" = "muted" ]; then
+        notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
+            -h int:value:0 "Volume: Muted" -u low
+    else
+        notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
+            -h int:value:$volume "Volume: ${volume}%" -u low
+    fi
+}
+
+case "$1" in
+    up)
+        pactl set-sink-mute @DEFAULT_SINK@ 0
+        pactl set-sink-volume @DEFAULT_SINK@ +5%
+        send_notification
+        ;;
+    down)
+        pactl set-sink-volume @DEFAULT_SINK@ -5%
+        send_notification
+        ;;
+    mute)
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        send_notification
+        ;;
+    *)
+        echo "Usage: $0 {up|down|mute}"
+        exit 1
+        ;;
+esac

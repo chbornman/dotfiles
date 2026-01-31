@@ -19,6 +19,7 @@ Machine-specific configuration for Asahi Linux running on Apple Silicon.
 - **Waybar** (`~/.config/waybar/`) - Status bar with system info
 - **Mako** (`~/.config/mako/config`) - Notification daemon
 - **Swaylock** (`~/.config/swaylock/config`) - Screen locker
+- **Ghostty** (`~/.config/ghostty/config`) - Terminal emulator with Capstan OpenCode theme
 
 ### Utility Scripts (`~/.local/bin/`)
 - **bright** - Screen brightness control with fine-grained low-end steps
@@ -46,7 +47,9 @@ Automatic power saving timeline:
 - **15 min**: System suspend
 
 ### Theme
-All components use the Capstan Cloud color palette for a cohesive look.
+All components use the Capstan color palette for a cohesive look:
+- **Capstan Cloud**: Used for Sway, Waybar, Mako (lighter, UI-focused)
+- **Capstan OpenCode**: Used for Ghostty terminal (darker background: `#0f0e0d` for reduced eye strain)
 
 ## Installation
 

@@ -1,0 +1,217 @@
+2026-02-01T00:02:10.048Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-01T00:02:10.048Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-01T00:02:10.048Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-01T00:02:10.048Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-01T00:02:10.050Z [DEBUG] Applying permission update: Adding 3 allow rule(s) to destination 'userSettings': ["Bash(flatpak list:*)","Bash(nvidia-smi:*)","Bash(python3:*)"]
+2026-02-01T00:02:10.050Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-01T00:02:10.050Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-02-01T00:02:10.051Z [DEBUG] [STARTUP] Running setup()...
+2026-02-01T00:02:10.051Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-01T00:02:10.055Z [DEBUG] Loading skills from: managed=/etc/claude-code/.claude/skills, user=/home/caleb/.claude/skills, project=[]
+2026-02-01T00:02:10.055Z [DEBUG] Error log sink initialized
+2026-02-01T00:02:10.058Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-01T00:02:10.058Z [DEBUG] Total plugin skills loaded: 0
+2026-02-01T00:02:10.058Z [DEBUG] Total plugin commands loaded: 0
+2026-02-01T00:02:10.058Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-01T00:02:10.059Z [DEBUG] [STARTUP] setup() completed in 8ms
+2026-02-01T00:02:10.059Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-01T00:02:10.059Z [DEBUG] Total plugin agents loaded: 0
+2026-02-01T00:02:10.059Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-02-01T00:02:10.060Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-02-01T00:02:10.060Z [DEBUG] [STARTUP] Commands and agents loaded in 1ms
+2026-02-01T00:02:10.060Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-02-01T00:02:10.061Z [DEBUG] [render] initLayout starting
+2026-02-01T00:02:10.061Z [DEBUG] Layout engine: yoga
+2026-02-01T00:02:10.066Z [DEBUG] Acquired PID lock for 2.1.29 (PID 18769)
+2026-02-01T00:02:10.066Z [DEBUG] Acquired PID lock on running version: /home/caleb/.local/share/claude/versions/2.1.29
+2026-02-01T00:02:10.067Z [DEBUG] [render] initLayout complete
+2026-02-01T00:02:10.069Z [DEBUG] [render] first ink render: 263ms since process start
+2026-02-01T00:02:10.084Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-01T00:02:10.101Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-02-01T00:02:10.101Z [DEBUG] [keybindings] Watching for changes to /home/caleb/.claude/keybindings.json
+2026-02-01T00:02:10.108Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904130108
+2026-02-01T00:02:10.108Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:10.108Z [DEBUG] Temp file written successfully, size: 9951 bytes
+2026-02-01T00:02:10.108Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:10.108Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904130108 to /home/caleb/.claude.json
+2026-02-01T00:02:10.108Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:12.495Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904132495
+2026-02-01T00:02:12.495Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:12.501Z [DEBUG] Temp file written successfully, size: 10321 bytes
+2026-02-01T00:02:12.501Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:12.501Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904132495 to /home/caleb/.claude.json
+2026-02-01T00:02:12.501Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:12.532Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-01T00:02:12.542Z [DEBUG] [STARTUP] showSetupScreens() completed in 2481ms
+2026-02-01T00:02:12.542Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-01T00:02:12.542Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-01T00:02:12.542Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-01T00:02:12.544Z [DEBUG] Total LSP servers loaded: 0
+2026-02-01T00:02:12.544Z [DEBUG] [STARTUP] MCP configs loaded in 2494ms
+2026-02-01T00:02:12.551Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-02-01T00:02:12.553Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904132553
+2026-02-01T00:02:12.553Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:12.554Z [DEBUG] Temp file written successfully, size: 10321 bytes
+2026-02-01T00:02:12.554Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:12.554Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904132553 to /home/caleb/.claude.json
+2026-02-01T00:02:12.554Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:12.558Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-01T00:02:12.558Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-01T00:02:12.558Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-01T00:02:12.558Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-01T00:02:12.559Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-01T00:02:12.559Z [DEBUG] Found 0 hook matchers in settings
+2026-02-01T00:02:12.559Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-01T00:02:12.559Z [DEBUG] LSP server manager initialized successfully
+2026-02-01T00:02:12.560Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-01T00:02:12.562Z [DEBUG] [render] initLayout starting
+2026-02-01T00:02:12.562Z [DEBUG] [render] initLayout complete
+2026-02-01T00:02:12.563Z [DEBUG] [render] first ink render: 2757ms since process start
+2026-02-01T00:02:12.573Z [DEBUG] Watching for changes in setting files /home/caleb/.claude/settings.json...
+2026-02-01T00:02:12.594Z [DEBUG] Git remote URL: git@github.com:chbornman/dotfiles.git
+2026-02-01T00:02:12.594Z [DEBUG] Parsed repository: chbornman/dotfiles from git@github.com:chbornman/dotfiles.git
+2026-02-01T00:02:12.594Z [DEBUG] Parsed repository: chbornman/dotfiles from URL: git@github.com:chbornman/dotfiles.git
+2026-02-01T00:02:12.595Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904132595
+2026-02-01T00:02:12.595Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:12.599Z [DEBUG] Temp file written successfully, size: 10411 bytes
+2026-02-01T00:02:12.599Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:12.599Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904132595 to /home/caleb/.claude.json
+2026-02-01T00:02:12.600Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:12.600Z [DEBUG] Added /home/caleb/dotfiles/machines/asahi/.local/bin to tracked paths for repo chbornman/dotfiles
+2026-02-01T00:02:12.892Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-01T00:02:12.980Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-01T00:02:12.980Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-01T00:02:12.980Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-01T00:02:12.983Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:357:1013)
+    at buildHeaders (/$bunfs/root/claude:357:8517)
+    at async buildRequest (/$bunfs/root/claude:357:7583)
+    at async makeRequest (/$bunfs/root/claude:357:3411)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:12.983Z [DEBUG] countTokensWithFallback: API returned null, trying haiku fallback (21 tools)
+2026-02-01T00:02:12.983Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-01T00:02:12.983Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-01T00:02:12.983Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-01T00:02:12.984Z [DEBUG] countTokensWithFallback: haiku fallback failed: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:12.984Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:357:1013)
+    at buildHeaders (/$bunfs/root/claude:357:8517)
+    at async buildRequest (/$bunfs/root/claude:357:7583)
+    at async makeRequest (/$bunfs/root/claude:357:3411)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:12.984Z [DEBUG] countToolDefinitionTokens returned null for 21 tools: Task, TaskOutput, Bash, Glob, Grep, ExitPlanMode, Read, Edit, Write, NotebookEdit, WebFetch, WebSear...
+2026-02-01T00:02:12.985Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/home/caleb/.local/share/claude/versions/2.1.29)
+2026-02-01T00:02:12.994Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904132994
+2026-02-01T00:02:12.994Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:12.995Z [DEBUG] Temp file written successfully, size: 10411 bytes
+2026-02-01T00:02:12.995Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:12.995Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904132994 to /home/caleb/.claude.json
+2026-02-01T00:02:12.995Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:13.000Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904133000
+2026-02-01T00:02:13.000Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:13.000Z [DEBUG] Temp file written successfully, size: 10411 bytes
+2026-02-01T00:02:13.000Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:13.000Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904133000 to /home/caleb/.claude.json
+2026-02-01T00:02:13.000Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:13.007Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-02-01T00:02:13.008Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-02-01T00:02:13.008Z [DEBUG] performStartupChecks called
+2026-02-01T00:02:13.008Z [DEBUG] Starting background plugin installations
+2026-02-01T00:02:13.008Z [DEBUG] performBackgroundPluginInstallations called
+2026-02-01T00:02:13.031Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-01T00:02:13.031Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-01T00:02:13.031Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-01T00:02:13.032Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-02-01T00:02:13.032Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-02-01T00:02:13.033Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-01T00:02:13.034Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.022; cc_entrypoint=cli;
+2026-02-01T00:02:13.034Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-01T00:02:13.034Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-01T00:02:13.035Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-01T00:02:13.035Z [ERROR] API error (attempt 1/11): Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:13.036Z [ERROR] Error in non-streaming fallback: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:13.036Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:357:1013)
+    at buildHeaders (/$bunfs/root/claude:357:8517)
+    at async buildRequest (/$bunfs/root/claude:357:7583)
+    at async makeRequest (/$bunfs/root/claude:357:3411)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:13.049Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904133049
+2026-02-01T00:02:13.049Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:13.050Z [DEBUG] Temp file written successfully, size: 10592 bytes
+2026-02-01T00:02:13.050Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:13.050Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904133049 to /home/caleb/.claude.json
+2026-02-01T00:02:13.050Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:13.058Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904133058
+2026-02-01T00:02:13.058Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:13.060Z [DEBUG] Temp file written successfully, size: 10592 bytes
+2026-02-01T00:02:13.060Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:13.060Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904133058 to /home/caleb/.claude.json
+2026-02-01T00:02:13.060Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:13.062Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-01T00:02:13.136Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T00:02:13.140Z [DEBUG] Found 2.1.29 at /home/caleb/.local/bin/claude, skipping install
+2026-02-01T00:02:13.165Z [DEBUG] Acquired PID lock for 2.1.6 (PID 18769)
+2026-02-01T00:02:13.167Z [DEBUG] Released PID lock for 2.1.6
+2026-02-01T00:02:14.601Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-01T00:02:14.601Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-01T00:02:14.603Z [DEBUG] Sending 1 skills via attachment (initial, 1 total sent)
+2026-02-01T00:02:14.603Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-01T00:02:14.603Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-01T00:02:14.606Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-01T00:02:14.606Z [DEBUG] Found 0 hook matchers in settings
+2026-02-01T00:02:14.606Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-01T00:02:14.608Z [DEBUG] FileHistory: Added snapshot for 727aa9f2-e359-4aca-8ecc-fa5255de98a6, tracking 0 files
+2026-02-01T00:02:14.660Z [DEBUG] Created empty session index
+2026-02-01T00:02:14.660Z [DEBUG] Writing to temp file: /home/caleb/.claude/todos/3a73cc5d-2d1b-417c-9e79-9d58b5f39234-agent-3a73cc5d-2d1b-417c-9e79-9d58b5f39234.json.tmp.18769.1769904134660
+2026-02-01T00:02:14.660Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-02-01T00:02:14.660Z [DEBUG] Renaming /home/caleb/.claude/todos/3a73cc5d-2d1b-417c-9e79-9d58b5f39234-agent-3a73cc5d-2d1b-417c-9e79-9d58b5f39234.json.tmp.18769.1769904134660 to /home/caleb/.claude/todos/3a73cc5d-2d1b-417c-9e79-9d58b5f39234-agent-3a73cc5d-2d1b-417c-9e79-9d58b5f39234.json
+2026-02-01T00:02:14.660Z [DEBUG] File /home/caleb/.claude/todos/3a73cc5d-2d1b-417c-9e79-9d58b5f39234-agent-3a73cc5d-2d1b-417c-9e79-9d58b5f39234.json written atomically
+2026-02-01T00:02:14.664Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-01T00:02:14.665Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.307; cc_entrypoint=cli;
+2026-02-01T00:02:14.665Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-01T00:02:14.665Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-01T00:02:14.666Z [DEBUG] Total plugin output styles loaded: 0
+2026-02-01T00:02:14.666Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-01T00:02:14.667Z [ERROR] API error (attempt 1/11): Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:14.667Z [ERROR] Error in non-streaming fallback: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:14.667Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:357:1013)
+    at buildHeaders (/$bunfs/root/claude:357:8517)
+    at async buildRequest (/$bunfs/root/claude:357:7583)
+    at async makeRequest (/$bunfs/root/claude:357:3411)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:14.667Z [ERROR] SyntaxError: SyntaxError: JSON Parse error: Unexpected identifier "Invalid"
+    at <parse> (:0)
+    at parse (unknown)
+    at <anonymous> (/$bunfs/root/claude:69:855)
+    at A (/$bunfs/root/claude:11:7244)
+    at hGD (/$bunfs/root/claude:760:91355)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:14.670Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-01T00:02:14.674Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-01T00:02:14.675Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-01T00:02:14.675Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-01T00:02:14.676Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-01T00:02:14.678Z [ERROR] API error (attempt 1/11): Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:14.678Z [ERROR] Error in non-streaming fallback: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-02-01T00:02:14.678Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:357:1013)
+    at buildHeaders (/$bunfs/root/claude:357:8517)
+    at async buildRequest (/$bunfs/root/claude:357:7583)
+    at async makeRequest (/$bunfs/root/claude:357:3411)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:02:14.680Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-01T00:02:14.680Z [DEBUG] Found 0 hook matchers in settings
+2026-02-01T00:02:14.680Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-01T00:02:14.701Z [DEBUG] Stats cache does not exist, returning empty cache
+2026-02-01T00:02:14.701Z [DEBUG] Stats cache empty, processing all historical data in background
+2026-02-01T00:02:14.717Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.18769.1769904134717
+2026-02-01T00:02:14.717Z [DEBUG] Preserving file permissions: 100600
+2026-02-01T00:02:14.718Z [DEBUG] Temp file written successfully, size: 10632 bytes
+2026-02-01T00:02:14.718Z [DEBUG] Applied original permissions to temp file
+2026-02-01T00:02:14.718Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.18769.1769904134717 to /home/caleb/.claude.json
+2026-02-01T00:02:14.718Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-01T00:02:15.667Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-02-01T00:02:15.667Z [DEBUG] Found 0 hook matchers in settings
+2026-02-01T00:02:15.667Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

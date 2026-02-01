@@ -67,3 +67,7 @@ scrollback-limit = 10000
 
 # Shell integration
 shell-integration = detect
+
+# Window title
+# Allow programs to set the window title dynamically
+window-title-font-family = monospace

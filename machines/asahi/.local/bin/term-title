@@ -1,0 +1,16 @@
+#!/bin/bash
+# Launch a program in ghostty with the window title set to the program name
+
+if [ -z "$1" ]; then
+    echo "Usage: term-title <command> [args...]"
+    exit 1
+fi
+
+# Get the command name (first argument)
+cmd_name=$(basename "$1")
+
+# Build the full command
+full_cmd="$@"
+
+# Set terminal title and execute the command
+exec ghostty -e bash -c "echo -ne '\033]0;$cmd_name\007'; exec $full_cmd"

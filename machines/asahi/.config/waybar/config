@@ -28,7 +28,7 @@
         "format": "vol {volume}%",
         "format-muted": "vol muted",
         "on-click": "~/.local/bin/audio-menu",
-        "on-click-right": "ghostty -e wiremix",
+        "on-click-right": "~/.local/bin/term-title wiremix",
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
     },
@@ -36,13 +36,13 @@
     "memory": {
         "interval": 3,
         "format": "mem {percentage}%",
-        "on-click": "ghostty -e btop"
+        "on-click": "~/.local/bin/term-title btop"
     },
 
     "cpu": {
         "interval": 3,
         "format": "cpu {usage}%",
-        "on-click": "ghostty -e btop"
+        "on-click": "~/.local/bin/term-title btop"
     },
 
     "custom/battery": {
@@ -60,7 +60,7 @@
         "format-disconnected": "wifi off",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "~/.local/bin/wifi-menu",
-        "on-click-right": "ghostty -e impala"
+        "on-click-right": "~/.local/bin/term-title impala"
     },
 
     "bluetooth": {
@@ -68,7 +68,7 @@
         "format-connected": "bt {device_alias}",
         "format-disabled": "bt off",
         "on-click": "~/.local/bin/bt-menu",
-        "on-click-right": "ghostty -e bluetui",
+        "on-click-right": "~/.local/bin/term-title bluetui",
         "tooltip-format": "{controller_alias}\n{device_enumerate}"
     },
 

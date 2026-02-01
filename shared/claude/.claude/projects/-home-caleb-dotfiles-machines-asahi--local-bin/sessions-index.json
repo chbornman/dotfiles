@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "3a73cc5d-2d1b-417c-9e79-9d58b5f39234",
+      "fullPath": "/home/caleb/.claude/projects/-home-caleb-dotfiles-machines-asahi--local-bin/3a73cc5d-2d1b-417c-9e79-9d58b5f39234.jsonl",
+      "fileMtime": 1769904385528,
+      "firstPrompt": "eixt",
+      "summary": "Invalid API key · Please run /login",
+      "messageCount": 4,
+      "created": "2026-02-01T00:02:14.605Z",
+      "modified": "2026-02-01T00:02:15.666Z",
+      "gitBranch": "main",
+      "projectPath": "/home/caleb/dotfiles/machines/asahi/.local/bin",
+      "isSidechain": false
+    }
+  ],
+  "originalPath": "/home/caleb/dotfiles/machines/asahi/.local/bin"
+}

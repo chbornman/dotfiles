@@ -42,6 +42,9 @@ set -g fish_greeting
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    
+    # Custom key binding: Ctrl+Space accepts autosuggestion and executes
+    bind ctrl-space 'commandline -f accept-autosuggestion execute'
 end
 
 # Set terminal title to show running command

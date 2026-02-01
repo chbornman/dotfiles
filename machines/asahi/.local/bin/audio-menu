@@ -54,7 +54,7 @@ else
 fi
 
 # Format for wofi (show description, keep sink name)
-selection=$(echo -e "$full_list" | sed 's/|.*//' | wofi --dmenu --width 500 --height 300)
+selection=$(echo -e "$full_list" | sed 's/|.*//' | wofi --dmenu --width 500 --height 300 --location top_right --xoffset -10 --yoffset 40)
 
 if [ -n "$selection" ]; then
     # Extract sink number from selection (remove [CURRENT] prefix if present)

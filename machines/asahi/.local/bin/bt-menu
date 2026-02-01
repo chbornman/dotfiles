@@ -56,7 +56,7 @@ done <<< "$paired_devices"
 full_list="${connected_list}${disconnected_list}"
 
 # Show in wofi (display name only)
-selection=$(echo -e "$full_list" | sed 's/|.*//' | wofi --dmenu --width 400 --height 300)
+selection=$(echo -e "$full_list" | sed 's/|.*//' | wofi --dmenu --width 400 --height 300 --location top_right --xoffset -10 --yoffset 40)
 
 if [ -n "$selection" ]; then
     # Get MAC address from our list

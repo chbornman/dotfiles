@@ -2,25 +2,29 @@
 
 * {
     font-family: monospace;
-    font-size: 12px;
+    font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: #1a1917;
+    background-color: #000000;
     color: #f7f7f5;
 }
 
 #workspaces button {
-    padding: 0 8px;
+    padding: 0;
+    min-width: 24px;
+    min-height: 24px;
     color: #8c8985;
-    background: transparent;
+    background-color: #1a1a1a;
     border: none;
-    border-radius: 0;
+    border-radius: 50%;
+    margin: 4px 3px;
 }
 
 #workspaces button:hover {
-    background: #262422;
+    background-color: #262422;
+    color: #f7f7f5;
 }
 
 #workspaces button.focused {
@@ -40,7 +44,14 @@ window#waybar {
 }
 
 #clock {
-    padding: 0 8px;
+    padding: 0 12px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 6px;
+}
+
+#clock:hover {
     color: #f7f7f5;
 }
 
@@ -48,16 +59,21 @@ window#waybar {
 #memory,
 #cpu,
 #battery,
+#custom-battery,
 #network,
 #bluetooth {
-    padding: 0 8px;
+    padding: 0 12px;
     color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
 }
 
 #pulseaudio:hover,
 #memory:hover,
 #cpu:hover,
 #battery:hover,
+#custom-battery:hover,
 #network:hover,
 #bluetooth:hover {
     color: #f7f7f5;
@@ -88,7 +104,10 @@ window#waybar {
 }
 
 #custom-screencast {
-    padding: 0 8px;
+    padding: 0 12px;
     color: #ff4d4f;
     font-weight: bold;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
 }

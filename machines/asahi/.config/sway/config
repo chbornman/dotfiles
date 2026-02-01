@@ -15,6 +15,13 @@ for_window [app_id=".*"] border pixel 1
 for_window [class=".*"] border pixel 1
 for_window [app_id="wofi"] floating enable, border pixel 2
 
+# Gaps between windows
+gaps inner 2
+gaps outer 0
+
+# Rounded corners (swayfx)
+corner_radius 4
+
 # Input configuration
 # Map Caps Lock to Ctrl, Right Alt to Delete
 input type:keyboard {

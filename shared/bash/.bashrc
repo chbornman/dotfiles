@@ -45,3 +45,13 @@ alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 # Ruby gems
 export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+
+# Set terminal title to show running command
+case "$TERM" in
+    xterm*|ghostty*|vte*|alacritty*|foot*)
+        # Show username@hostname:pwd when idle
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/#$HOME/~}\007"'
+        # Show the running command when executing
+        trap 'echo -ne "\033]0;${BASH_COMMAND}\007"' DEBUG
+        ;;
+esac

@@ -1,0 +1,42 @@
+#!/bin/bash
+# Power profile switcher using cpupower
+
+# Log to file for debugging
+exec 2>> /tmp/power-profile.log
+echo "=== Power profile script started at $(date) ===" >> /tmp/power-profile.log
+
+# Get current governor
+current=$(cpupower frequency-info -p 2>/dev/null | grep "governor" | grep -oE "(powersave|schedutil|performance|ondemand|conservative)" | head -1)
+echo "Current governor: $current" >> /tmp/power-profile.log
+
+# Cycle through profiles: powersave -> schedutil -> performance -> powersave
+case "$current" in
+    "powersave")
+        next="performance"
+        desc="Performance"
+        ;;
+    "schedutil")
+        next="performance"
+        desc="Performance"
+        ;;
+    "performance")
+        next="powersave"
+        desc="Power Saver"
+        ;;
+    *)
+        next="schedutil"
+        desc="Balanced"
+        ;;
+esac
+
+# Try to set with sudo (will prompt for password in terminal if needed)
+if sudo -n cpupower frequency-set -g "$next" &> /dev/null; then
+    notify-send -t 2000 "Power Profile" "Switched to: $desc" -u low
+else
+    # Ask for password via graphical prompt
+    if pkexec cpupower frequency-set -g "$next" &> /dev/null; then
+        notify-send -t 2000 "Power Profile" "Switched to: $desc" -u low
+    else
+        notify-send -t 2000 "Power Profile" "Failed to switch profile" -u critical
+    fi
+fi

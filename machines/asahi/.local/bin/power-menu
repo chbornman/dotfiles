@@ -1,0 +1,77 @@
+#!/bin/bash
+# Power profile menu using wofi
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+
+# Check if wofi is already running
+if pgrep -x wofi > /dev/null; then
+    # Check if it's the same menu
+    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "power" ]; then
+        # Same menu, close it
+        pkill -x wofi
+        rm -f "$LOCK_FILE"
+        exit 0
+    else
+        # Different menu, close the old one
+        pkill -x wofi
+        rm -f "$LOCK_FILE"
+        sleep 0.1
+    fi
+fi
+
+# Mark this menu as open
+echo "power" > "$LOCK_FILE"
+
+# Get current governor
+current=$(cpupower frequency-info -p 2>/dev/null | grep "governor" | grep -oE "(powersave|schedutil|performance|ondemand|conservative)" | head -1)
+
+# Build menu with current selection marked
+menu=""
+if [ "$current" = "powersave" ]; then
+    menu+="[CURRENT] Power Saver\n"
+else
+    menu+="Power Saver\n"
+fi
+
+if [ "$current" = "schedutil" ]; then
+    menu+="[CURRENT] Balanced\n"
+else
+    menu+="Balanced\n"
+fi
+
+if [ "$current" = "performance" ]; then
+    menu+="[CURRENT] Performance\n"
+else
+    menu+="Performance\n"
+fi
+
+# Show menu
+selection=$(echo -e "$menu" | wofi --dmenu --width 300 --height 200)
+
+if [ -n "$selection" ]; then
+    # Remove [CURRENT] prefix
+    selection=$(echo "$selection" | sed 's/\[CURRENT\] //')
+    
+    # Map selection to governor
+    case "$selection" in
+        "Power Saver")
+            governor="powersave"
+            ;;
+        "Balanced")
+            governor="schedutil"
+            ;;
+        "Performance")
+            governor="performance"
+            ;;
+    esac
+    
+    # Try to set with sudo
+    if sudo -n cpupower frequency-set -g "$governor" &> /dev/null; then
+        notify-send -t 2000 "Power Profile" "Switched to: $selection" -u low
+    else
+        notify-send -t 2000 "Power Profile" "Failed: needs passwordless sudo for cpupower" -u critical
+    fi
+fi
+
+# Clean up lock file
+rm -f "$LOCK_FILE"

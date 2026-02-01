@@ -6,7 +6,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/screencast", "pulseaudio", "memory", "cpu", "battery", "network", "bluetooth"],
+    "modules-right": ["custom/screencast", "pulseaudio", "memory", "cpu", "custom/battery", "network", "bluetooth"],
 
     "sway/workspaces": {
         "disable-scroll": false,
@@ -20,13 +20,15 @@
 
     "clock": {
         "format": "{:%a %d %b  %H:%M}",
-        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}",
+        "on-click": "zenity --calendar --width=300 --height=300"
     },
 
     "pulseaudio": {
         "format": "vol {volume}%",
         "format-muted": "vol muted",
-        "on-click": "ghostty -e wiremix",
+        "on-click": "~/.local/bin/audio-menu",
+        "on-click-right": "ghostty -e wiremix",
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
     },
@@ -43,15 +45,12 @@
         "on-click": "ghostty -e btop"
     },
 
-    "battery": {
+    "custom/battery": {
+        "exec": "~/.local/bin/battery-info",
         "interval": 10,
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "bat {capacity}%",
-        "format-charging": "bat {capacity}%+",
-        "format-full": "bat full"
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/power-menu"
     },
 
     "network": {
@@ -60,14 +59,16 @@
         "format-ethernet": "eth {ipaddr}",
         "format-disconnected": "wifi off",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-        "on-click": "ghostty -e impala"
+        "on-click": "~/.local/bin/wifi-menu",
+        "on-click-right": "ghostty -e impala"
     },
 
     "bluetooth": {
         "format": "bt {status}",
         "format-connected": "bt {device_alias}",
         "format-disabled": "bt off",
-        "on-click": "ghostty -e bluetui",
+        "on-click": "~/.local/bin/bt-menu",
+        "on-click-right": "ghostty -e bluetui",
         "tooltip-format": "{controller_alias}\n{device_enumerate}"
     },
 

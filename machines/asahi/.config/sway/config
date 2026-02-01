@@ -13,6 +13,7 @@ default_border pixel 1
 default_floating_border pixel 1
 for_window [app_id=".*"] border pixel 1
 for_window [class=".*"] border pixel 1
+for_window [app_id="wofi"] floating enable, border pixel 2
 
 # Input configuration
 # Map Caps Lock to Ctrl, Right Alt to Delete
@@ -43,7 +44,11 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec ~/.local/bin/bright up
 bindsym XF86MonBrightnessDown exec ~/.local/bin/bright down
 
-# Keyboard backlight with notification
+# Keyboard backlight with notification (SHIFT+brightness keys)
+bindsym Shift+XF86MonBrightnessUp exec ~/.local/bin/kbright up
+bindsym Shift+XF86MonBrightnessDown exec ~/.local/bin/kbright down
+
+# Old keyboard backlight keys (if they exist on your keyboard)
 bindsym XF86KbdBrightnessUp exec ~/.local/bin/kbright up
 bindsym XF86KbdBrightnessDown exec ~/.local/bin/kbright down
 
@@ -130,6 +135,9 @@ bindsym $mod+Shift+space floating toggle
 # Change focus between tiling / floating windows
 bindsym $mod+d focus mode_toggle
 
+# Window switcher (cycle through windows)
+bindsym $mod+Tab exec ~/.local/bin/sway-window-cycle
+
 # Workspaces
 set $ws1 "1"
 set $ws2 "2"
@@ -207,6 +215,10 @@ bar {
 
 # Toggle bar visibility
 bindsym $mod+i exec killall -SIGUSR1 waybar
+
+# Trackpad gestures for workspace switching
+bindgesture swipe:3:right workspace prev
+bindgesture swipe:3:left workspace next
 
 # Move workspace to other monitor
 bindsym $mod+m move workspace to output next

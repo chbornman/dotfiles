@@ -1,0 +1,80 @@
+#!/bin/bash
+# Audio output device selector using wofi
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+
+# Check if wofi is already running
+if pgrep -x wofi > /dev/null; then
+    # Check if it's the same menu
+    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "audio" ]; then
+        # Same menu, close it
+        pkill -x wofi
+        rm -f "$LOCK_FILE"
+        exit 0
+    else
+        # Different menu, close the old one
+        pkill -x wofi
+        rm -f "$LOCK_FILE"
+        sleep 0.1
+    fi
+fi
+
+# Mark this menu as open
+echo "audio" > "$LOCK_FILE"
+
+# Get current default sink name
+current_sink=$(pactl get-default-sink)
+
+# Get list of sinks with their info
+sink_list=""
+current_item=""
+
+while IFS= read -r line; do
+    if echo "$line" | grep -q "^Sink #"; then
+        sink_num=$(echo "$line" | sed 's/Sink #//')
+    elif echo "$line" | grep -q "Name:"; then
+        sink_name=$(echo "$line" | awk '{print $2}')
+    elif echo "$line" | grep -q "Description:"; then
+        description=$(echo "$line" | sed 's/.*Description: //')
+        
+        # Check if this is the current sink
+        if [ "$sink_name" = "$current_sink" ]; then
+            current_item="[CURRENT] $sink_num: $description|$sink_name"
+        else
+            sink_list+="$sink_num: $description|$sink_name\n"
+        fi
+    fi
+done < <(pactl list sinks | grep -E "Sink #|Name:|Description:")
+
+# Put current sink at top
+if [ -n "$current_item" ]; then
+    full_list="$current_item\n$sink_list"
+else
+    full_list="$sink_list"
+fi
+
+# Format for wofi (show description, keep sink name)
+selection=$(echo -e "$full_list" | sed 's/|.*//' | wofi --dmenu --width 500 --height 300)
+
+if [ -n "$selection" ]; then
+    # Extract sink number from selection (remove [CURRENT] prefix if present)
+    sink_num=$(echo "$selection" | sed 's/\[CURRENT\] //' | cut -d':' -f1)
+    
+    # Get the actual sink name from our list
+    sink_name=$(echo -e "$full_list" | grep "^\\[CURRENT\\] $sink_num:\\|^$sink_num:" | sed 's/.*|//')
+    
+    # Set as default sink
+    pactl set-default-sink "$sink_name"
+    
+    # Move all current playing streams to new sink
+    pactl list short sink-inputs | cut -f1 | while read -r stream; do
+        pactl move-sink-input "$stream" "$sink_name" 2>/dev/null
+    done
+    
+    # Send notification
+    description=$(echo "$selection" | sed 's/\[CURRENT\] //' | cut -d':' -f2- | sed 's/|.*//')
+    notify-send -t 2000 "Audio Output" "Switched to:$description" -u low
+fi
+
+# Clean up lock file
+rm -f "$LOCK_FILE"

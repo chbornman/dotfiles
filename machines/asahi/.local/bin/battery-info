@@ -1,0 +1,62 @@
+#!/bin/bash
+# Battery info script for waybar with JSON output
+
+BATTERY_PATH="/sys/class/power_supply/macsmc-battery"
+
+# Get battery percentage
+capacity=$(cat "$BATTERY_PATH/capacity" 2>/dev/null || echo "?")
+
+# Get charging status
+status=$(cat "$BATTERY_PATH/status" 2>/dev/null || echo "Unknown")
+
+# Calculate health percentage
+charge_full=$(cat "$BATTERY_PATH/charge_full" 2>/dev/null || echo "0")
+charge_design=$(cat "$BATTERY_PATH/charge_full_design" 2>/dev/null || echo "0")
+if [ "$charge_design" -gt 0 ]; then
+    health=$(awk "BEGIN {printf \"%.0f\", ($charge_full / $charge_design) * 100}")
+else
+    health="?"
+fi
+
+# Get cycle count
+cycles=$(cat "$BATTERY_PATH/cycle_count" 2>/dev/null || echo "?")
+
+# Get temperature (in 0.1°C units, convert to °C)
+temp_raw=$(cat "$BATTERY_PATH/temp" 2>/dev/null || echo "0")
+temp=$(awk "BEGIN {printf \"%.1f\", $temp_raw/10}")
+
+# Get current power profile
+governor=$(cpupower frequency-info -p 2>/dev/null | grep "governor" | grep -oE "(powersave|schedutil|performance|ondemand|conservative)" | head -1)
+case "$governor" in
+    "powersave")
+        profile="Power Saver"
+        ;;
+    "schedutil")
+        profile="Balanced"
+        ;;
+    "performance")
+        profile="Performance"
+        ;;
+    *)
+        profile="Unknown"
+        ;;
+esac
+
+# Format display text based on status
+case "$status" in
+    "Charging")
+        text="bat ${capacity}%+"
+        ;;
+    "Full")
+        text="bat full"
+        ;;
+    "Discharging"|*)
+        text="bat ${capacity}%"
+        ;;
+esac
+
+# Build tooltip
+tooltip="Health: ${health}%\nCycles: ${cycles}\nTemp: ${temp}°C\nProfile: ${profile}"
+
+# Output JSON
+echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\"}"

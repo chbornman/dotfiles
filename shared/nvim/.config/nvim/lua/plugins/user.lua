@@ -164,4 +164,12 @@ return {
       default_mappings = true, -- setting this to false removes all the default mappings
     },
   },
+
+  -- ToggleTerm configuration - use fish shell
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      shell = "/usr/bin/fish",
+    },
+  },
 }

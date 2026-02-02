@@ -1,0 +1,61 @@
+#!/bin/bash
+# Audio status for Waybar with lock state - event-driven
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+LOCK_DIR="/tmp"
+
+# Clean up all child processes on exit
+cleanup() {
+    pkill -P $$ 2>/dev/null
+    kill $(jobs -p) 2>/dev/null
+    wait 2>/dev/null
+}
+trap cleanup EXIT INT TERM HUP
+
+output_status() {
+    is_active=""
+    
+    if [ -f "$LOCK_FILE" ]; then
+        lock_content=$(cat "$LOCK_FILE")
+        if [ "$lock_content" = "audio" ] || [ "$lock_content" = "audio-terminal" ]; then
+            is_active="active"
+        fi
+    fi
+
+    # Get audio info - use remapped volume from vol script
+    volume=$(~/.local/bin/vol get)
+    muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo 'yes' || echo 'no')
+
+    if [ "$muted" = "yes" ]; then
+        text="vol muted"
+    else
+        text="vol ${volume}%"
+    fi
+
+    # Output JSON for Waybar
+    if [ -n "$is_active" ]; then
+        echo "{\"text\":\"$text\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+    else
+        echo "{\"text\":\"$text\",\"class\":\"inactive\",\"alt\":\"inactive\",\"percentage\":0}"
+    fi
+}
+
+# Output initial state
+output_status
+
+# Watch for lock file changes
+inotifywait -m -e create,delete,modify "$LOCK_DIR" 2>/dev/null | while read -r directory event filename; do
+    if [ "$filename" = "wofi-menu.lock" ]; then
+        output_status
+    fi
+done &
+
+# Watch for PulseAudio changes (also backgrounded)
+pactl subscribe 2>/dev/null | while read -r line; do
+    if echo "$line" | grep -q "'change' on sink"; then
+        output_status
+    fi
+done &
+
+# Wait for any child to exit (keeps script alive and allows trap to work)
+wait

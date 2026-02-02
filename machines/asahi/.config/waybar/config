@@ -4,9 +4,9 @@
     "height": 32,
     "spacing": 0,
 
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-left": ["sway/workspaces", "custom/whisper", "sway/mode"],
     "modules-center": [],
-    "modules-right": ["custom/screencast", "pulseaudio", "memory", "cpu", "custom/battery", "bluetooth", "network", "clock"],
+    "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "clock"],
 
     "sway/workspaces": {
         "disable-scroll": false,
@@ -21,55 +21,47 @@
     "clock": {
         "format": "{:%a %d %b  %H:%M}",
         "tooltip-format": "{:%Y-%m-%d %H:%M:%S}",
-        "on-click": "zenity --calendar --width=300 --height=300"
+        "on-click": "~/.local/bin/calendar-floating-menu"
     },
 
-    "pulseaudio": {
-        "format": "vol {volume}%",
-        "format-muted": "vol muted",
-        "on-click": "~/.local/bin/audio-menu",
-        "on-click-right": "~/.local/bin/term-title wiremix",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+    "custom/audio": {
+        "exec": "~/.local/bin/waybar-audio-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/audio-terminal-menu",
+        "on-click-right": "~/.local/bin/audio-terminal-menu",
+        "on-scroll-up": "~/.local/bin/vol up",
+        "on-scroll-down": "~/.local/bin/vol down"
     },
 
-    "memory": {
-        "interval": 3,
-        "format": "mem {percentage}%",
-        "on-click": "~/.local/bin/term-title btop"
-    },
-
-    "cpu": {
-        "interval": 3,
-        "format": "cpu {usage}%",
-        "on-click": "~/.local/bin/term-title btop"
+    "custom/cpu": {
+        "exec": "~/.local/bin/waybar-cpu-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/btop-floating-menu"
     },
 
     "custom/battery": {
-        "exec": "~/.local/bin/battery-info",
-        "interval": 10,
+        "exec": "~/.local/bin/battery-info-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/power-menu"
+        "on-click": "~/.local/bin/power-floating-menu"
     },
 
-    "network": {
-        "interval": 5,
-        "format-wifi": "wifi {essid}",
-        "format-ethernet": "eth {ipaddr}",
-        "format-disconnected": "wifi off",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-        "on-click": "~/.local/bin/wifi-menu",
-        "on-click-right": "~/.local/bin/term-title impala"
+    "custom/network": {
+        "exec": "~/.local/bin/waybar-network-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/wifi-terminal-menu",
+        "on-click-right": "~/.local/bin/wifi-terminal-menu"
     },
 
-    "bluetooth": {
-        "format": "bt {status}",
-        "format-connected": "bt {device_alias}",
-        "format-disabled": "bt off",
-        "on-click": "~/.local/bin/bt-menu",
-        "on-click-right": "~/.local/bin/term-title bluetui",
-        "tooltip-format": "{controller_alias}\n{device_enumerate}"
+    "custom/bluetooth": {
+        "exec": "~/.local/bin/waybar-bluetooth-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/bluetooth-terminal-menu",
+        "on-click-right": "~/.local/bin/bluetooth-terminal-menu"
     },
 
     "custom/screencast": {
@@ -77,5 +69,14 @@
         "interval": 1,
         "format": "{}",
         "on-click": "pkill wf-recorder || wf-recorder -f ~/Videos/screencast-$(date +%Y%m%d-%H%M%S).mp4"
+    },
+
+    "custom/whisper": {
+        "exec": "~/projects/asahi-whisper-daemon/waybar_whisper.py",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/projects/asahi-whisper-daemon/toggle_stream.sh",
+        "on-click-right": "~/projects/asahi-whisper-daemon/switch_model.sh",
+        "tooltip": true
     }
 }

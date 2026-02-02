@@ -1,0 +1,117 @@
+@import "../omarchy/current/theme/waybar.css";
+
+* {
+  background-color: @background;
+  color: @foreground;
+
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: "CaskaydiaMono Nerd Font";
+  font-size: 12px;
+}
+
+.modules-left {
+  margin-left: 8px;
+}
+
+.modules-right {
+  margin-right: 8px;
+}
+
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
+}
+
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+#cpu,
+#battery,
+#pulseaudio,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#tray {
+  margin-right: 16px;
+}
+
+#bluetooth {
+  margin-right: 17px;
+}
+
+#network {
+  margin-right: 13px;
+}
+
+#custom-expand-icon {
+  margin-right: 18px;
+}
+
+tooltip {
+  padding: 2px;
+}
+
+#custom-update {
+  font-size: 10px;
+}
+
+#clock {
+  margin-left: 5px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  margin-left: 5px;
+  font-size: 10px;
+  padding-bottom: 1px;
+}
+
+#custom-screenrecording-indicator.active {
+  color: #a55555;
+}
+
+#custom-whisper {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#custom-whisper.ready {
+  color: @foreground;
+  opacity: 0.6;
+}
+
+#custom-whisper.recording {
+  color: #ff4d4f;
+  background-color: #d4a366;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+#custom-whisper.processing {
+  color: #1a1917;
+  background-color: #d4a366;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+#custom-whisper.streaming {
+  color: #ff0000;
+}
+
+#custom-whisper.error {
+  color: #f38ba8;
+  opacity: 0.5;
+}

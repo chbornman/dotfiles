@@ -1,0 +1,8 @@
+# Open nvim with current directory if no args
+function n
+    if test (count $argv) -eq 0
+        nvim .
+    else
+        nvim $argv
+    end
+end

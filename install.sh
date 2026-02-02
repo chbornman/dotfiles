@@ -3,7 +3,7 @@
 set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SHARED_PACKAGES=(tmux nvim claude bash starship git)
+SHARED_PACKAGES=(tmux nvim claude bash fish starship git)
 HOSTNAME=$(hostname)
 
 # Colors for output
@@ -64,11 +64,49 @@ stow_package() {
             backup_if_exists "$HOME/.bash_profile"
             backup_if_exists "$HOME/.config/bash"
             ;;
+        fish)
+            backup_if_exists "$HOME/.config/fish/config.fish"
+            backup_if_exists "$HOME/.config/fish/fish_plugins"
+            backup_if_exists "$HOME/.config/fish/fish_variables"
+            backup_if_exists "$HOME/.config/fish/functions"
+            backup_if_exists "$HOME/.config/fish/completions"
+            ;;
         starship)
             backup_if_exists "$HOME/.config/starship.toml"
             ;;
         git)
             backup_if_exists "$HOME/.gitconfig"
+            ;;
+        margo)
+            # Margo machine (Omarchy/Hyprland)
+            # Hyprland
+            backup_if_exists "$HOME/.config/hypr/hyprland.conf"
+            backup_if_exists "$HOME/.config/hypr/bindings.conf"
+            backup_if_exists "$HOME/.config/hypr/monitors.conf"
+            backup_if_exists "$HOME/.config/hypr/input.conf"
+            backup_if_exists "$HOME/.config/hypr/envs.conf"
+            backup_if_exists "$HOME/.config/hypr/windows.conf"
+            backup_if_exists "$HOME/.config/hypr/looknfeel.conf"
+            backup_if_exists "$HOME/.config/hypr/autostart.conf"
+            backup_if_exists "$HOME/.config/hypr/hypridle.conf"
+            backup_if_exists "$HOME/.config/hypr/hyprlock.conf"
+            backup_if_exists "$HOME/.config/hypr/hyprsunset.conf"
+            backup_if_exists "$HOME/.config/hypr/nvidia-fixes.conf"
+            backup_if_exists "$HOME/.config/hypr/xdph.conf"
+            # Waybar
+            backup_if_exists "$HOME/.config/waybar/config.jsonc"
+            backup_if_exists "$HOME/.config/waybar/style.css"
+            # Terminal
+            backup_if_exists "$HOME/.config/ghostty/config"
+            # Fish
+            backup_if_exists "$HOME/.config/fish/config.fish"
+            backup_if_exists "$HOME/.config/fish/conf.d/margo.fish"
+            backup_if_exists "$HOME/.config/fish/conf.d/aliases.fish"
+            backup_if_exists "$HOME/.config/fish/functions"
+            # Other
+            backup_if_exists "$HOME/.config/starship.toml"
+            backup_if_exists "$HOME/.config/btop/btop.conf"
+            backup_if_exists "$HOME/.config/walker/config.toml"
             ;;
         asahi|mid2012_mbp|i3)
             # Machine-specific packages - backup all config directories

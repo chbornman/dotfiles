@@ -33,6 +33,7 @@ dotfiles/
 | `nvim` | AstroNvim setup with 67+ plugins, full LSP support |
 | `claude` | Claude Code CLI settings |
 | `bash` | Bash shell config with custom prompt |
+| `fish` | Fish shell config with starship, zoxide integration |
 | `starship` | Starship prompt with git status |
 | `git` | Git config with aliases, rebase strategy |
 
@@ -40,6 +41,7 @@ dotfiles/
 
 | Machine | Description | Window Manager |
 |---------|-------------|----------------|
+| `margo` | Desktop workstation (Omarchy/Arch) | Hyprland (Wayland) |
 | `asahi` | Asahi Linux on Apple Silicon | Sway (Wayland) |
 | `mid2012_mbp` | MacBook Pro Mid-2012 | i3wm (X11) |
 
@@ -69,6 +71,7 @@ git clone https://github.com/chbornman/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # Install shared configs + machine-specific configs
+./install.sh shared margo           # For Margo desktop (Omarchy/Hyprland)
 ./install.sh shared asahi           # For Asahi Linux machine
 ./install.sh shared mid2012_mbp     # For old MacBook Pro
 

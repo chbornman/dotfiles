@@ -6,9 +6,8 @@
 }
 
 window {
-    background-color: #1a1917;
-    border: 2px solid #d4a366 !important;
-    border-radius: 0px;
+    background-color: transparent;
+    border-radius: 8px;
 }
 
 * {
@@ -30,6 +29,7 @@ window {
     padding: 8px;
     background-color: #262422;
     border: 1px solid #d4a366;
+    border-radius: 4px;
     color: #f7f7f5;
     opacity: 1;
 }
@@ -42,7 +42,8 @@ window {
 
 #outer-box {
     background-color: #1a1917;
-    border: 1px solid #d4a366;
+    border: 2px solid #d4a366;
+    border-radius: 8px;
 }
 
 #scroll {
@@ -58,6 +59,7 @@ window {
     padding: 5px;
     margin: 2px;
     background-color: #1a1917;
+    border-radius: 4px;
 }
 
 #entry:selected {

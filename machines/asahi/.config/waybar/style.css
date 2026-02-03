@@ -1,7 +1,7 @@
 /* Waybar - Capstan Cloud theme */
 
 * {
-    font-family: monospace;
+    font-family: "Source Code Pro", "Font Awesome 6 Free Solid";
     font-size: 14px;
     min-height: 0;
 }
@@ -85,6 +85,8 @@ window#waybar {
     color: #1a1917;
 }
 
+#custom-mail,
+#custom-localsend,
 #custom-audio,
 #custom-cpu,
 #custom-battery,
@@ -97,6 +99,8 @@ window#waybar {
     margin: 4px 3px;
 }
 
+#custom-mail:hover,
+#custom-localsend:hover,
 #custom-audio:hover,
 #custom-cpu:hover,
 #custom-battery:hover,
@@ -105,11 +109,21 @@ window#waybar {
     color: #f7f7f5;
 }
 
+#custom-mail.active,
+#custom-localsend.active,
 #custom-audio.active,
 #custom-cpu.active,
 #custom-battery.active,
 #custom-network.active,
-#custom-bluetooth.active {
+#custom-bluetooth.active,
+#clock.pinned,
+#custom-mail.pinned,
+#custom-localsend.pinned,
+#custom-audio.pinned,
+#custom-cpu.pinned,
+#custom-battery.pinned,
+#custom-network.pinned,
+#custom-bluetooth.pinned {
     background-color: #d4a366;
     color: #1a1917;
 }
@@ -145,20 +159,20 @@ window#waybar {
 #custom-whisper {
     padding: 0 12px;
     font-size: 14px;
-    color: #8c8985;
-    background-color: #1a1a1a;
+    color: #d4a366;
+    background-color: #4a3828;
     border-radius: 16px;
     margin: 4px 3px;
 }
 
 #custom-whisper.ready {
-    color: #8c8985;
-    background-color: #1a1a1a;
+    color: #d4a366;
+    background-color: #4a3828;
 }
 
 #custom-whisper.recording {
     color: #ff4d4f;
-    background-color: #d4a366;
+    background-color: #4a3828;
 }
 
 #custom-whisper.processing {
@@ -173,7 +187,7 @@ window#waybar {
 
 #custom-whisper.streaming {
     color: #ff0000;
-    background-color: #1a1a1a;
+    background-color: #4a3828;
 }
 
 @keyframes pulse {

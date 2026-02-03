@@ -1,5 +1,5 @@
 #!/bin/bash
-# Network status for Waybar with lock state - event-driven with inotify
+# LocalSend status for Waybar - event-driven
 
 LOCK_DIR="/tmp"
 PINNED_FILE="/tmp/waybar-menu-pinned"
@@ -17,21 +17,12 @@ output_status() {
     
     if [ -f "$PINNED_FILE" ]; then
         pinned_content=$(cat "$PINNED_FILE")
-        if [ "$pinned_content" = "network" ]; then
+        if [ "$pinned_content" = "localsend" ]; then
             is_pinned="pinned"
         fi
     fi
 
-    # Get network info
-    if nmcli -t -f active,ssid dev wifi | grep -q '^yes'; then
-        essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
-        text="wifi $essid"
-    elif nmcli -t -f DEVICE,TYPE,STATE device | grep -q ':ethernet:connected'; then
-        ipaddr=$(nmcli -t -f DEVICE,TYPE,STATE,IP4 device | grep ':ethernet:connected' | cut -d':' -f4 | cut -d'/' -f1)
-        text="eth $ipaddr"
-    else
-        text="wifi off"
-    fi
+    text="↓↑"
 
     # Output JSON for Waybar
     if [ -n "$is_pinned" ]; then
@@ -51,10 +42,5 @@ inotifywait -m -e create,delete,modify "$LOCK_DIR" 2>/dev/null | while read -r d
     fi
 done &
 
-# Also listen for NetworkManager changes (also backgrounded)
-dbus-monitor --system "type='signal',interface='org.freedesktop.NetworkManager'" 2>/dev/null | while read -r line; do
-    output_status
-done &
-
-# Wait for any child to exit (keeps script alive and allows trap to work)
+# Wait for any child to exit
 wait

@@ -1,0 +1,24 @@
+#!/bin/bash
+# Toggle pin state for waybar menu
+# If pinned: close menu and unpin
+# If not pinned: pin current menu and highlight with gold border
+
+PINNED="/tmp/waybar-menu-pinned"
+MENU_NAME="$1"
+GOLD="0xffd4a366"
+
+if [ -f "$PINNED" ]; then
+    # Already pinned - close menu and unpin
+    rm -f "$PINNED"
+    hyprctl clients -j | jq -r '.[] | select(.title | startswith("WAYBAR-MENU:")) | .address' 2>/dev/null | while read addr; do
+        hyprctl dispatch closewindow "address:$addr" >/dev/null 2>&1
+    done
+else
+    # Not pinned - pin it and set gold border
+    echo "$MENU_NAME" > "$PINNED"
+    hyprctl clients -j | jq -r '.[] | select(.title | startswith("WAYBAR-MENU:")) | .address' 2>/dev/null | while read addr; do
+        hyprctl dispatch setprop "address:$addr" activebordercolor "$GOLD" >/dev/null 2>&1
+    done
+fi
+
+exit 0

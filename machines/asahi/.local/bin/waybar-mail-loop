@@ -1,8 +1,9 @@
 #!/bin/bash
-# Network status for Waybar with lock state - event-driven with inotify
+# Mail status for Waybar - event-driven
 
 LOCK_DIR="/tmp"
 PINNED_FILE="/tmp/waybar-menu-pinned"
+MAIL_DIR="$HOME/.local/share/mail"
 
 # Clean up all child processes on exit
 cleanup() {
@@ -17,20 +18,22 @@ output_status() {
     
     if [ -f "$PINNED_FILE" ]; then
         pinned_content=$(cat "$PINNED_FILE")
-        if [ "$pinned_content" = "network" ]; then
+        if [ "$pinned_content" = "mail" ]; then
             is_pinned="pinned"
         fi
     fi
 
-    # Get network info
-    if nmcli -t -f active,ssid dev wifi | grep -q '^yes'; then
-        essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
-        text="wifi $essid"
-    elif nmcli -t -f DEVICE,TYPE,STATE device | grep -q ':ethernet:connected'; then
-        ipaddr=$(nmcli -t -f DEVICE,TYPE,STATE,IP4 device | grep ':ethernet:connected' | cut -d':' -f4 | cut -d'/' -f1)
-        text="eth $ipaddr"
+    # Count unread mail (new messages in */INBOX/new/)
+    unread=0
+    if [ -d "$MAIL_DIR" ]; then
+        unread=$(find "$MAIL_DIR" -path "*/INBOX/new/*" -type f 2>/dev/null | wc -l)
+    fi
+
+    ENVELOPE=$'\uf0e0'
+    if [ "$unread" -gt 0 ]; then
+        text="$ENVELOPE $unread"
     else
-        text="wifi off"
+        text="$ENVELOPE"
     fi
 
     # Output JSON for Waybar
@@ -51,10 +54,12 @@ inotifywait -m -e create,delete,modify "$LOCK_DIR" 2>/dev/null | while read -r d
     fi
 done &
 
-# Also listen for NetworkManager changes (also backgrounded)
-dbus-monitor --system "type='signal',interface='org.freedesktop.NetworkManager'" 2>/dev/null | while read -r line; do
-    output_status
-done &
+# Watch for mail changes
+if [ -d "$MAIL_DIR" ]; then
+    inotifywait -m -r -e create,delete,moved_to,moved_from "$MAIL_DIR" 2>/dev/null | while read -r line; do
+        output_status
+    done &
+fi
 
-# Wait for any child to exit (keeps script alive and allows trap to work)
+# Wait for any child to exit
 wait

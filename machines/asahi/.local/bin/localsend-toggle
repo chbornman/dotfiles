@@ -1,0 +1,25 @@
+#!/bin/bash
+# Toggle pin state for LocalSend
+# If pinned: close window and unpin
+# If not pinned: pin current window
+
+PINNED="/tmp/waybar-menu-pinned"
+GOLD="0xffd4a366"
+
+if [ -f "$PINNED" ] && [ "$(cat "$PINNED")" = "localsend" ]; then
+    # Already pinned - close LocalSend and unpin
+    rm -f "$PINNED"
+    localsend_addr=$(hyprctl clients -j | jq -r '.[] | select(.class == "localsend") | .address' 2>/dev/null | head -1)
+    if [ -n "$localsend_addr" ]; then
+        hyprctl dispatch closewindow "address:$localsend_addr" >/dev/null 2>&1
+    fi
+else
+    # Not pinned - pin it and set gold border
+    echo "localsend" > "$PINNED"
+    localsend_addr=$(hyprctl clients -j | jq -r '.[] | select(.class == "localsend") | .address' 2>/dev/null | head -1)
+    if [ -n "$localsend_addr" ]; then
+        hyprctl dispatch setprop "address:$localsend_addr" activebordercolor "$GOLD" >/dev/null 2>&1
+    fi
+fi
+
+exit 0

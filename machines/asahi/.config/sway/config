@@ -78,7 +78,7 @@ bindsym XF86KbdBrightnessDown exec ~/.local/bin/kbright down
 
 # F3/F4 file manager shortcuts
 bindsym XF86LaunchA exec ghostty -e yazi
-bindsym XF86Search exec thunar
+bindsym XF86Search exec nautilus
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod normal

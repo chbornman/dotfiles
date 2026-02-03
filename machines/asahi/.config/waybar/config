@@ -4,7 +4,7 @@
     "height": 32,
     "spacing": 0,
 
-    "modules-left": ["hyprland/workspaces", "custom/whisper", "hyprland/submap"],
+    "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "hyprland/submap"],
     "modules-center": [],
     "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "clock"],
 
@@ -21,16 +21,19 @@
 
     "clock": {
         "format": "{:%a %d %b  %H:%M}",
-        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}",
-        "on-click": "~/.local/bin/calendar-floating-menu"
+        "tooltip": false,
+        "on-hover": "~/.local/bin/calendar-floating-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin calendar"
     },
 
     "custom/audio": {
         "exec": "~/.local/bin/waybar-audio-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/audio-terminal-menu",
-        "on-click-right": "~/.local/bin/audio-terminal-menu",
+        "on-hover": "~/.local/bin/audio-terminal-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin audio",
         "on-scroll-up": "~/.local/bin/vol up",
         "on-scroll-down": "~/.local/bin/vol down"
     },
@@ -39,30 +42,36 @@
         "exec": "~/.local/bin/waybar-cpu-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/btop-floating-menu"
+        "on-hover": "~/.local/bin/btop-floating-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin cpu"
     },
 
     "custom/battery": {
         "exec": "~/.local/bin/battery-info-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/power-floating-menu"
+        "on-hover": "~/.local/bin/power-floating-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin battery"
     },
 
     "custom/network": {
         "exec": "~/.local/bin/waybar-network-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/wifi-terminal-menu",
-        "on-click-right": "~/.local/bin/wifi-terminal-menu"
+        "on-hover": "~/.local/bin/wifi-terminal-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin network"
     },
 
     "custom/bluetooth": {
         "exec": "~/.local/bin/waybar-bluetooth-loop",
         "return-type": "json",
         "format": "{}",
-        "on-click": "~/.local/bin/bluetooth-terminal-menu",
-        "on-click-right": "~/.local/bin/bluetooth-terminal-menu"
+        "on-hover": "~/.local/bin/bluetooth-terminal-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin bluetooth"
     },
 
     "custom/screencast": {
@@ -72,6 +81,15 @@
         "on-click": "pkill wf-recorder || wf-recorder -f ~/Videos/screencast-$(date +%Y%m%d-%H%M%S).mp4"
     },
 
+    "custom/mail": {
+        "exec": "~/.local/bin/waybar-mail-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-hover": "~/.local/bin/mail-terminal-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/waybar-menu-pin mail"
+    },
+
     "custom/whisper": {
         "exec": "~/projects/asahi-whisper-daemon/waybar_whisper.py",
         "return-type": "json",
@@ -79,5 +97,14 @@
         "on-click": "~/projects/asahi-whisper-daemon/toggle_stream.sh",
         "on-click-right": "~/projects/asahi-whisper-daemon/switch_model.sh",
         "tooltip": true
+    },
+
+    "custom/localsend": {
+        "exec": "~/.local/bin/waybar-localsend-loop",
+        "return-type": "json",
+        "format": "{}",
+        "on-hover": "~/.local/bin/localsend-floating-menu",
+        "on-hover-leave": "~/.local/bin/waybar-menu-close",
+        "on-click": "~/.local/bin/localsend-toggle"
     }
 }

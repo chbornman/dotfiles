@@ -1,0 +1,28 @@
+#!/bin/bash
+# Launch LocalSend as a floating window
+
+{
+    # Already open? Do nothing
+    if hyprctl clients -j | jq -e '.[] | select(.class == "localsend")' >/dev/null 2>&1; then
+        exit 0
+    fi
+
+    # Close any other menu that might be open (terminal menus)
+    hyprctl clients -j | jq -r '.[] | select(.title | startswith("WAYBAR-MENU:")) | .address' 2>/dev/null | while read addr; do
+        hyprctl dispatch closewindow "address:$addr" >/dev/null 2>&1
+    done
+
+    # Clear any existing pin state
+    rm -f /tmp/waybar-menu-pinned
+
+    # Launch LocalSend
+    flatpak run org.localsend.localsend_app &
+
+    # Mouse jiggle to prevent hover-leave from triggering
+    sleep 0.1
+    ydotool mousemove -x 1 -y 0
+    ydotool mousemove -x -1 -y 0
+} &
+
+disown
+exit 0

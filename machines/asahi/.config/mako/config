@@ -25,6 +25,7 @@ text-alignment=center
 default-timeout=10000
 ignore-timeout=0
 group-by=app-name
+actions=1
 
 # Default colors (normal urgency)
 background-color=#1a1917
@@ -49,3 +50,8 @@ default-timeout=0
 # mbsync notifications - auto dismiss
 [app-name=mbsync]
 default-timeout=5000
+
+# Screenshot notifications - click to open in file manager
+[app-name=screenshot]
+default-timeout=5000
+on-button-left=exec makoctl dismiss; ghostty -e yazi "$(cat /tmp/last-screenshot)"

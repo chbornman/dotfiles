@@ -1,29 +1,28 @@
 #!/bin/bash
-# Launch impala (wifi manager) as a floating terminal window
+# Close waybar menus only if cursor is not over waybar (y > 32)
+# and menu is not pinned
 
-{
-    # Already open? Do nothing
-    if hyprctl clients -j | grep -q "WAYBAR-MENU: impala"; then
-        exit 0
-    fi
+PINNED="/tmp/waybar-menu-pinned"
 
-    # Close any other menu that might be open (terminal menus)
+# If menu is pinned, don't close
+if [ -f "$PINNED" ]; then
+    exit 0
+fi
+
+# Get cursor position
+CURSOR_Y=$(hyprctl cursorpos -j | jq '.y')
+
+# Waybar is 32px tall at top - only close if cursor below it
+if [ "$CURSOR_Y" -gt 32 ]; then
+    # Close terminal menus
     hyprctl clients -j | jq -r '.[] | select(.title | startswith("WAYBAR-MENU:")) | .address' 2>/dev/null | while read addr; do
         hyprctl dispatch closewindow "address:$addr" >/dev/null 2>&1
     done
-
-    # Close LocalSend if open
+    # Close LocalSend
     localsend_addr=$(hyprctl clients -j | jq -r '.[] | select(.class == "localsend") | .address' 2>/dev/null | head -1)
     if [ -n "$localsend_addr" ]; then
         hyprctl dispatch closewindow "address:$localsend_addr" >/dev/null 2>&1
     fi
+fi
 
-    # Clear any existing pin state
-    rm -f /tmp/waybar-menu-pinned
-
-    # Launch menu
-    foot --title='WAYBAR-MENU: impala' impala
-} &
-
-disown
 exit 0

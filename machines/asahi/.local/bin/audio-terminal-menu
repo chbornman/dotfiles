@@ -2,32 +2,27 @@
 # Launch wiremix (audio mixer) as a floating terminal window
 
 {
-    LOCK_FILE="/tmp/wofi-menu.lock"
-    MENU_NAME="audio"
-
-    # Check if this menu is already open by looking for the window
-    if pgrep -f "WAYBAR-MENU: wiremix" > /dev/null; then
-        pkill -f "WAYBAR-MENU: wiremix"
-        rm -f "$LOCK_FILE"
-        sleep 0.15
-        YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x 1 -y 0
-        YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x -1 -y 0
+    # Already open? Do nothing
+    if hyprctl clients -j | grep -q "WAYBAR-MENU: wiremix"; then
         exit 0
     fi
 
-    # Close any other menu that might be open
-    pkill -f "WAYBAR-MENU:" 2>/dev/null
-    pkill -x wofi 2>/dev/null
-    rm -f "$LOCK_FILE"
+    # Close any other menu that might be open (terminal menus)
+    hyprctl clients -j | jq -r '.[] | select(.title | startswith("WAYBAR-MENU:")) | .address' 2>/dev/null | while read addr; do
+        hyprctl dispatch closewindow "address:$addr" >/dev/null 2>&1
+    done
 
-    # Mark this menu as open and launch
-    echo "$MENU_NAME" > "$LOCK_FILE"
-    foot --title='WAYBAR-MENU: wiremix' wiremix &
-    sleep 0.15
-    YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x 1 -y 0
-    YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x -1 -y 0
-    wait
-    rm -f "$LOCK_FILE"
+    # Close LocalSend if open
+    localsend_addr=$(hyprctl clients -j | jq -r '.[] | select(.class == "localsend") | .address' 2>/dev/null | head -1)
+    if [ -n "$localsend_addr" ]; then
+        hyprctl dispatch closewindow "address:$localsend_addr" >/dev/null 2>&1
+    fi
+
+    # Clear any existing pin state
+    rm -f /tmp/waybar-menu-pinned
+
+    # Launch menu
+    foot --title='WAYBAR-MENU: wiremix' wiremix
 } &
 
 disown

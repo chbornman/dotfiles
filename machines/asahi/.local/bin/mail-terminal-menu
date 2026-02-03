@@ -1,9 +1,9 @@
 #!/bin/bash
-# Launch impala (wifi manager) as a floating terminal window
+# Launch mailtui as a floating terminal window
 
 {
     # Already open? Do nothing
-    if hyprctl clients -j | grep -q "WAYBAR-MENU: impala"; then
+    if hyprctl clients -j | grep -q "WAYBAR-MENU: mailtui"; then
         exit 0
     fi
 
@@ -22,7 +22,7 @@
     rm -f /tmp/waybar-menu-pinned
 
     # Launch menu
-    foot --title='WAYBAR-MENU: impala' impala
+    foot --title='WAYBAR-MENU: mailtui' mailtui
 } &
 
 disown

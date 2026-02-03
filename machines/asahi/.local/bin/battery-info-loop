@@ -2,8 +2,8 @@
 # Battery info script for waybar - event-driven
 
 BATTERY_PATH="/sys/class/power_supply/macsmc-battery"
-LOCK_FILE="/tmp/wofi-menu.lock"
 LOCK_DIR="/tmp"
+PINNED_FILE="/tmp/waybar-menu-pinned"
 
 # Clean up all child processes on exit
 cleanup() {
@@ -14,10 +14,10 @@ cleanup() {
 trap cleanup EXIT INT TERM HUP
 
 output_status() {
-    is_active=""
+    is_pinned=""
     
-    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "power" ]; then
-        is_active="active"
+    if [ -f "$PINNED_FILE" ] && [ "$(cat "$PINNED_FILE")" = "battery" ]; then
+        is_pinned="pinned"
     fi
 
     # Get battery percentage
@@ -25,39 +25,6 @@ output_status() {
     
     # Get charging status
     status=$(cat "$BATTERY_PATH/status" 2>/dev/null || echo "Unknown")
-    
-    # Calculate health percentage
-    charge_full=$(cat "$BATTERY_PATH/charge_full" 2>/dev/null || echo "0")
-    charge_design=$(cat "$BATTERY_PATH/charge_full_design" 2>/dev/null || echo "0")
-    if [ "$charge_design" -gt 0 ]; then
-        health=$(awk "BEGIN {printf \"%.0f\", ($charge_full / $charge_design) * 100}")
-    else
-        health="?"
-    fi
-    
-    # Get cycle count
-    cycles=$(cat "$BATTERY_PATH/cycle_count" 2>/dev/null || echo "?")
-    
-    # Get temperature (in 0.1°C units, convert to °C)
-    temp_raw=$(cat "$BATTERY_PATH/temp" 2>/dev/null || echo "0")
-    temp=$(awk "BEGIN {printf \"%.1f\", $temp_raw/10}")
-    
-    # Get current power profile
-    governor=$(cpupower frequency-info -p 2>/dev/null | grep "governor" | grep -oE "(powersave|schedutil|performance|ondemand|conservative)" | head -1)
-    case "$governor" in
-        "powersave")
-            profile="Power Saver"
-            ;;
-        "schedutil")
-            profile="Balanced"
-            ;;
-        "performance")
-            profile="Performance"
-            ;;
-        *)
-            profile="Unknown"
-            ;;
-    esac
     
     # Format display text based on status
     case "$status" in
@@ -72,23 +39,20 @@ output_status() {
             ;;
     esac
     
-    # Build tooltip
-    tooltip="Health: ${health}%\nCycles: ${cycles}\nTemp: ${temp}°C\nProfile: ${profile}"
-    
     # Output JSON
-    if [ -n "$is_active" ]; then
-        echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+    if [ -n "$is_pinned" ]; then
+        echo "{\"text\":\"$text\",\"class\":\"pinned\",\"alt\":\"pinned\",\"percentage\":100}"
     else
-        echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\",\"class\":\"inactive\",\"alt\":\"inactive\",\"percentage\":0}"
+        echo "{\"text\":\"$text\",\"class\":\"\",\"alt\":\"normal\",\"percentage\":0}"
     fi
 }
 
 # Output initial state
 output_status
 
-# Watch for lock file changes
+# Watch for pin file changes
 inotifywait -m -e create,delete,modify "$LOCK_DIR" 2>/dev/null | while read -r directory event filename; do
-    if [ "$filename" = "wofi-menu.lock" ]; then
+    if [ "$filename" = "waybar-menu-pinned" ]; then
         output_status
     fi
 done &

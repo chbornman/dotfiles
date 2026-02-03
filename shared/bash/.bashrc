@@ -57,3 +57,9 @@ case "$TERM" in
 esac
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
+. "$HOME/.cargo/env"
+
+# opencode
+export PATH=/home/caleb/.opencode/bin:$PATH
+EDITOR=nvim
+VISUAL=nvim

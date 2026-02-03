@@ -12,7 +12,7 @@ font pango:monospace 8
 default_border pixel 1
 default_floating_border pixel 1
 for_window [app_id=".*"] border pixel 1
-for_window [class=".*"] border pixel 1
+# for_window [class=".*"] border pixel 1  # X11/XWayland only - causes issues with SwayFX
 for_window [app_id="wofi"] floating enable, border pixel 2
 for_window [title="^WAYBAR-MENU: powertui$"] floating enable, border pixel 2, resize set 500 300, move position center
 
@@ -29,17 +29,15 @@ gaps inner 5
 gaps outer -5
 
 # Rounded corners (swayfx)
-corner_radius 4
+corner_radius 8
 
-# Disable dimming
+# Disable dimming (swayfx)
 default_dim_inactive 0
-dim_inactive_colors.unfocused #000000FF
-dim_inactive_colors.urgent #000000FF
 
 # Input configuration
 # Map Caps Lock to Ctrl, Right Alt to Delete
 input type:keyboard {
-    xkb_options ctrl:nocaps,custom:ralt_delete
+    xkb_options ctrl:nocaps
 }
 
 # Touchpad settings (adjust device name as needed)

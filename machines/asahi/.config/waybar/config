@@ -4,17 +4,15 @@
     "height": 32,
     "spacing": 0,
 
-    "modules-left": ["sway/workspaces", "custom/whisper", "sway/mode"],
+    "modules-left": ["hyprland/workspaces", "custom/whisper", "hyprland/submap"],
     "modules-center": [],
     "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "clock"],
 
-    "sway/workspaces": {
-        "disable-scroll": false,
-        "all-outputs": false,
-        "format": "{index}"
+    "hyprland/workspaces": {
+        "format": "{id}"
     },
 
-    "sway/mode": {
+    "hyprland/submap": {
         "format": "{}"
     },
 

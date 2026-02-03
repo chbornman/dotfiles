@@ -14,14 +14,14 @@ if pgrep -x wofi > /dev/null; then
     else
         # Different menu, close the old one (wofi or terminal)
         pkill -x wofi
-        swaymsg '[title="^WAYBAR-MENU:"] kill' 2>/dev/null
+        hyprctl dispatch closewindow "title:^WAYBAR-MENU:" 2>/dev/null
         rm -f "$LOCK_FILE"
         sleep 0.05
     fi
 else
     # Check if a terminal menu is open
     if [ -f "$LOCK_FILE" ]; then
-        swaymsg '[title="^WAYBAR-MENU:"] kill' 2>/dev/null
+        hyprctl dispatch closewindow "title:^WAYBAR-MENU:" 2>/dev/null
         rm -f "$LOCK_FILE"
         sleep 0.05
     fi

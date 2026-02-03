@@ -1,17 +1,16 @@
 #!/bin/bash
 # Window switcher that cycles through windows in MRU order
 
-# Get the currently focused window
-current_id=$(swaymsg -t get_tree | jq '.. | select(.focused? == true) | .id')
+# Get the currently focused window address
+current_addr=$(hyprctl activewindow -j | jq -r '.address // empty')
 
-# Get all windows (containers with app_id or class, excluding scratchpad)
-windows=$(swaymsg -t get_tree | jq -r '
-  .. | 
-  select(.type? == "con") | 
-  select(.app_id? != null or .class? != null) |
-  select(.name? != null) |
-  select(.pid? != null) |
-  "\(.id)|\(.name)|\(.app_id // .class)|\(.workspace // "unknown")"
+# Get all windows
+windows=$(hyprctl clients -j | jq -r '
+  .[] | 
+  select(.class != null or .initialClass != null) |
+  select(.title != null) |
+  select(.pid != null) |
+  "\(.address)|\(.title)|\(.class // .initialClass)|\(.workspace.name // "unknown")"
 ')
 
 if [ -z "$windows" ]; then
@@ -19,14 +18,14 @@ if [ -z "$windows" ]; then
     exit 0
 fi
 
-# Build array of window IDs
+# Build array of window addresses
 readarray -t window_array <<< "$windows"
 
 # Find current window index
 current_index=-1
 for i in "${!window_array[@]}"; do
-    win_id=$(echo "${window_array[$i]}" | cut -d'|' -f1)
-    if [ "$win_id" = "$current_id" ]; then
+    win_addr=$(echo "${window_array[$i]}" | cut -d'|' -f1)
+    if [ "$win_addr" = "$current_addr" ]; then
         current_index=$i
         break
     fi
@@ -42,11 +41,11 @@ fi
 
 # Get next window info
 next_window="${window_array[$next_index]}"
-next_id=$(echo "$next_window" | cut -d'|' -f1)
+next_addr=$(echo "$next_window" | cut -d'|' -f1)
 next_name=$(echo "$next_window" | cut -d'|' -f2)
 
 # Focus the next window
-swaymsg "[con_id=$next_id] focus"
+hyprctl dispatch focuswindow "address:$next_addr"
 
 # Show notification with window name
 notify-send -t 1000 "Switched to" "$next_name" -u low

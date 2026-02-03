@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Get the focused window info
-focused=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true)')
-app_id=$(echo "$focused" | jq -r '.app_id // empty')
+focused=$(hyprctl activewindow -j)
+app_id=$(echo "$focused" | jq -r '.class // empty')
 pid=$(echo "$focused" | jq -r '.pid // empty')
 
 # Check if focused window is a terminal (ghostty)
@@ -22,10 +22,10 @@ if [[ "$app_id" == "com.mitchellh.ghostty" ]] && [[ -n "$pid" ]]; then
                 cwd=$(readlink -f "/proc/$shell_pid/cwd" 2>/dev/null)
             fi
             cwd="${cwd:-$HOME}"
-            swaymsg exec "ghostty --working-directory=\"$cwd\" nvim"
+            hyprctl dispatch exec "ghostty --working-directory='$cwd' nvim"
         fi
     fi
 else
     # No terminal focused, open nvim at home directory
-    swaymsg exec "ghostty --working-directory=\"$HOME\" nvim"
+    hyprctl dispatch exec "ghostty --working-directory='$HOME' nvim"
 fi

@@ -27,7 +27,14 @@ window#waybar {
     color: #f7f7f5;
 }
 
+/* Sway focused */
 #workspaces button.focused {
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+/* Hyprland active */
+#workspaces button.active {
     background-color: #d4a366;
     color: #1a1917;
 }
@@ -35,6 +42,12 @@ window#waybar {
 #workspaces button.urgent {
     background-color: #ff4d4f;
     color: #f7f7f5;
+}
+
+#submap {
+    padding: 0 8px;
+    background-color: #d4a366;
+    color: #1a1917;
 }
 
 #mode {

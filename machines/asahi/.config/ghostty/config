@@ -60,7 +60,7 @@ palette = 15=#f7f7f5
 
 # UI Colors
 # Tab bar (if enabled)
-# background-opacity = 0.95
+background-opacity = 0.9
 
 # Scrollback
 scrollback-limit = 10000

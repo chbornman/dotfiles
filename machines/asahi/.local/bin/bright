@@ -18,7 +18,7 @@ get_brightness_percent() {
 }
 
 is_display_on() {
-    swaymsg -t get_outputs | grep -q '"power": true'
+    hyprctl monitors -j | jq -e '.[] | select(.dpmsStatus == true)' > /dev/null 2>&1
 }
 
 send_notification() {
@@ -31,7 +31,7 @@ case "$1" in
     up)
         # If display is off, turn it back on
         if ! is_display_on; then
-            swaymsg "output * power on"
+            hyprctl dispatch dpms on
             notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
                 "Display: ON" -u low
         else
@@ -62,7 +62,7 @@ case "$1" in
             
             # If at 0%, turn off display
             if [ "$current" -eq 0 ]; then
-                swaymsg "output * power off"
+                hyprctl dispatch dpms off
                 notify-send -t 1000 -h string:x-canonical-private-synchronous:brightness \
                     "Display: OFF" -u low
             else

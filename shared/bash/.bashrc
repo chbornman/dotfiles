@@ -55,3 +55,5 @@ case "$TERM" in
         trap 'echo -ne "\033]0;${BASH_COMMAND}\007"' DEBUG
         ;;
 esac
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR=nvim

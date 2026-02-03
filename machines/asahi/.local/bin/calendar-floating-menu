@@ -1,0 +1,42 @@
+#!/bin/bash
+# Launch calentui as a floating terminal window
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+
+# Check if another menu is open (wofi or terminal menu)
+if pgrep -x wofi > /dev/null || [ -f "$LOCK_FILE" ]; then
+    # Check if it's the same terminal menu
+    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "calendar" ]; then
+        # Same menu, close it
+        swaymsg '[title="^WAYBAR-MENU: calentui"] kill'
+        rm -f "$LOCK_FILE"
+        exit 0
+    else
+        # Close any existing menu (wofi or terminal)
+        pkill -x wofi 2>/dev/null
+        swaymsg '[title="^WAYBAR-MENU:"] kill' 2>/dev/null
+        rm -f "$LOCK_FILE"
+        sleep 0.05
+    fi
+fi
+
+# Set up trap to clean up lock file when script exits
+trap "rm -f '$LOCK_FILE'" EXIT
+
+# Mark this menu as open
+echo "calendar" > "$LOCK_FILE"
+
+sleep 0.05
+
+# Launch calentui in a floating window
+swaymsg "exec foot --title='WAYBAR-MENU: calentui' /home/caleb/.local/bin/calentui"
+
+# Wait for the window to appear
+sleep 0.5
+
+# Poll for window closure instead of using swaymsg subscribe (which can leave orphans)
+while swaymsg -t get_tree | jq -e '.. | select(.name? // "" | startswith("WAYBAR-MENU: calentui"))' > /dev/null 2>&1; do
+    sleep 0.5
+done
+
+# Script exits here, trap will clean up lock file

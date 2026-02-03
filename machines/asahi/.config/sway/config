@@ -14,6 +14,15 @@ default_floating_border pixel 1
 for_window [app_id=".*"] border pixel 1
 for_window [class=".*"] border pixel 1
 for_window [app_id="wofi"] floating enable, border pixel 2
+for_window [title="^WAYBAR-MENU: powertui$"] floating enable, border pixel 2, resize set 500 300, move position center
+
+# Picture-in-Picture (YouTube popout) - float, stay on top, bottom-right
+for_window [title="Picture-in-Picture"] floating enable, sticky enable, move position 100 ppt 100 ppt, move left 619, move up 352
+for_window [title="Picture in Picture"] floating enable, sticky enable, move position 100 ppt 100 ppt, move left 619, move up 352
+for_window [app_id="zen" title="(?i)picture"] floating enable, sticky enable, move position 100 ppt 100 ppt, move left 619, move up 352
+for_window [app_id="app.zen_browser.zen" title="(?i)picture"] floating enable, sticky enable, move position 100 ppt 100 ppt, move left 619, move up 352
+for_window [title="^WAYBAR-MENU: calentui$"] floating enable, border pixel 2, resize set 400 280, move position center
+for_window [title="^WAYBAR-MENU:"] floating enable, border pixel 2, resize set 800 600, move position center
 
 # Gaps between windows
 gaps inner 5
@@ -21,6 +30,11 @@ gaps outer -5
 
 # Rounded corners (swayfx)
 corner_radius 4
+
+# Disable dimming
+default_dim_inactive 0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #000000FF
 
 # Input configuration
 # Map Caps Lock to Ctrl, Right Alt to Delete
@@ -39,6 +53,9 @@ input type:touchpad {
 
 # Notification daemon
 exec mako
+
+# Swayr daemon for MRU window tracking
+exec swayrd
 
 # Audio routing applet (if you have a Wayland-compatible one)
 # exec pasystray
@@ -62,11 +79,14 @@ bindsym XF86KbdBrightnessUp exec ~/.local/bin/kbright up
 bindsym XF86KbdBrightnessDown exec ~/.local/bin/kbright down
 
 # F3/F4 file manager shortcuts
-bindsym XF86LaunchA exec ghostty -e ranger
-bindsym XF86LaunchB exec thunar
+bindsym XF86LaunchA exec ghostty -e yazi
+bindsym XF86Search exec thunar
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod normal
+
+# Focus follows mouse
+focus_follows_mouse always
 
 # Start a terminal
 bindsym $mod+Return exec ghostty
@@ -77,8 +97,8 @@ bindsym $mod+q kill
 # Application launcher
 bindsym $mod+space exec wofi --show drun
 
-# WiFi manager (impala TUI)
-bindsym $mod+n exec ghostty -e impala
+# Neovim in terminal (or new terminal at ~ if none focused)
+bindsym $mod+n exec ~/.local/bin/nvim-in-terminal.sh
 
 # Bluetooth manager (bluetui)
 bindsym $mod+Shift+b exec ghostty -e bluetui
@@ -86,18 +106,27 @@ bindsym $mod+Shift+b exec ghostty -e bluetui
 # Browser
 bindsym $mod+b exec flatpak run app.zen_browser.zen
 
+# Google Calendar
+bindsym $mod+c exec flatpak run app.zen_browser.zen --new-window https://calendar.google.com
+
+# Gmail
+bindsym $mod+g exec flatpak run app.zen_browser.zen --new-window https://mail.google.com
+
+# Obsidian
+bindsym $mod+o exec ~/.local/bin/obsidian
+
 # File manager
-bindsym $mod+f exec ghostty -e ranger
+bindsym $mod+f exec ghostty -e yazi
 
 # LocalSend
 bindsym $mod+Shift+s exec flatpak run org.localsend.localsend_app
 
-# Claude AI
-bindsym $mod+a exec flatpak run app.zen_browser.zen --new-window https://claude.ai
+# OpenCode
+bindsym $mod+a exec ghostty -e /home/caleb/.local/bin/opencode
 
 # Screenshot (grimshot: click=window, drag=area)
-bindsym $mod+p exec grimshot copy screen
-bindsym $mod+Shift+p exec grimshot copy anything
+bindsym $mod+p exec XDG_SCREENSHOTS_DIR=~/Downloads grimshot --notify savecopy anything
+bindsym $mod+Shift+p exec XDG_SCREENSHOTS_DIR=~/Downloads grimshot --notify savecopy screen
 
 # Screen recording (use wf-recorder for Wayland)
 # bindsym $mod+Mod1+Print exec wf-recorder
@@ -132,6 +161,7 @@ bindsym $mod+minus splitv
 
 # Fullscreen
 bindsym $mod+F11 fullscreen toggle
+bindsym Ctrl+Return fullscreen toggle
 
 # Layout switching
 bindsym $mod+s layout stacking
@@ -142,10 +172,10 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # Change focus between tiling / floating windows
-bindsym $mod+d focus mode_toggle
+bindsym $mod+t focus mode_toggle  # Moved from $mod+d to make room for whisper
 
-# Window switcher (cycle through windows)
-bindsym $mod+Tab exec ~/.local/bin/sway-window-cycle
+# Window switcher (MRU order via swayr)
+bindsym $mod+Tab exec swayr switch-to-urgent-or-lru-window
 
 # Workspaces
 set $ws1 "1"
@@ -230,13 +260,27 @@ bindgesture swipe:3:right workspace prev
 bindgesture swipe:3:left workspace next
 
 # Move workspace to other monitor
-bindsym $mod+m move workspace to output next
+bindsym $mod+Shift+m move workspace to output next
+
+# Email (mailtui)
+bindsym $mod+m exec ghostty -e ~/.cargo/bin/mailtui
 
 # Lock screen (swaylock instead of light-locker)
 bindsym $mod+Escape exec swaylock -f -c 1a1917
 
 # Idle configuration - modern laptop power management
-exec_always pkill swayidle; swayidle -w timeout 270 'brightnessctl set 10%' resume 'brightnessctl set 100%' timeout 300 'swaylock -f -c 1a1917' timeout 330 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' timeout 900 'systemctl suspend' before-sleep 'swaylock -f -c 1a1917'
+exec swayidle -w \
+    timeout 270 'brightnessctl set 10%' \
+    resume 'brightnessctl set 100%' \
+    timeout 300 'swaylock -f -c 1a1917' \
+    timeout 330 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    timeout 900 'systemctl suspend' \
+    before-sleep 'swaylock -f -c 1a1917'
 
 # Include additional config files from config.d
 include /etc/sway/config.d/*
+
+# Whisper dictation - SUPER+D to toggle
+bindsym $mod+d exec ~/projects/asahi-whisper-daemon/toggle_stream.sh
+bindsym $mod+Shift+d exec ~/projects/asahi-whisper-daemon/toggle_dictation.sh

@@ -1,0 +1,26 @@
+#!/bin/bash
+# Bluetooth status for Waybar with lock state
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+is_active=""
+
+if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "bluetooth" ]; then
+    is_active="active"
+fi
+
+# Get bluetooth info
+if ! bluetoothctl show 2>/dev/null | grep -q "Powered: yes"; then
+    text="bt off"
+elif bluetoothctl devices Connected 2>/dev/null | grep -q "Device"; then
+    device_alias=$(bluetoothctl devices Connected 2>/dev/null | head -1 | sed 's/Device [^ ]* //')
+    text="bt $device_alias"
+else
+    text="bt on"
+fi
+
+# Output JSON for Waybar
+if [ -n "$is_active" ]; then
+    echo "{\"text\":\"$text\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+else
+    echo "{\"text\":\"$text\",\"class\":\"\",\"alt\":\"\",\"percentage\":0}"
+fi

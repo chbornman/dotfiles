@@ -1,0 +1,26 @@
+#!/bin/bash
+# mbsync-notify - Sync mail and notify on new messages
+
+# Run mbsync and capture output
+output=$(mbsync -a 2>&1)
+exit_code=$?
+
+# Parse the summary line for new messages
+# Example: "pulled 19018 new message(s) and 5 flag update(s),"
+new_msgs=$(echo "$output" | grep -oP 'pulled \K\d+(?= new message)')
+
+# Only notify if there are new messages
+if [[ -n "$new_msgs" && "$new_msgs" -gt 0 ]]; then
+    if [[ "$new_msgs" -eq 1 ]]; then
+        notify-send -a "Mail" "New Mail" "1 new message"
+    else
+        notify-send -a "Mail" "New Mail" "$new_msgs new messages"
+    fi
+fi
+
+# Notify on error
+if [[ $exit_code -ne 0 ]]; then
+    notify-send -u critical -a "Mail" "Mail Sync Failed" "mbsync exited with code $exit_code"
+fi
+
+exit $exit_code

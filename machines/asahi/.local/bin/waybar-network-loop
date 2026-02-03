@@ -1,0 +1,60 @@
+#!/bin/bash
+# Network status for Waybar with lock state - event-driven with inotify
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+LOCK_DIR="/tmp"
+
+# Clean up all child processes on exit
+cleanup() {
+    pkill -P $$ 2>/dev/null
+    kill $(jobs -p) 2>/dev/null
+    wait 2>/dev/null
+}
+trap cleanup EXIT INT TERM HUP
+
+output_status() {
+    is_active=""
+    
+    if [ -f "$LOCK_FILE" ]; then
+        lock_content=$(cat "$LOCK_FILE")
+        if [ "$lock_content" = "wifi" ] || [ "$lock_content" = "wifi-terminal" ]; then
+            is_active="active"
+        fi
+    fi
+
+    # Get network info
+    if nmcli -t -f active,ssid dev wifi | grep -q '^yes'; then
+        essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
+        text="wifi $essid"
+    elif nmcli -t -f DEVICE,TYPE,STATE device | grep -q ':ethernet:connected'; then
+        ipaddr=$(nmcli -t -f DEVICE,TYPE,STATE,IP4 device | grep ':ethernet:connected' | cut -d':' -f4 | cut -d'/' -f1)
+        text="eth $ipaddr"
+    else
+        text="wifi off"
+    fi
+
+    # Output JSON for Waybar
+    if [ -n "$is_active" ]; then
+        echo "{\"text\":\"$text\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+    else
+        echo "{\"text\":\"$text\",\"class\":\"inactive\",\"alt\":\"inactive\",\"percentage\":0}"
+    fi
+}
+
+# Output initial state
+output_status
+
+# Watch for changes using inotify and NetworkManager events
+inotifywait -m -e create,delete,modify "$LOCK_DIR" 2>/dev/null | while read -r directory event filename; do
+    if [ "$filename" = "wofi-menu.lock" ]; then
+        output_status
+    fi
+done &
+
+# Also listen for NetworkManager changes (also backgrounded)
+dbus-monitor --system "type='signal',interface='org.freedesktop.NetworkManager'" 2>/dev/null | while read -r line; do
+    output_status
+done &
+
+# Wait for any child to exit (keeps script alive and allows trap to work)
+wait

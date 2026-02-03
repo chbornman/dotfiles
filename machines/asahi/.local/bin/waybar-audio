@@ -1,0 +1,26 @@
+#!/bin/bash
+# Audio status for Waybar with lock state
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+is_active=""
+
+if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "audio" ]; then
+    is_active="active"
+fi
+
+# Get audio info
+volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1 | tr -d '%')
+muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo 'yes' || echo 'no')
+
+if [ "$muted" = "yes" ]; then
+    text="vol muted"
+else
+    text="vol ${volume}%"
+fi
+
+# Output JSON for Waybar
+if [ -n "$is_active" ]; then
+    echo "{\"text\":\"$text\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+else
+    echo "{\"text\":\"$text\",\"class\":\"\",\"alt\":\"\",\"percentage\":0}"
+fi

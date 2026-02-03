@@ -1,0 +1,101 @@
+2026-02-02T02:55:25.451Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-02T02:55:25.451Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-02T02:55:25.451Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-02T02:55:25.451Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-02T02:55:25.453Z [DEBUG] Applying permission update: Adding 3 allow rule(s) to destination 'userSettings': ["Bash(flatpak list:*)","Bash(nvidia-smi:*)","Bash(python3:*)"]
+2026-02-02T02:55:25.453Z [DEBUG] Applying permission update: Adding 3 allow rule(s) to destination 'projectSettings': ["Bash(flatpak list:*)","Bash(nvidia-smi:*)","Bash(python3:*)"]
+2026-02-02T02:55:25.453Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-02T02:55:25.454Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-02-02T02:55:25.454Z [DEBUG] [STARTUP] Running setup()...
+2026-02-02T02:55:25.454Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-02T02:55:25.458Z [DEBUG] Loading skills from: managed=/etc/claude-code/.claude/skills, user=/home/caleb/.claude/skills, project=[]
+2026-02-02T02:55:25.458Z [DEBUG] Passes: Using fresh cached eligibility data
+2026-02-02T02:55:25.459Z [DEBUG] Error log sink initialized
+2026-02-02T02:55:25.460Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-02T02:55:25.460Z [DEBUG] Total plugin skills loaded: 0
+2026-02-02T02:55:25.460Z [DEBUG] Total plugin commands loaded: 0
+2026-02-02T02:55:25.460Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-02T02:55:25.460Z [DEBUG] [STARTUP] setup() completed in 6ms
+2026-02-02T02:55:25.460Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-02T02:55:25.461Z [DEBUG] Total plugin agents loaded: 0
+2026-02-02T02:55:25.461Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-02-02T02:55:25.461Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-02-02T02:55:25.462Z [DEBUG] [STARTUP] Commands and agents loaded in 2ms
+2026-02-02T02:55:25.462Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-02-02T02:55:25.462Z [DEBUG] [render] initLayout starting
+2026-02-02T02:55:25.462Z [DEBUG] Layout engine: yoga
+2026-02-02T02:55:25.471Z [DEBUG] Cannot acquire lock for 2.1.29 - held by PID 60959
+2026-02-02T02:55:25.471Z [ERROR] Error: Error: NON-FATAL: Lock acquisition failed for /home/caleb/.local/share/claude/versions/2.1.29 (expected in multi-process scenarios)
+    at ANR (/$bunfs/root/claude:3586:2098)
+    at jfA (/$bunfs/root/claude:3586:1209)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T02:55:25.473Z [DEBUG] [render] initLayout complete
+2026-02-02T02:55:25.475Z [DEBUG] [render] first ink render: 228ms since process start
+2026-02-02T02:55:25.491Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-02T02:55:25.507Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-02-02T02:55:25.507Z [DEBUG] [keybindings] Watching for changes to /home/caleb/.claude/keybindings.json
+2026-02-02T02:55:26.339Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-02T02:55:26.341Z [DEBUG] Grove: Using fresh cached config
+2026-02-02T02:55:26.341Z [DEBUG] [render] initLayout starting
+2026-02-02T02:55:26.342Z [DEBUG] [render] initLayout complete
+2026-02-02T02:55:26.342Z [DEBUG] [render] first ink render: 1095ms since process start
+2026-02-02T02:55:26.349Z [DEBUG] Git remote URL: null
+2026-02-02T02:55:26.349Z [DEBUG] No git remote URL found
+2026-02-02T02:55:26.349Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-02-02T02:55:26.350Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-02T02:55:26.490Z [DEBUG] [STARTUP] showSetupScreens() completed in 1028ms
+2026-02-02T02:55:26.490Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-02T02:55:26.490Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-02T02:55:26.490Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-02T02:55:26.491Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-02T02:55:26.491Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-02T02:55:26.491Z [DEBUG] Passes: Using fresh cached eligibility data
+2026-02-02T02:55:26.491Z [DEBUG] Total LSP servers loaded: 0
+2026-02-02T02:55:26.491Z [DEBUG] [STARTUP] MCP configs loaded in 1038ms
+2026-02-02T02:55:26.498Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-02-02T02:55:26.501Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.62341.1770000926501
+2026-02-02T02:55:26.501Z [DEBUG] Preserving file permissions: 100600
+2026-02-02T02:55:26.506Z [DEBUG] Temp file written successfully, size: 10712 bytes
+2026-02-02T02:55:26.506Z [DEBUG] Applied original permissions to temp file
+2026-02-02T02:55:26.506Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.62341.1770000926501 to /home/caleb/.claude.json
+2026-02-02T02:55:26.507Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-02T02:55:26.510Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-02T02:55:26.510Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-02T02:55:26.510Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-02T02:55:26.510Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-02T02:55:26.511Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-02T02:55:26.511Z [DEBUG] Found 0 hook matchers in settings
+2026-02-02T02:55:26.511Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-02T02:55:26.511Z [DEBUG] LSP server manager initialized successfully
+2026-02-02T02:55:26.511Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-02T02:55:26.511Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-02T02:55:26.514Z [DEBUG] [render] initLayout starting
+2026-02-02T02:55:26.738Z [DEBUG] [render] initLayout complete
+2026-02-02T02:55:26.739Z [DEBUG] [render] first ink render: 1492ms since process start
+2026-02-02T02:55:26.748Z [DEBUG] Watching for changes in setting files /home/caleb/.claude/settings.json, /home/caleb/.claude/settings.local.json...
+2026-02-02T02:55:26.752Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-02T02:55:26.752Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-02T02:55:26.753Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-02T02:55:26.783Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-02T02:55:26.821Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-02-02T02:55:26.821Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-02-02T02:55:26.822Z [DEBUG] performStartupChecks called
+2026-02-02T02:55:26.822Z [DEBUG] Starting background plugin installations
+2026-02-02T02:55:26.822Z [DEBUG] performBackgroundPluginInstallations called
+2026-02-02T02:55:26.832Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-02T02:55:26.832Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-02T02:55:26.832Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-02T02:55:26.832Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-02-02T02:55:26.833Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-02-02T02:55:26.846Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.62341.1770000926846
+2026-02-02T02:55:26.846Z [DEBUG] Preserving file permissions: 100600
+2026-02-02T02:55:26.847Z [DEBUG] Temp file written successfully, size: 10712 bytes
+2026-02-02T02:55:26.847Z [DEBUG] Applied original permissions to temp file
+2026-02-02T02:55:26.847Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.62341.1770000926846 to /home/caleb/.claude.json
+2026-02-02T02:55:26.847Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-02T02:55:26.859Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-02T02:55:26.951Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T02:55:26.952Z [DEBUG] Found 2.1.29 at /home/caleb/.local/bin/claude, skipping install
+2026-02-02T02:55:33.119Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-02T02:55:33.119Z [DEBUG] Found 0 hook matchers in settings
+2026-02-02T02:55:33.119Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)

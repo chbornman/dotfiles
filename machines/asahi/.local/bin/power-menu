@@ -12,15 +12,25 @@ if pgrep -x wofi > /dev/null; then
         rm -f "$LOCK_FILE"
         exit 0
     else
-        # Different menu, close the old one
+        # Different menu, close the old one (wofi or terminal)
         pkill -x wofi
+        swaymsg '[title="^WAYBAR-MENU:"] kill' 2>/dev/null
         rm -f "$LOCK_FILE"
-        sleep 0.1
+        sleep 0.05
+    fi
+else
+    # Check if a terminal menu is open
+    if [ -f "$LOCK_FILE" ]; then
+        swaymsg '[title="^WAYBAR-MENU:"] kill' 2>/dev/null
+        rm -f "$LOCK_FILE"
+        sleep 0.05
     fi
 fi
 
 # Mark this menu as open
 echo "power" > "$LOCK_FILE"
+
+sleep 0.05
 
 # Get current governor
 current=$(cpupower frequency-info -p 2>/dev/null | grep "governor" | grep -oE "(powersave|schedutil|performance|ondemand|conservative)" | head -1)
@@ -46,7 +56,7 @@ else
 fi
 
 # Show menu
-selection=$(echo -e "$menu" | wofi --dmenu --width 300 --height 200 --location top_right --xoffset -10 --yoffset 40)
+selection=$(echo -e "$menu" | wofi --dmenu --width 700 --height 500 --location top_right --xoffset -50 --yoffset 35)
 
 if [ -n "$selection" ]; then
     # Remove [CURRENT] prefix

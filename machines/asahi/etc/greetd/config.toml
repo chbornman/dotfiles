@@ -1,0 +1,8 @@
+[terminal]
+vt = 1
+
+[default_session]
+# Minimal tuigreet with Capstan Cloud theme
+# Border matches background to hide it, no greeting, no time
+command = "tuigreet --remember --remember-session --asterisks --asterisks-char '•' --width 40 --container-padding 2 --prompt-padding 1 --window-padding 0 --greet-align center --power-shutdown 'systemctl poweroff' --power-reboot 'systemctl reboot' --sessions /usr/share/wayland-sessions --xsessions /usr/share/xsessions --theme 'border=#0f0e0e;text=#f7f7f5;prompt=#8c8985;time=#8c8985;action=#0f0e0e;button=#8c8985;container=#0f0e0e;input=#d4a366'"
+user = "greetd"

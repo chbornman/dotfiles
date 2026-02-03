@@ -56,3 +56,5 @@ function fish_title
         prompt_pwd
     end
 end
+
+set -gx EDITOR nvim

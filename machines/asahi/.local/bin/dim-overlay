@@ -1,0 +1,31 @@
+#!/bin/bash
+# Creates a semi-transparent overlay to dim the screen
+
+LOCK_FILE="/tmp/dim-overlay.lock"
+
+case "$1" in
+    show)
+        # Don't create multiple overlays
+        [ -f "$LOCK_FILE" ] && exit 0
+        
+        touch "$LOCK_FILE"
+        
+        # Use wlr-layer-shell to create a semi-transparent overlay
+        # Launch a fullscreen terminal with dark semi-transparent background
+        swaymsg -t get_outputs | jq -r '.[].rect | "\(.width)x\(.height)"' | head -1 | while read size; do
+            width=$(echo $size | cut -dx -f1)
+            height=$(echo $size | cut -dx -f2)
+            
+            # Launch ghostty fullscreen with semi-transparent black background
+            swaymsg "exec ghostty --title=WAYBAR-DIM-OVERLAY --window-width=$width --window-height=$height --background=000000 --background-opacity=0.6 -e cat" > /dev/null 2>&1
+        done
+        
+        # Wait for window and configure it
+        sleep 0.15
+        swaymsg "[title=WAYBAR-DIM-OVERLAY] floating enable, move position 0 0, border none, opacity 0.6" > /dev/null 2>&1
+        ;;
+    hide)
+        swaymsg "[title=WAYBAR-DIM-OVERLAY] kill" > /dev/null 2>&1
+        rm -f "$LOCK_FILE"
+        ;;
+esac

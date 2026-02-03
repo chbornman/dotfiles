@@ -1,0 +1,12 @@
+swipe:
+  3:
+    up:
+      command: "gdbus call --session --dest org.kde.KWin --object-path /Effects --method org.kde.kwin.Effects.toggleEffect overview"
+    down:
+      command: "gdbus call --session --dest org.kde.KWin --object-path /KWin --method org.kde.KWin.showDesktop true"
+
+threshold:
+  swipe: 0.5
+
+interval:
+  swipe: 1.0

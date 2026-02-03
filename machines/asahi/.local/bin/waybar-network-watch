@@ -1,0 +1,39 @@
+#!/bin/bash
+# Watch script that outputs on lock file changes
+
+LOCK_FILE="/tmp/wofi-menu.lock"
+LOCK_DIR="/tmp"
+
+get_status() {
+    is_active=""
+    
+    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE" 2>/dev/null)" = "wifi" ]; then
+        is_active="active"
+    fi
+    
+    # Get network info
+    if nmcli -t -f active,ssid dev wifi 2>/dev/null | grep -q '^yes'; then
+        essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d':' -f2)
+        text="wifi $essid"
+    elif nmcli -t -f DEVICE,TYPE,STATE device 2>/dev/null | grep -q ':ethernet:connected'; then
+        ipaddr=$(nmcli -t -f DEVICE,TYPE,STATE,IP4 device | grep ':ethernet:connected' | cut -d':' -f4 | cut -d'/' -f1)
+        text="eth $ipaddr"
+    else
+        text="wifi off"
+    fi
+    
+    # Output JSON for Waybar
+    if [ -n "$is_active" ]; then
+        echo "{\"text\":\"$text\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+    else
+        echo "{\"text\":\"$text\",\"percentage\":0}"
+    fi
+}
+
+# Output initial status
+get_status
+
+# Watch for changes
+while inotifywait -qq -e create,delete,modify "$LOCK_DIR" 2>/dev/null; do
+    get_status
+done

@@ -1,0 +1,144 @@
+# Yazi Theme - Capstan OpenCode
+# Based on Capstan Cloud with darker background for terminals
+
+[manager]
+cwd = { fg = "#d4a366" }
+
+# Hovered
+hovered         = { fg = "#0f0e0d", bg = "#d4a366" }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "#ffd591", italic = true }
+find_position = { fg = "#b37feb", bg = "reset", italic = true }
+
+# Marker
+marker_selected = { fg = "#95de64", bg = "#95de64" }
+marker_copied   = { fg = "#ffd591", bg = "#ffd591" }
+marker_cut      = { fg = "#ff4d4f", bg = "#ff4d4f" }
+
+# Tab
+tab_active   = { fg = "#0f0e0d", bg = "#d4a366" }
+tab_inactive = { fg = "#8c8985", bg = "#262422" }
+tab_width    = 1
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#393634" }
+
+# Highlighting
+syntect_theme = ""
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#393634", bg = "#393634" }
+
+# Mode
+mode_normal = { fg = "#0f0e0d", bg = "#597ef7", bold = true }
+mode_select = { fg = "#0f0e0d", bg = "#95de64", bold = true }
+mode_unset  = { fg = "#0f0e0d", bg = "#b37feb", bold = true }
+
+# Progress
+progress_label  = { fg = "#f7f7f5", bold = true }
+progress_normal = { fg = "#597ef7", bg = "#262422" }
+progress_error  = { fg = "#ff4d4f", bg = "#262422" }
+
+# Permissions
+permissions_t = { fg = "#95de64" }
+permissions_r = { fg = "#ffd591" }
+permissions_w = { fg = "#ff7875" }
+permissions_x = { fg = "#85a5ff" }
+permissions_s = { fg = "#8c8985" }
+
+[input]
+border   = { fg = "#d4a366" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "#597ef7" }
+active   = { fg = "#b37feb" }
+inactive = {}
+
+[tasks]
+border  = { fg = "#597ef7" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask            = { bg = "#1a1917" }
+cand            = { fg = "#5cdbd3" }
+rest            = { fg = "#8c8985" }
+desc            = { fg = "#b37feb" }
+separator       = "  "
+separator_style = { fg = "#393634" }
+
+[help]
+on      = { fg = "#b37feb" }
+exec    = { fg = "#5cdbd3" }
+desc    = { fg = "#8c8985" }
+hovered = { bg = "#393634", bold = true }
+footer  = { fg = "#1a1917", bg = "#8c8985" }
+
+[filetype]
+
+rules = [
+	# Images
+	{ mime = "image/*", fg = "#5cdbd3" },
+	
+	# Videos
+	{ mime = "video/*", fg = "#ffd591" },
+	{ mime = "audio/*", fg = "#ffd591" },
+	
+	# Archives
+	{ mime = "application/zip",             fg = "#b37feb" },
+	{ mime = "application/gzip",            fg = "#b37feb" },
+	{ mime = "application/x-tar",           fg = "#b37feb" },
+	{ mime = "application/x-bzip",          fg = "#b37feb" },
+	{ mime = "application/x-bzip2",         fg = "#b37feb" },
+	{ mime = "application/x-7z-compressed", fg = "#b37feb" },
+	{ mime = "application/x-rar",           fg = "#b37feb" },
+	
+	# Documents
+	{ mime = "application/pdf", fg = "#ff7875" },
+	
+	# Fallback
+	{ name = "*", fg = "#f7f7f5" },
+	{ name = "*/", fg = "#597ef7" }
+]
+
+[icons]
+"Desktop/"     = ""
+"Documents/"   = ""
+"Downloads/"   = ""
+"Pictures/"    = ""
+"Music/"       = ""
+"Movies/"      = ""
+"Videos/"      = ""
+"Public/"      = ""
+"Library/"     = ""
+".config/"     = ""
+".git/"        = ""
+
+# Files
+"*.rs"         = ""
+"*.py"         = ""
+"*.js"         = ""
+"*.ts"         = ""
+"*.json"       = ""
+"*.toml"       = ""
+"*.yaml"       = ""
+"*.yml"        = ""
+"*.md"         = ""
+"*.txt"        = ""
+"*.pdf"        = ""
+"*.zip"        = ""
+"*.tar"        = ""
+"*.gz"         = ""
+"*.jpg"        = ""
+"*.png"        = ""
+"*.gif"        = ""
+"*.mp4"        = ""
+"*.mp3"        = ""

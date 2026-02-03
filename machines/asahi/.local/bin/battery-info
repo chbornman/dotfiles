@@ -2,6 +2,12 @@
 # Battery info script for waybar with JSON output
 
 BATTERY_PATH="/sys/class/power_supply/macsmc-battery"
+LOCK_FILE="/tmp/wofi-menu.lock"
+is_active=""
+
+if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "power" ]; then
+    is_active="active"
+fi
 
 # Get battery percentage
 capacity=$(cat "$BATTERY_PATH/capacity" 2>/dev/null || echo "?")
@@ -59,4 +65,8 @@ esac
 tooltip="Health: ${health}%\nCycles: ${cycles}\nTemp: ${temp}°C\nProfile: ${profile}"
 
 # Output JSON
-echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\"}"
+if [ -n "$is_active" ]; then
+    echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\",\"class\":\"active\",\"alt\":\"active\",\"percentage\":100}"
+else
+    echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\",\"class\":\"\",\"alt\":\"\",\"percentage\":0}"
+fi

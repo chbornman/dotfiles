@@ -55,13 +55,16 @@ window#waybar {
     color: #f7f7f5;
 }
 
-#pulseaudio,
-#memory,
-#cpu,
-#battery,
+#clock:active {
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+#custom-audio,
+#custom-cpu,
 #custom-battery,
-#network,
-#bluetooth {
+#custom-network,
+#custom-bluetooth {
     padding: 0 12px;
     color: #8c8985;
     background-color: #1a1a1a;
@@ -69,14 +72,21 @@ window#waybar {
     margin: 4px 3px;
 }
 
-#pulseaudio:hover,
-#memory:hover,
-#cpu:hover,
-#battery:hover,
+#custom-audio:hover,
+#custom-cpu:hover,
 #custom-battery:hover,
-#network:hover,
-#bluetooth:hover {
+#custom-network:hover,
+#custom-bluetooth:hover {
     color: #f7f7f5;
+}
+
+#custom-audio.active,
+#custom-cpu.active,
+#custom-battery.active,
+#custom-network.active,
+#custom-bluetooth.active {
+    background-color: #d4a366;
+    color: #1a1917;
 }
 
 #battery.charging {
@@ -95,13 +105,7 @@ window#waybar {
     color: #8c8985;
 }
 
-#network.disconnected {
-    color: #524f4c;
-}
 
-#bluetooth.disabled {
-    color: #524f4c;
-}
 
 #custom-screencast {
     padding: 0 12px;
@@ -110,4 +114,55 @@ window#waybar {
     background-color: #1a1a1a;
     border-radius: 16px;
     margin: 4px 3px;
+}
+
+/* Whisper dictation module */
+#custom-whisper {
+    padding: 0 12px;
+    font-size: 14px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-whisper.ready {
+    color: #8c8985;
+    background-color: #1a1a1a;
+}
+
+#custom-whisper.recording {
+    color: #ff4d4f;
+    background-color: #d4a366;
+}
+
+#custom-whisper.processing {
+    color: #1a1917;
+    background-color: #d4a366;
+}
+
+#custom-whisper.error {
+    color: #f38ba8;
+    opacity: 0.5;
+}
+
+#custom-whisper.streaming {
+    color: #ff0000;
+    background-color: #1a1a1a;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#custom-whisper:hover {
+    background: #45475a;
 }

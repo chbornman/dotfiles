@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "705680da-0048-45f0-b3cc-03198176fb5f",
+      "fullPath": "/home/caleb/.claude/projects/-home-caleb/705680da-0048-45f0-b3cc-03198176fb5f.jsonl",
+      "fileMtime": 1770000843665,
+      "firstPrompt": "~ ❯ echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.config/fish/config.fish && source ~/.config/fish/config.fish ~/.config/fish/config.fish (line 51): Missing end to balance this function definition…",
+      "summary": "Fish config syntax error: fixing malformed function end",
+      "messageCount": 6,
+      "created": "2026-02-02T02:53:12.673Z",
+      "modified": "2026-02-02T02:53:51.524Z",
+      "gitBranch": "",
+      "projectPath": "/home/caleb",
+      "isSidechain": false
+    }
+  ],
+  "originalPath": "/home/caleb"
+}

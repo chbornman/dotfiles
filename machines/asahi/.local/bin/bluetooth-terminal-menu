@@ -1,42 +1,34 @@
 #!/bin/bash
 # Launch bluetui (bluetooth manager) as a floating terminal window
 
-LOCK_FILE="/tmp/wofi-menu.lock"
+{
+    LOCK_FILE="/tmp/wofi-menu.lock"
+    MENU_NAME="bluetooth"
 
-# Check if another menu is open (wofi or terminal menu)
-if pgrep -x wofi > /dev/null || [ -f "$LOCK_FILE" ]; then
-    # Check if it's the same terminal menu
-    if [ -f "$LOCK_FILE" ] && [ "$(cat "$LOCK_FILE")" = "bluetooth" ]; then
-        # Same menu, close it
-        hyprctl dispatch closewindow "title:^WAYBAR-MENU:"
+    # Check if this menu is already open by looking for the window
+    if pgrep -f "WAYBAR-MENU: bluetui" > /dev/null; then
+        pkill -f "WAYBAR-MENU: bluetui"
         rm -f "$LOCK_FILE"
+        sleep 0.15
+        YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x 1 -y 0
+        YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x -1 -y 0
         exit 0
-    else
-        # Close any existing menu (wofi or terminal)
-        pkill -x wofi 2>/dev/null
-        hyprctl dispatch closewindow "title:^WAYBAR-MENU:" 2>/dev/null
-        rm -f "$LOCK_FILE"
-        sleep 0.05
     fi
-fi
 
-# Set up trap to clean up lock file when script exits
-trap "rm -f '$LOCK_FILE'" EXIT
+    # Close any other menu that might be open
+    pkill -f "WAYBAR-MENU:" 2>/dev/null
+    pkill -x wofi 2>/dev/null
+    rm -f "$LOCK_FILE"
 
-# Mark this menu as open
-echo "bluetooth" > "$LOCK_FILE"
+    # Mark this menu as open and launch
+    echo "$MENU_NAME" > "$LOCK_FILE"
+    foot --title='WAYBAR-MENU: bluetui' bluetui &
+    sleep 0.15
+    YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x 1 -y 0
+    YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool mousemove -x -1 -y 0
+    wait
+    rm -f "$LOCK_FILE"
+} &
 
-sleep 0.05
-
-# Launch bluetui in a floating window with special title prefix (70% zoom = ~8pt font)
-foot --title='WAYBAR-MENU: bluetui' bluetui &
-
-# Wait for the window to appear
-sleep 0.5
-
-# Poll for window closure
-while hyprctl clients -j | jq -e '.[] | select(.title | startswith("WAYBAR-MENU: bluetui"))' > /dev/null 2>&1; do
-    sleep 0.5
-done
-
-# Script exits here, trap will clean up lock file
+disown
+exit 0

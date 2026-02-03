@@ -20,6 +20,7 @@ window#waybar {
     border: none;
     border-radius: 50%;
     margin: 4px 3px;
+    transition: background-color 50ms ease-out, color 50ms ease-out;
 }
 
 #workspaces button:hover {
@@ -41,6 +42,17 @@ window#waybar {
 
 #workspaces button.urgent {
     background-color: #ff4d4f;
+    color: #f7f7f5;
+}
+
+/* Workspace has windows (not empty) - dark brass */
+#workspaces button:not(.empty):not(.active):not(.focused) {
+    background-color: #4a3828;
+    color: #d4a366;
+}
+
+#workspaces button:not(.empty):not(.active):not(.focused):hover {
+    background-color: #5a4535;
     color: #f7f7f5;
 }
 

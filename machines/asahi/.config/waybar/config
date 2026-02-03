@@ -9,7 +9,10 @@
     "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "clock"],
 
     "hyprland/workspaces": {
-        "format": "{id}"
+        "format": "{id}",
+        "persistent-workspaces": {
+            "*": 5
+        }
     },
 
     "hyprland/submap": {

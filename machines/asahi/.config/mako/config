@@ -3,7 +3,7 @@
 # Display
 max-visible=5
 layer=overlay
-anchor=top-right
+anchor=top-center
 
 # Geometry
 width=350
@@ -11,7 +11,7 @@ height=150
 margin=20
 padding=12
 border-size=2
-border-radius=0
+border-radius=8
 icons=1
 max-icon-size=64
 icon-path=/usr/share/icons/Adwaita
@@ -19,6 +19,7 @@ icon-path=/usr/share/icons/Adwaita
 # Text
 font=monospace 10
 format=<b>%s</b>\n%b
+text-alignment=center
 
 # Behavior
 default-timeout=10000
@@ -44,3 +45,7 @@ background-color=#1a1917
 text-color=#f7f7f5
 border-color=#ff4d4f
 default-timeout=0
+
+# mbsync notifications - auto dismiss
+[app-name=mbsync]
+default-timeout=5000

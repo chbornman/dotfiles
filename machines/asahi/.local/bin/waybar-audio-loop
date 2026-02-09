@@ -22,7 +22,7 @@ output_status() {
         fi
     fi
 
-    # Get audio info - use remapped volume from vol script
+    # Get audio info
     volume=$(~/.local/bin/vol get)
     muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo 'yes' || echo 'no')
 

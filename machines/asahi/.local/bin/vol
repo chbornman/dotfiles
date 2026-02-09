@@ -1,47 +1,11 @@
 #!/bin/bash
 # Volume control script with notification support
-# Remaps volume: display 0-100% = actual 40-100%, display 100-200% = actual 100-200%
-# This makes the slider more usable on J316 laptop speakers
+# Direct 0-100% mapping, capped at 100% to prevent crackling/over-amplification
 
-MIN_ACTUAL=40  # Actual volume when slider shows 0%
-STEP=5         # Display step size
+STEP=5  # Volume step size
 
-# Convert actual volume to display volume (what user sees)
-# 40-100 actual -> 0-100 display (compressed)
-# 100-200 actual -> 100-200 display (1:1)
-actual_to_display() {
-    local actual=$1
-    if [ "$actual" -le "$MIN_ACTUAL" ]; then
-        echo 0
-    elif [ "$actual" -le 100 ]; then
-        # Map 40-100 actual to 0-100 display
-        echo $(( (actual - MIN_ACTUAL) * 100 / (100 - MIN_ACTUAL) ))
-    else
-        # Above 100%, display = actual (1:1)
-        echo "$actual"
-    fi
-}
-
-# Convert display volume to actual volume (what pactl sets)
-# 0-100 display -> 40-100 actual (compressed)
-# 100-200 display -> 100-200 actual (1:1)
-display_to_actual() {
-    local display=$1
-    if [ "$display" -le 100 ]; then
-        # Map 0-100 display to 40-100 actual
-        echo $(( MIN_ACTUAL + (display * (100 - MIN_ACTUAL) / 100) ))
-    else
-        # Above 100%, actual = display (1:1)
-        echo "$display"
-    fi
-}
-
-get_actual_volume() {
+get_volume() {
     pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -n1 | tr -d '%'
-}
-
-get_display_volume() {
-    actual_to_display $(get_actual_volume)
 }
 
 get_mute_status() {
@@ -49,43 +13,38 @@ get_mute_status() {
 }
 
 send_notification() {
-    local display_vol=$(get_display_volume)
+    local vol=$(get_volume)
     local mute=$(get_mute_status)
-    
+
     if [ "$mute" = "muted" ]; then
         notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
             -h int:value:0 "Volume: Muted" -u low
     else
         notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
-            -h int:value:$display_vol "Volume: ${display_vol}%" -u low
+            -h int:value:$vol "Volume: ${vol}%" -u low
     fi
 }
 
 case "$1" in
     up)
-        # If muted, unmute and set to 5%
         if [ "$(get_mute_status)" = "muted" ]; then
             pactl set-sink-mute @DEFAULT_SINK@ 0
-            new_actual=$(display_to_actual $STEP)
-            pactl set-sink-volume @DEFAULT_SINK@ ${new_actual}%
+            pactl set-sink-volume @DEFAULT_SINK@ ${STEP}%
         else
-            current_display=$(get_display_volume)
-            new_display=$((current_display + STEP))
-            [ "$new_display" -gt 200 ] && new_display=200
-            new_actual=$(display_to_actual $new_display)
-            pactl set-sink-volume @DEFAULT_SINK@ ${new_actual}%
+            current=$(get_volume)
+            new=$((current + STEP))
+            [ "$new" -gt 100 ] && new=100
+            pactl set-sink-volume @DEFAULT_SINK@ ${new}%
         fi
         send_notification
         ;;
     down)
-        current_display=$(get_display_volume)
-        new_display=$((current_display - STEP))
-        # If going below 5%, mute instead
-        if [ "$new_display" -lt "$STEP" ]; then
+        current=$(get_volume)
+        new=$((current - STEP))
+        if [ "$new" -lt "$STEP" ]; then
             pactl set-sink-mute @DEFAULT_SINK@ 1
         else
-            new_actual=$(display_to_actual $new_display)
-            pactl set-sink-volume @DEFAULT_SINK@ ${new_actual}%
+            pactl set-sink-volume @DEFAULT_SINK@ ${new}%
         fi
         send_notification
         ;;
@@ -94,8 +53,7 @@ case "$1" in
         send_notification
         ;;
     get)
-        # For other scripts to get display volume
-        get_display_volume
+        get_volume
         ;;
     *)
         echo "Usage: $0 {up|down|mute|get}"

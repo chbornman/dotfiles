@@ -1,0 +1,4 @@
+#!/bin/bash
+# Fix Speaker Playback Mux - should be Primary for this machine
+sleep 2
+amixer -c 1 sset 'Speaker Playback Mux' 'Primary'

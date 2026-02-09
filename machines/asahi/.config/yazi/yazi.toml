@@ -22,6 +22,9 @@ image_quality   = 75
 edit = [
 	{ run = 'nvim "$@"', block = true, for = "unix" },
 ]
+open = [
+	{ run = 'xdg-open "$@"', orphan = true, for = "unix" },
+]
 
 [open]
 rules = [
@@ -36,6 +39,9 @@ rules = [
 	{ name = "*.rs", use = "edit" },
 	{ name = "*.py", use = "edit" },
 	{ name = "*.sh", use = "edit" },
+	
+	# Fallback: use system default for everything else
+	{ mime = "*", use = "open" },
 ]
 
 [tasks]

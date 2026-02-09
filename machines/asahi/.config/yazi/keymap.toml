@@ -1,0 +1,13 @@
+# Yazi Keymap - Custom bindings
+
+[mgr]
+prepend_keymap = [
+    # Drag and drop files to other apps (browsers, etc)
+    # Requires: ripdrag (cargo install ripdrag)
+    # -x = exit after drag, -a = show "drag all" button for multiple files
+    { on = "<C-d>", run = 'shell -- ripdrag -x -a %s &', desc = "Drag files to other apps" },
+
+    # Send files via LocalSend
+    # Opens LocalSend with selected files ready to share
+    { on = "<C-s>", run = 'shell -- flatpak run --command=localsend --file-forwarding org.localsend.localsend_app @@ %s @@ &', desc = "Send via LocalSend" },
+]

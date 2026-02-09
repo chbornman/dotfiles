@@ -10,7 +10,6 @@
     "ask": [],
     "defaultMode": "default"
   },
-  "model": "opus",
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754094150668

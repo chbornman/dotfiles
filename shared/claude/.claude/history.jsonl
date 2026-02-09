@@ -8,3 +8,44 @@
 {"display":"run that","pastedContents":{},"timestamp":1770000849308,"project":"/home/caleb","sessionId":"b46ed9da-be8c-49d9-a1d6-62c47c870ff5"}
 {"display":"add to bash too?","pastedContents":{},"timestamp":1770000869553,"project":"/home/caleb","sessionId":"b46ed9da-be8c-49d9-a1d6-62c47c870ff5"}
 {"display":"fix the error","pastedContents":{},"timestamp":1770000902863,"project":"/home/caleb","sessionId":"b46ed9da-be8c-49d9-a1d6-62c47c870ff5"}
+{"display":"exit","pastedContents":{},"timestamp":1770472453293,"project":"/home/caleb","sessionId":"be6e7101-f7bc-468d-b268-65b1dee43e48"}
+{"display":"/model ","pastedContents":{},"timestamp":1770472482613,"project":"/home/caleb","sessionId":"bca01417-e049-44f2-87d6-60154a04f94b"}
+{"display":"exit","pastedContents":{},"timestamp":1770472493530,"project":"/home/caleb","sessionId":"bca01417-e049-44f2-87d6-60154a04f94b"}
+{"display":"investigate this machine. look at everything about it and it's audio processing. This is a Asahi Linux machine running on Macbook Pro M1 Pro chip. Please look extensively online for all discussion around the audio pipeline on forums etc. Please search the asahi linux github etc.\n\nhere's the current issue: audio y","pastedContents":{},"timestamp":1770473205136,"project":"/home/caleb","sessionId":"38ea3db9-e4d6-4d3c-8526-0962a1f21ac8"}
+{"display":"video playback isn't working on youtube, immich, or even mpv. this is an Asahi Linux machine. I must have broken something because it worked fine before. I did do a bunch of changes around the greeter and switched to hyprland from sway / gnome....i haven't tried going back to gnome yet but I definitely want to fix hyprland/my system in general.\n\nplease audit our system. i downloaded a yt-video and mvp couldn't play it. ","pastedContents":{},"timestamp":1770473434719,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"is this a permissions issue? something about auto-login and selecting the DISPLAY?","pastedContents":{},"timestamp":1770473555287,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"keep looking","pastedContents":{},"timestamp":1770473563697,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"these are just my guesses","pastedContents":{},"timestamp":1770473573478,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"mpv opens but it doesn't play","pastedContents":{},"timestamp":1770473697987,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"look online about asahi linux","pastedContents":{},"timestamp":1770473844612,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"because it worked before i started messing with the login session","pastedContents":{},"timestamp":1770473860045,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"so i assume it is a permissions issue","pastedContents":{},"timestamp":1770473867782,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"can you show me a layout of our users on this machine, and who gets what permissions when we do our autologin?","pastedContents":{},"timestamp":1770474044017,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"we also immediately do a hyprlock on autologin to get to our lock screen","pastedContents":{},"timestamp":1770474060467,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"can you show me a layout of our users on this machine, and who gets what permissions when we do our autologin?\nwe also immediately do a hyprlock on autologin to get to our lock screen","pastedContents":{},"timestamp":1770474731738,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"can you show me a layout of our users on this machine, and who gets what permissions when we do our autologin?\nwe also immediately do a hyprlock on autologin to get to our lock screen","pastedContents":{},"timestamp":1770474732883,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"ok a few things....yes that makes sense...would even mpv stall if we don't have audio set up right?","pastedContents":{},"timestamp":1770474885411,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"yep it played video just fine without audio","pastedContents":{},"timestamp":1770474923148,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":". 17 zombie ghostty processes under waybar-hovermenu (PID 1420) - not being reaped.\n\ninvestigate!","pastedContents":{},"timestamp":1770474953071,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"source code should be at ~/src","pastedContents":{},"timestamp":1770475101506,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"commit this","pastedContents":{},"timestamp":1770475205514,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"\n i mean the ~/src/waybar-hovermenu repo","pastedContents":{},"timestamp":1770475242079,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"use gh cli to push to a new public repo","pastedContents":{},"timestamp":1770475275006,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"add a README","pastedContents":{},"timestamp":1770475287542,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"read online! there is a special service for protecting the speakers","pastedContents":{},"timestamp":1770475657827,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"asahi","pastedContents":{},"timestamp":1770475665947,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"yes, commit and push","pastedContents":{},"timestamp":1770475691974,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"ahh yes i wonder about sleep and closing the lid combined wiht hyprlock on first login","pastedContents":{},"timestamp":1770475718216,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"/config ","pastedContents":{},"timestamp":1770475749855,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"exit","pastedContents":{},"timestamp":1770476068100,"project":"/home/caleb","sessionId":"325095fa-57fd-4be4-bacd-8b8493573acc"}
+{"display":"no audio coming through speakers...i opened wiremix and it seemed to crash the speakers when i tried figuring out why they had \"no route selected\"","pastedContents":{},"timestamp":1770476193738,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"why is speakersafety not enabled by default?","pastedContents":{},"timestamp":1770476215811,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"nothing from the speakers still....can you check my waybar-hovermenu setup? is it messing with wiremix? the waybar shows vol muted but if i just use hte keyboard keys it is at 55%","pastedContents":{},"timestamp":1770476306480,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"can you check the asahi fedora remix setup? maybe look at the gnome configs?","pastedContents":{},"timestamp":1770476409034,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"what is speakersafety...is that to keep the volume within a certain range? or is it just a disable?","pastedContents":{},"timestamp":1770476519865,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"i am playing a mpv video i will turn it off","pastedContents":{},"timestamp":1770476602624,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"i am playing a mpv video i will turn it off","pastedContents":{},"timestamp":1770476611891,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"that worked! it was very loud","pastedContents":{},"timestamp":1770476635952,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"yes they both worked fine!","pastedContents":{},"timestamp":1770476700524,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"no pw-play bell didn't produce any audio","pastedContents":{},"timestamp":1770476899090,"project":"/home/caleb","sessionId":"845cc000-c124-48dd-a9cd-c9efe4b8391f"}
+{"display":"exit","pastedContents":{},"timestamp":1770594452923,"project":"/home/caleb","sessionId":"3560b100-e201-4f9f-a4e1-9117f7a6c6e6"}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mpv:*)",
+      "Bash(ffprobe:*)",
+      "WebSearch",
+      "WebFetch(domain:discussion.fedoraproject.org)",
+      "WebFetch(domain:discourse.nixos.org)",
+      "WebFetch(domain:gist.github.com)",
+      "Bash(rpm -qa:*)",
+      "Bash(journalctl:*)",
+      "Bash(sudo ls:*)",
+      "Bash(wpctl get-volume:*)",
+      "Bash(wpctl inspect:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}

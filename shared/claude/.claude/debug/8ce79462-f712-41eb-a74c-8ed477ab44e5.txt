@@ -1,0 +1,157 @@
+2026-02-08T23:46:22.578Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-08T23:46:22.578Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-08T23:46:22.578Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-08T23:46:22.578Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-08T23:46:22.581Z [DEBUG] Applying permission update: Adding 3 allow rule(s) to destination 'userSettings': ["Bash(flatpak list:*)","Bash(nvidia-smi:*)","Bash(python3:*)"]
+2026-02-08T23:46:22.581Z [DEBUG] Applying permission update: Adding 3 allow rule(s) to destination 'projectSettings': ["Bash(flatpak list:*)","Bash(nvidia-smi:*)","Bash(python3:*)"]
+2026-02-08T23:46:22.581Z [DEBUG] Applying permission update: Adding 12 allow rule(s) to destination 'localSettings': ["Bash(mpv:*)","Bash(ffprobe:*)","WebSearch","WebFetch(domain:discussion.fedoraproject.org)","WebFetch(domain:discourse.nixos.org)","WebFetch(domain:gist.github.com)","Bash(rpm -qa:*)","Bash(journalctl:*)","Bash(sudo ls:*)","Bash(wpctl get-volume:*)","Bash(wpctl inspect:*)","Bash(cat:*)"]
+2026-02-08T23:46:22.581Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-08T23:46:22.582Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-02-08T23:46:22.583Z [DEBUG] [STARTUP] Running setup()...
+2026-02-08T23:46:22.583Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-08T23:46:22.584Z [DEBUG] Loading skills from: managed=/etc/claude-code/.claude/skills, user=/home/caleb/.claude/skills, project=[]
+2026-02-08T23:46:22.584Z [DEBUG] Passes: Cache stale, returning cached data and refreshing in background
+2026-02-08T23:46:22.584Z [DEBUG] Error log sink initialized
+2026-02-08T23:46:22.587Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-08T23:46:22.587Z [DEBUG] Total plugin skills loaded: 0
+2026-02-08T23:46:22.587Z [DEBUG] Total plugin commands loaded: 0
+2026-02-08T23:46:22.587Z [DEBUG] [STARTUP] setup() completed in 4ms
+2026-02-08T23:46:22.587Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-08T23:46:22.591Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-08T23:46:22.591Z [DEBUG] Total plugin agents loaded: 0
+2026-02-08T23:46:22.592Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, additional: 0, legacy commands: 0)
+2026-02-08T23:46:22.592Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-08T23:46:22.593Z [DEBUG] [STARTUP] Commands and agents loaded in 6ms
+2026-02-08T23:46:22.593Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-02-08T23:46:22.593Z [DEBUG] [render] initLayout starting
+2026-02-08T23:46:22.593Z [DEBUG] Layout engine: yoga
+2026-02-08T23:46:22.596Z [DEBUG] Acquired PID lock for 2.1.34 (PID 2395)
+2026-02-08T23:46:22.596Z [DEBUG] Acquired PID lock on running version: /home/caleb/.local/share/claude/versions/2.1.34
+2026-02-08T23:46:22.597Z [DEBUG] [render] initLayout complete
+2026-02-08T23:46:22.600Z [DEBUG] [keybindings] KeybindingSetup initialized with 100 bindings, 0 warnings
+2026-02-08T23:46:22.614Z [DEBUG] [render] first ink render: 258ms since process start
+2026-02-08T23:46:22.614Z [DEBUG] [keybindings] Watching for changes to /home/caleb/.claude/keybindings.json
+2026-02-08T23:46:22.615Z [DEBUG] [Claude in Chrome] Found chromium profiles: Default
+2026-02-08T23:46:22.631Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-02-08T23:46:23.255Z [DEBUG] Grove: Cache stale, returning cached data and refreshing in background
+2026-02-08T23:46:23.277Z [DEBUG] [render] initLayout starting
+2026-02-08T23:46:23.278Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-08T23:46:23.281Z [DEBUG] [render] initLayout complete
+2026-02-08T23:46:23.282Z [DEBUG] [keybindings] KeybindingSetup initialized with 100 bindings, 0 warnings
+2026-02-08T23:46:23.288Z [DEBUG] [render] first ink render: 931ms since process start
+2026-02-08T23:46:23.289Z [DEBUG] Git remote URL: null
+2026-02-08T23:46:23.289Z [DEBUG] No git remote URL found
+2026-02-08T23:46:23.289Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-02-08T23:46:24.922Z [DEBUG] Failed to fetch and cache passes eligibility
+2026-02-08T23:46:24.923Z [ERROR] AxiosError: Error
+    at AM (/$bunfs/root/claude:28:1144)
+    at <anonymous> (/$bunfs/root/claude:33:10063)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:862:50)
+    at processTicksAndRejections (native:7:39)
+    at request (/$bunfs/root/claude:35:2149)
+    at processTicksAndRejections (native:7:39)
+2026-02-08T23:46:24.972Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594384972
+2026-02-08T23:46:24.972Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:24.979Z [DEBUG] Temp file written successfully, size: 11842 bytes
+2026-02-08T23:46:24.979Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:24.979Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594384972 to /home/caleb/.claude.json
+2026-02-08T23:46:24.979Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:26.598Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594386598
+2026-02-08T23:46:26.598Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:26.603Z [DEBUG] Temp file written successfully, size: 11842 bytes
+2026-02-08T23:46:26.603Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:26.603Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594386598 to /home/caleb/.claude.json
+2026-02-08T23:46:26.603Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:26.791Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594386791
+2026-02-08T23:46:26.791Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:26.792Z [DEBUG] Temp file written successfully, size: 11842 bytes
+2026-02-08T23:46:26.792Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:26.792Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594386791 to /home/caleb/.claude.json
+2026-02-08T23:46:26.793Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:27.581Z [DEBUG] [STARTUP] showSetupScreens() completed in 4987ms
+2026-02-08T23:46:27.582Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-08T23:46:27.582Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-08T23:46:27.582Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-08T23:46:27.588Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-08T23:46:27.588Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-08T23:46:27.596Z [DEBUG] Passes: Cache stale, returning cached data and refreshing in background
+2026-02-08T23:46:27.597Z [DEBUG] Total LSP servers loaded: 0
+2026-02-08T23:46:27.597Z [DEBUG] [STARTUP] MCP configs loaded in 5016ms
+2026-02-08T23:46:27.604Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-02-08T23:46:27.608Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594387608
+2026-02-08T23:46:27.608Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:27.609Z [DEBUG] Temp file written successfully, size: 11842 bytes
+2026-02-08T23:46:27.609Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:27.610Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594387608 to /home/caleb/.claude.json
+2026-02-08T23:46:27.610Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:27.612Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-08T23:46:27.612Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-08T23:46:27.618Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-08T23:46:27.618Z [DEBUG] Found 0 hook matchers in settings
+2026-02-08T23:46:27.618Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-08T23:46:27.618Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-08T23:46:27.618Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-08T23:46:27.619Z [DEBUG] LSP server manager initialized successfully
+2026-02-08T23:46:27.619Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-08T23:46:27.620Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-08T23:46:27.624Z [DEBUG] [render] initLayout starting
+2026-02-08T23:46:27.962Z [DEBUG] [render] initLayout complete
+2026-02-08T23:46:27.970Z [DEBUG] [keybindings] KeybindingSetup initialized with 100 bindings, 0 warnings
+2026-02-08T23:46:28.008Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-02-08T23:46:28.010Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-02-08T23:46:28.010Z [DEBUG] performStartupChecks called
+2026-02-08T23:46:28.011Z [DEBUG] Starting background plugin installations
+2026-02-08T23:46:28.011Z [DEBUG] performBackgroundPluginInstallations called
+2026-02-08T23:46:28.012Z [DEBUG] [render] first ink render: 5656ms since process start
+2026-02-08T23:46:28.028Z [DEBUG] Watching for changes in setting files /home/caleb/.claude/settings.json, /home/caleb/.claude/settings.local.json...
+2026-02-08T23:46:28.031Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594388031
+2026-02-08T23:46:28.031Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:28.031Z [DEBUG] Temp file written successfully, size: 11841 bytes
+2026-02-08T23:46:28.031Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:28.031Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594388031 to /home/caleb/.claude.json
+2026-02-08T23:46:28.031Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:28.032Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-08T23:46:28.032Z [DEBUG] [claudeai-mcp] Gate returned: true
+2026-02-08T23:46:28.032Z [DEBUG] [claudeai-mcp] Fetching from https://api.anthropic.com/v1/mcp_servers?limit=1000
+2026-02-08T23:46:28.035Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-02-08T23:46:28.036Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594388036
+2026-02-08T23:46:28.036Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:28.037Z [DEBUG] Temp file written successfully, size: 11840 bytes
+2026-02-08T23:46:28.037Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:28.037Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594388036 to /home/caleb/.claude.json
+2026-02-08T23:46:28.037Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:28.037Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-08T23:46:28.037Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-08T23:46:28.039Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-02-08T23:46:28.039Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-08T23:46:28.062Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-08T23:46:28.078Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594388078
+2026-02-08T23:46:28.078Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:28.079Z [DEBUG] Temp file written successfully, size: 11840 bytes
+2026-02-08T23:46:28.079Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:28.079Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594388078 to /home/caleb/.claude.json
+2026-02-08T23:46:28.079Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:28.081Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594388081
+2026-02-08T23:46:28.081Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:28.081Z [DEBUG] Temp file written successfully, size: 11840 bytes
+2026-02-08T23:46:28.081Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:28.081Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594388081 to /home/caleb/.claude.json
+2026-02-08T23:46:28.081Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:28.121Z [DEBUG] [claudeai-mcp] Fetched 0 servers
+2026-02-08T23:46:28.175Z [DEBUG] Checking for native installer update to version 2.1.37
+2026-02-08T23:46:28.176Z [DEBUG] Downloading native installer version 2.1.37
+2026-02-08T23:46:28.804Z [DEBUG] Writing to temp file: /home/caleb/.claude.json.tmp.2395.1770594388804
+2026-02-08T23:46:28.804Z [DEBUG] Preserving file permissions: 100600
+2026-02-08T23:46:28.805Z [DEBUG] Temp file written successfully, size: 11840 bytes
+2026-02-08T23:46:28.805Z [DEBUG] Applied original permissions to temp file
+2026-02-08T23:46:28.805Z [DEBUG] Renaming /home/caleb/.claude.json.tmp.2395.1770594388804 to /home/caleb/.claude.json
+2026-02-08T23:46:28.805Z [DEBUG] File /home/caleb/.claude.json written atomically
+2026-02-08T23:46:28.805Z [DEBUG] Passes eligibility cached for org 1d550213-5a22-4bd4-913f-c3a1c99a4882: true
+2026-02-08T23:46:32.228Z [DEBUG] Atomically installed binary to /home/caleb/.local/share/claude/versions/2.1.37
+2026-02-08T23:46:32.239Z [DEBUG] Created directory /home/caleb/.local/bin for symlink
+2026-02-08T23:46:32.240Z [DEBUG] Atomically updated symlink /home/caleb/.local/bin/claude -> /home/caleb/.local/share/claude/versions/2.1.37
+2026-02-08T23:46:32.241Z [DEBUG] Successfully updated to version 2.1.37
+2026-02-08T23:46:33.509Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-02-08T23:46:33.509Z [DEBUG] Found 0 hook matchers in settings
+2026-02-08T23:46:33.509Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

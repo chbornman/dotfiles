@@ -6,7 +6,7 @@
 
     "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "hyprland/submap"],
     "modules-center": [],
-    "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "clock"],
+    "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "custom/calendar"],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -19,59 +19,49 @@
         "format": "{}"
     },
 
-    "clock": {
-        "format": "{:%a %d %b  %H:%M}",
-        "tooltip": false,
-        "on-hover": "~/.local/bin/calendar-floating-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin calendar"
+    "custom/calendar": {
+        "exec": "~/.local/bin/hovermenu-ctl follow calendar",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click calendar"
     },
 
     "custom/audio": {
-        "exec": "~/.local/bin/waybar-audio-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow audio",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/audio-terminal-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin audio",
-        "on-scroll-up": "~/.local/bin/vol up",
-        "on-scroll-down": "~/.local/bin/vol down"
+        "on-click": "~/.local/bin/hovermenu-ctl click audio",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action audio"
     },
 
     "custom/cpu": {
-        "exec": "~/.local/bin/waybar-cpu-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow cpu",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/btop-floating-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin cpu"
+        "on-click": "~/.local/bin/hovermenu-ctl click cpu"
     },
 
     "custom/battery": {
-        "exec": "~/.local/bin/battery-info-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow battery",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/power-floating-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin battery"
+        "on-click": "~/.local/bin/hovermenu-ctl click battery"
     },
 
     "custom/network": {
-        "exec": "~/.local/bin/waybar-network-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow network",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/wifi-terminal-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin network"
+        "on-click": "~/.local/bin/hovermenu-ctl click network",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action network"
     },
 
     "custom/bluetooth": {
-        "exec": "~/.local/bin/waybar-bluetooth-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow bluetooth",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/bluetooth-terminal-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin bluetooth"
+        "on-click": "~/.local/bin/hovermenu-ctl click bluetooth",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action bluetooth"
     },
 
     "custom/screencast": {
@@ -82,12 +72,11 @@
     },
 
     "custom/mail": {
-        "exec": "~/.local/bin/waybar-mail-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow mail",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/mail-terminal-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/waybar-menu-pin mail"
+        "on-click": "~/.local/bin/hovermenu-ctl click mail",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action mail"
     },
 
     "custom/whisper": {
@@ -100,11 +89,9 @@
     },
 
     "custom/localsend": {
-        "exec": "~/.local/bin/waybar-localsend-loop",
+        "exec": "~/.local/bin/hovermenu-ctl follow localsend",
         "return-type": "json",
         "format": "{}",
-        "on-hover": "~/.local/bin/localsend-floating-menu",
-        "on-hover-leave": "~/.local/bin/waybar-menu-close",
-        "on-click": "~/.local/bin/localsend-toggle"
+        "on-click": "~/.local/bin/hovermenu-ctl click localsend"
     }
 }

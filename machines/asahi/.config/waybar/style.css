@@ -68,23 +68,7 @@ window#waybar {
     color: #1a1917;
 }
 
-#clock {
-    padding: 0 12px;
-    color: #8c8985;
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    margin: 4px 6px;
-}
-
-#clock:hover {
-    color: #f7f7f5;
-}
-
-#clock:active {
-    background-color: #d4a366;
-    color: #1a1917;
-}
-
+#custom-calendar,
 #custom-mail,
 #custom-localsend,
 #custom-audio,
@@ -99,6 +83,7 @@ window#waybar {
     margin: 4px 3px;
 }
 
+#custom-calendar:hover,
 #custom-mail:hover,
 #custom-localsend:hover,
 #custom-audio:hover,
@@ -109,6 +94,7 @@ window#waybar {
     color: #f7f7f5;
 }
 
+#custom-calendar.active,
 #custom-mail.active,
 #custom-localsend.active,
 #custom-audio.active,
@@ -116,7 +102,7 @@ window#waybar {
 #custom-battery.active,
 #custom-network.active,
 #custom-bluetooth.active,
-#clock.pinned,
+#custom-calendar.pinned,
 #custom-mail.pinned,
 #custom-localsend.pinned,
 #custom-audio.pinned,
@@ -159,8 +145,8 @@ window#waybar {
 #custom-whisper {
     padding: 0 12px;
     font-size: 14px;
-    color: #d4a366;
-    background-color: #4a3828;
+    color: #8c8985;
+    background-color: #1a1a1a;
     border-radius: 16px;
     margin: 4px 3px;
 }

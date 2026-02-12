@@ -1,0 +1,958 @@
+/* Capstan Cloud Theme for GTK4 */
+
+/* ==========================================
+   Color Definitions
+   ========================================== */
+
+@define-color bg_primary #1a1917;
+@define-color bg_darker #0f0e0d;
+@define-color bg_elevated #262422;
+@define-color bg_hover #393634;
+@define-color bg_brass_dark #4a3828;
+@define-color bg_brass_hover #5a4535;
+
+@define-color accent #d4a366;
+@define-color accent_light #ffd591;
+
+@define-color text_primary #f7f7f5;
+@define-color text_muted #8c8985;
+@define-color text_on_accent #1a1917;
+
+@define-color border_active #d4a366;
+@define-color border_inactive #393634;
+
+@define-color error #ff4d4f;
+@define-color warning #faad14;
+@define-color success #95de64;
+@define-color info #597ef7;
+
+/* Override Adwaita's accent color system at the root */
+@define-color accent_color #d4a366;
+@define-color accent_bg_color #d4a366;
+@define-color accent_fg_color #1a1917;
+@define-color focus_border_color #d4a366;
+
+/* Override Adwaita base colors */
+@define-color window_bg_color #1a1917;
+@define-color window_fg_color #f7f7f5;
+@define-color view_bg_color #1a1917;
+@define-color view_fg_color #f7f7f5;
+@define-color headerbar_bg_color #0f0e0d;
+@define-color headerbar_fg_color #f7f7f5;
+@define-color card_bg_color #262422;
+@define-color card_fg_color #f7f7f5;
+@define-color dialog_bg_color #1a1917;
+@define-color dialog_fg_color #f7f7f5;
+@define-color popover_bg_color #262422;
+@define-color popover_fg_color #f7f7f5;
+@define-color sidebar_bg_color #0f0e0d;
+@define-color sidebar_fg_color #f7f7f5;
+@define-color shade_color rgba(0, 0, 0, 0.36);
+@define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
+
+/* ==========================================
+   Global focus/outline override — kill all blue
+   ========================================== */
+
+* {
+    outline-color: @accent;
+    -gtk-secondary-caret-color: @accent;
+}
+
+*:focus, *:focus-within, *:focus-visible {
+    outline-color: @accent;
+    box-shadow: none;
+}
+
+/* Nuclear: override the Adwaita accent everywhere */
+@define-color accent_color @accent;
+@define-color accent_bg_color @accent;
+@define-color accent_fg_color @text_on_accent;
+
+/* ==========================================
+   Window & Main Containers
+   ========================================== */
+
+window,
+window.background,
+.nautilus-window {
+    background-color: @bg_primary;
+    color: @text_primary;
+}
+
+/* ==========================================
+   Header Bar
+   ========================================== */
+
+headerbar,
+.titlebar {
+    background-color: @bg_darker;
+    color: @text_primary;
+    border-bottom: 1px solid @border_inactive;
+    box-shadow: none;
+}
+
+headerbar button,
+.titlebar button {
+    background-color: transparent;
+    color: @text_primary;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-height: 24px;
+}
+
+headerbar button:hover,
+.titlebar button:hover {
+    background-color: @bg_elevated;
+}
+
+headerbar button:active,
+.titlebar button:active,
+headerbar button:checked,
+.titlebar button:checked {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+headerbar .title,
+.titlebar .title {
+    color: @text_primary;
+    font-weight: 600;
+}
+
+/* ==========================================
+   Sidebar / Navigation
+   ========================================== */
+
+.sidebar,
+.navigation-sidebar,
+placessidebar,
+placessidebar list,
+placessidebar scrolledwindow,
+.nautilus-window .sidebar-pane,
+.sidebar-pane {
+    background-color: @bg_darker;
+    border-right: 1px solid @border_inactive;
+}
+
+.sidebar banner,
+.navigation-sidebar banner,
+placessidebar banner,
+.sidebar-banner,
+.nautilus-window banner,
+banner {
+    background-color: @bg_darker;
+    color: @text_primary;
+}
+
+.sidebar > box,
+.navigation-sidebar > box,
+placessidebar > box {
+    background-color: @bg_darker;
+}
+
+.sidebar row,
+.navigation-sidebar row,
+placessidebar row {
+    color: @text_primary;
+    border-radius: 6px;
+    margin: 2px 6px;
+    padding: 6px 10px;
+    background-color: transparent;
+}
+
+.sidebar row:hover,
+.navigation-sidebar row:hover,
+placessidebar row:hover {
+    background-color: @bg_elevated;
+}
+
+.sidebar row:selected,
+.navigation-sidebar row:selected,
+placessidebar row:selected {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+.sidebar row:selected:hover,
+placessidebar row:selected:hover {
+    background-color: @bg_brass_hover;
+}
+
+.sidebar-section-label,
+placessidebar .sidebar-section-label {
+    color: @text_muted;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: transparent;
+}
+
+/* ==========================================
+   Main Content Area
+   ========================================== */
+
+.view,
+.content-view,
+gridview,
+listview,
+columnview {
+    background-color: @bg_primary;
+    color: @text_primary;
+}
+
+gridview > child,
+listview > row,
+columnview > row,
+.content-view .view {
+    background-color: transparent;
+    color: @text_primary;
+    border-radius: 8px;
+}
+
+gridview > child:hover,
+listview > row:hover,
+columnview > row:hover {
+    background-color: @bg_elevated;
+}
+
+gridview > child:selected,
+listview > row:selected,
+columnview > row:selected {
+    background-color: @bg_brass_dark;
+    color: @text_primary;
+}
+
+gridview > child:selected:hover,
+listview > row:selected:hover,
+columnview > row:selected:hover {
+    background-color: @bg_brass_hover;
+}
+
+/* ==========================================
+   Path Bar / Breadcrumbs
+   ========================================== */
+
+.path-bar button,
+.linked.path-bar > button {
+    background-color: transparent;
+    color: @text_primary;
+    border: none;
+    border-radius: 6px;
+}
+
+.path-bar button:hover {
+    background-color: @bg_elevated;
+}
+
+.path-bar button:checked,
+.path-bar button:active {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+/* ==========================================
+   Search Entry / Text Entry
+   ========================================== */
+
+searchentry,
+entry {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border: 1px solid @border_inactive;
+    border-radius: 8px;
+    padding: 8px 12px;
+    caret-color: @accent;
+}
+
+searchentry:focus, searchentry:focus-within,
+entry:focus, entry:focus-within {
+    border-color: @accent;
+    outline-color: @accent;
+    box-shadow: 0 0 0 2px alpha(@accent, 0.2);
+}
+
+searchentry placeholder,
+entry placeholder {
+    color: @text_muted;
+}
+
+/* ==========================================
+   Scrollbars
+   ========================================== */
+
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: @bg_hover;
+    border-radius: 10px;
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: @text_muted;
+}
+
+scrollbar slider:active {
+    background-color: @accent;
+}
+
+/* ==========================================
+   Context Menus & Popovers
+   ========================================== */
+
+popover,
+popover.background,
+popover > contents,
+menu,
+.context-menu {
+    background-color: @bg_darker;
+    color: @text_primary;
+    border: 1px solid @border_inactive;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+popover modelbutton,
+popover button,
+menu menuitem,
+.context-menu menuitem {
+    color: @text_primary;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 2px 4px;
+}
+
+popover modelbutton:hover,
+popover button:hover,
+menu menuitem:hover,
+.context-menu menuitem:hover {
+    background-color: @bg_elevated;
+}
+
+popover modelbutton:active,
+menu menuitem:active {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+accelerator {
+    color: @text_muted;
+}
+
+/* ==========================================
+   Buttons (General)
+   ========================================== */
+
+button {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border: 1px solid @border_inactive;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: all 150ms ease;
+}
+
+button:hover {
+    background-color: @bg_hover;
+    border-color: @text_muted;
+}
+
+button:active,
+button:checked {
+    background-color: @bg_brass_dark;
+    border-color: @accent;
+    color: @accent;
+}
+
+/* Buttons that lost focus — prevent white background */
+button:backdrop {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+button:checked:backdrop {
+    background-color: @bg_brass_dark;
+    color: @accent;
+    border-color: @accent;
+}
+
+button.suggested-action {
+    background-color: @accent;
+    color: @text_on_accent;
+    border-color: @accent;
+    font-weight: 600;
+}
+
+button.suggested-action:hover {
+    background-color: @accent_light;
+    border-color: @accent_light;
+}
+
+button.destructive-action {
+    background-color: @error;
+    color: @text_primary;
+    border-color: @error;
+}
+
+button.destructive-action:hover {
+    background-color: alpha(@error, 0.8);
+}
+
+/* ==========================================
+   Toggle / Lock buttons (pavucontrol lock btn)
+   ========================================== */
+
+button.toggle,
+button.lock,
+togglebutton {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+button.toggle:checked,
+button.lock:checked,
+togglebutton:checked {
+    background-color: @bg_brass_dark;
+    color: @accent;
+    border-color: @accent;
+}
+
+button.toggle:backdrop,
+button.lock:backdrop,
+togglebutton:backdrop {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+button.toggle:checked:backdrop,
+button.lock:checked:backdrop,
+togglebutton:checked:backdrop {
+    background-color: @bg_brass_dark;
+    color: @accent;
+    border-color: @accent;
+}
+
+/* ==========================================
+   Selection & Rubberband
+   ========================================== */
+
+.rubberband,
+rubberband {
+    background-color: alpha(@accent, 0.2);
+    border: 1px solid @accent;
+}
+
+selection {
+    background-color: @accent;
+    color: @text_on_accent;
+}
+
+/* ==========================================
+   Tooltips
+   ========================================== */
+
+tooltip,
+tooltip.background {
+    background-color: @bg_darker;
+    color: @text_primary;
+    border: 1px solid @border_inactive;
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+/* ==========================================
+   Progress Bars
+   ========================================== */
+
+progressbar trough {
+    background-color: @bg_elevated;
+    border-radius: 4px;
+}
+
+progressbar progress {
+    background-color: @accent;
+    border-radius: 4px;
+}
+
+/* ==========================================
+   Checkboxes & Radio Buttons
+   ========================================== */
+
+checkbutton check,
+radiobutton radio,
+check, radio {
+    background-color: @bg_elevated;
+    border: 2px solid @border_inactive;
+    border-radius: 4px;
+    min-width: 18px;
+    min-height: 18px;
+}
+
+checkbutton check:hover,
+radiobutton radio:hover {
+    border-color: @text_muted;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked,
+check:checked, radio:checked {
+    background-color: @accent;
+    border-color: @accent;
+    color: @text_on_accent;
+}
+
+radiobutton radio {
+    border-radius: 50%;
+}
+
+/* ==========================================
+   Separators
+   ========================================== */
+
+separator {
+    background-color: @border_inactive;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+/* ==========================================
+   Info Bars
+   ========================================== */
+
+infobar {
+    background-color: @bg_elevated;
+    border-bottom: 1px solid @border_inactive;
+}
+
+infobar.info {
+    background-color: alpha(@info, 0.15);
+    border-color: @info;
+}
+
+infobar.warning {
+    background-color: alpha(@warning, 0.15);
+    border-color: @warning;
+}
+
+infobar.error {
+    background-color: alpha(@error, 0.15);
+    border-color: @error;
+}
+
+/* ==========================================
+   Floating Bar
+   ========================================== */
+
+.floating-bar {
+    background-color: @bg_darker;
+    color: @text_muted;
+    border-radius: 8px;
+    padding: 4px 12px;
+    margin: 8px;
+    border: 1px solid @border_inactive;
+}
+
+/* ==========================================
+   Placeholder / Dim
+   ========================================== */
+
+.dim-label,
+.placeholder {
+    color: @text_muted;
+}
+
+/* ==========================================
+   Thumbnails
+   ========================================== */
+
+.thumbnail {
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   Emblems & Badges
+   ========================================== */
+
+.emblem {
+    background-color: @accent;
+    color: @text_on_accent;
+    border-radius: 50%;
+}
+
+/* ==========================================
+   Folder Icons - Recolor to Gold (Nautilus)
+   ========================================== */
+
+.nautilus-canvas-item.folder image,
+.nautilus-list-view .folder image,
+gridview .folder-icon,
+listview .folder-icon,
+image.folder,
+.icon-item-icon image {
+    -gtk-icon-filter: none;
+}
+
+.view image,
+gridview image,
+listview image,
+columnview image {
+    -gtk-icon-palette: warning @accent, success @success, error @error;
+}
+
+.navigation-sidebar image,
+placessidebar image,
+.sidebar image {
+    -gtk-icon-palette: warning @accent, success @success, error @error;
+    color: @accent;
+}
+
+.folder image,
+image.icon-dropshadow {
+    -gtk-icon-palette: warning @accent, success @success, error @error;
+}
+
+.nautilus-window image.icon-dropshadow,
+.content-view image {
+    -gtk-icon-palette: warning @accent, success @success, error @error;
+}
+
+.view .icon image,
+.content-view .icon image,
+flowboxchild image {
+    -gtk-icon-palette: warning @accent, success @success, error @error;
+}
+
+/* ==========================================
+   Scales / Sliders (pavucontrol volume)
+   ========================================== */
+
+scale trough {
+    background-color: @bg_darker;
+    border-color: @border_inactive;
+    border-radius: 6px;
+    outline-color: @accent;
+}
+
+scale trough highlight,
+scale fill {
+    background-color: @accent;
+    border-color: @accent;
+    border-radius: 6px;
+    outline-color: @accent;
+}
+
+scale slider {
+    background-color: @accent_light;
+    border-color: @accent;
+    border-radius: 50%;
+    box-shadow: none;
+    outline-color: @accent;
+    min-width: 16px;
+    min-height: 16px;
+    margin: -6px;
+}
+
+scale:focus trough highlight,
+scale:focus-within trough highlight {
+    background-color: @accent;
+    border-color: @accent;
+}
+
+scale slider:focus, scale slider:focus-visible,
+scale slider:hover {
+    border-color: @accent;
+    outline-color: @accent;
+    box-shadow: none;
+}
+
+/* ==========================================
+   Level Bars (VU meters in pavucontrol)
+   ========================================== */
+
+levelbar, levelbar * {
+    outline: none;
+    outline-width: 0;
+    outline-color: transparent;
+    box-shadow: none;
+}
+
+levelbar trough {
+    background-color: @bg_darker;
+    border: 1px solid @border_inactive;
+    outline: none;
+}
+
+levelbar block {
+    border: none;
+    outline: none;
+}
+
+levelbar block.empty {
+    background-color: @bg_darker;
+    border: none;
+}
+
+levelbar block.filled,
+levelbar block.filled.low {
+    background-color: @accent;
+    border: none;
+}
+
+levelbar block.filled.high {
+    background-color: @success;
+    border: none;
+}
+
+levelbar block.filled.peak,
+levelbar block.filled.full {
+    background-color: @error;
+    border: none;
+}
+
+levelbar:focus, levelbar:focus-within, levelbar:focus-visible,
+levelbar trough:focus, levelbar trough:focus-visible {
+    outline: none;
+    outline-width: 0;
+    outline-color: transparent;
+    border-color: @border_inactive;
+    box-shadow: none;
+}
+
+/* ==========================================
+   Switches
+   ========================================== */
+
+switch {
+    background-color: @bg_elevated;
+    border-color: @border_inactive;
+}
+
+switch:checked {
+    background-color: @accent;
+    border-color: @accent;
+}
+
+switch slider {
+    background-color: @text_primary;
+}
+
+/* ==========================================
+   Notebook tabs (pavucontrol tab bar)
+   ========================================== */
+
+notebook > header {
+    background-color: @bg_darker;
+    border-color: @border_inactive;
+}
+
+notebook > header > tabs > tab {
+    background-color: @bg_darker;
+    color: @text_muted;
+    border-color: transparent;
+    outline-color: @accent;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: @bg_primary;
+    color: @text_primary;
+    border-color: transparent;
+    border-bottom: 2px solid @accent;
+    outline-color: @accent;
+}
+
+/* Kill Adwaita's blue tab indicator */
+notebook > header > tabs > tab:checked {
+    box-shadow: none;
+}
+
+tabbar tab indicator, tab indicator {
+    background-color: @accent;
+}
+
+/* ==========================================
+   Combo boxes / Dropdowns
+   ========================================== */
+
+dropdown, dropdown *,
+combobox, combobox *,
+.combo, .combo * {
+    background-color: @bg_elevated;
+    background-image: none;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+combobox > button,
+combobox > button > box,
+combobox > button > box > cellview,
+combobox cellview,
+combobox arrow {
+    background-color: @bg_elevated;
+    background-image: none;
+    color: @text_primary;
+}
+
+dropdown > button, dropdown button {
+    background-color: @bg_elevated;
+    background-image: none;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+dropdown > popover > contents listview > row:hover,
+combobox window > frame > listbox > row:hover {
+    background-color: @bg_hover;
+}
+
+dropdown > popover > contents listview > row:selected,
+combobox window > frame > listbox > row:selected {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+combobox window, combobox window > frame,
+combobox window > frame > listbox,
+combobox window > frame > listbox > row {
+    background-color: @bg_elevated;
+    color: @text_primary;
+}
+
+/* ==========================================
+   Spinbuttons
+   ========================================== */
+
+spinbutton {
+    background-color: @bg_darker;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+/* ==========================================
+   Lists
+   ========================================== */
+
+list, listbox, list > row, listbox > row {
+    background-color: @bg_primary;
+    color: @text_primary;
+}
+
+list > row:hover, listbox > row:hover {
+    background-color: @bg_elevated;
+}
+
+list > row:selected, listbox > row:selected {
+    background-color: @bg_brass_dark;
+    color: @accent;
+}
+
+/* ==========================================
+   Scrolled windows
+   ========================================== */
+
+scrolledwindow, viewport {
+    background-color: @bg_primary;
+}
+
+/* ==========================================
+   Action bars / Bottom bars
+   ========================================== */
+
+actionbar, actionbar > revealer > box,
+.action-bar, .bottom-bar,
+toolbar, .toolbar,
+statusbar {
+    background-color: @bg_darker;
+    color: @text_primary;
+    border-top: 1px solid @border_inactive;
+}
+
+/* ==========================================
+   Transparent containers
+   ========================================== */
+
+box, grid, frame, overlay, stack,
+paned, paned > separator {
+    background-color: transparent;
+}
+
+frame > border {
+    border-color: @border_inactive;
+}
+
+.card, card {
+    background-color: @bg_elevated;
+    color: @text_primary;
+    border-color: @border_inactive;
+}
+
+/* ==========================================
+   Backdrop (unfocused window) overrides
+   ========================================== */
+
+window:backdrop, window.background:backdrop {
+    background-color: @bg_primary;
+    color: @text_primary;
+}
+
+headerbar:backdrop, .titlebar:backdrop {
+    background-color: @bg_darker;
+    color: @text_primary;
+}
+
+notebook > header:backdrop {
+    background-color: @bg_darker;
+}
+
+notebook > header > tabs > tab:backdrop {
+    background-color: @bg_darker;
+    color: @text_muted;
+}
+
+notebook > header > tabs > tab:checked:backdrop {
+    background-color: @bg_primary;
+    color: @text_primary;
+    border-bottom: 2px solid @accent;
+}
+
+scale:backdrop trough highlight,
+scale:backdrop fill {
+    background-color: @accent;
+    border-color: @accent;
+}
+
+scale:backdrop slider {
+    background-color: @accent_light;
+    border-color: @accent;
+}
+
+levelbar:backdrop block.filled {
+    background-color: @accent;
+    border-color: @accent;
+}
+
+/* ==========================================
+   Dialogs
+   ========================================== */
+
+dialog,
+messagedialog {
+    background-color: @bg_primary;
+    color: @text_primary;
+    border-radius: 16px;
+}
+
+dialog headerbar,
+messagedialog headerbar {
+    background-color: @bg_primary;
+    border-bottom: none;
+}

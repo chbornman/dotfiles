@@ -1,0 +1,302 @@
+/* Capstan Cloud theme override for GTK3 apps (pavucontrol, etc.) */
+/* Layered on top of Adwaita-dark */
+
+/* ===== Force all backgrounds ===== */
+* {
+    -gtk-icon-shadow: none;
+    text-shadow: none;
+}
+
+window, dialog, .background {
+    background-color: #1a1917;
+    background-image: none;
+    color: #f7f7f5;
+}
+
+/* Headerbar */
+headerbar, .titlebar,
+headerbar:backdrop, .titlebar:backdrop {
+    background-color: #0f0e0d;
+    background-image: none;
+    color: #f7f7f5;
+    border-bottom: 1px solid #393634;
+    box-shadow: none;
+}
+
+/* Main content area */
+.view, iconview, textview, textview text {
+    background-color: #1a1917;
+    background-image: none;
+    color: #f7f7f5;
+}
+
+scrolledwindow, viewport {
+    background-color: #1a1917;
+    background-image: none;
+}
+
+/* Elevated surfaces (notebooks, cards) */
+notebook, notebook > stack, .frame, frame > border {
+    background-color: #262422;
+    background-image: none;
+    border-color: #393634;
+}
+
+notebook > header {
+    background-color: #1a1917;
+    background-image: none;
+    border-color: #393634;
+}
+
+notebook > header > tabs > tab {
+    background-color: #1a1917;
+    background-image: none;
+    color: #8c8985;
+    border-color: #393634;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: #262422;
+    background-image: none;
+    color: #f7f7f5;
+    border-bottom: 2px solid #d4a366;
+}
+
+/* Grid/box containers */
+grid, box {
+    background-color: transparent;
+    background-image: none;
+}
+
+/* Lists and tree views */
+treeview, list, listbox, row, listbox row {
+    background-color: #1a1917;
+    background-image: none;
+    color: #f7f7f5;
+}
+
+treeview:hover, list row:hover, listbox row:hover {
+    background-color: #262422;
+    background-image: none;
+}
+
+treeview:selected, list row:selected, listbox row:selected {
+    background-color: #d4a366;
+    background-image: none;
+    color: #1a1917;
+}
+
+/* Buttons */
+button, button.flat, button.toggle {
+    background-image: none;
+    background-color: #262422;
+    color: #f7f7f5;
+    border-color: #393634;
+    box-shadow: none;
+}
+
+button:hover, button.flat:hover, button.toggle:hover {
+    background-image: none;
+    background-color: #393634;
+}
+
+button:active, button:checked,
+button.toggle:checked, button.flat:active {
+    background-image: none;
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+button:disabled {
+    background-image: none;
+    background-color: #262422;
+    color: #8c8985;
+}
+
+/* Scales/sliders (volume sliders in pavucontrol) */
+scale trough {
+    background-color: #0f0e0d;
+    background-image: none;
+    border-color: #393634;
+}
+
+scale highlight {
+    background-color: #d4a366;
+    background-image: none;
+    border-color: #d4a366;
+}
+
+scale slider {
+    background-color: #ffd591;
+    background-image: none;
+    border-color: #d4a366;
+    box-shadow: none;
+}
+
+/* Progress bars */
+progressbar trough {
+    background-color: #0f0e0d;
+    background-image: none;
+}
+
+progressbar progress {
+    background-color: #d4a366;
+    background-image: none;
+}
+
+/* Level bars (VU meters in pavucontrol) */
+levelbar trough {
+    background-color: #0f0e0d;
+    background-image: none;
+}
+
+levelbar block {
+    background-image: none;
+}
+
+levelbar block.filled {
+    background-color: #95de64;
+    border-color: #95de64;
+}
+
+levelbar block.filled.high {
+    background-color: #95de64;
+}
+
+levelbar block.filled.peak, levelbar block.filled.full {
+    background-color: #ff4d4f;
+}
+
+/* Combo boxes and dropdowns */
+combobox, combobox button, combobox button.combo {
+    background-color: #262422;
+    background-image: none;
+    color: #f7f7f5;
+    border-color: #393634;
+}
+
+/* Menus and popovers */
+menu, popover, popover.background, .popup {
+    background-color: #262422;
+    background-image: none;
+    color: #f7f7f5;
+    border-color: #393634;
+}
+
+menu menuitem, popover modelbutton {
+    background-image: none;
+    color: #f7f7f5;
+}
+
+menu menuitem:hover, popover modelbutton:hover {
+    background-color: #d4a366;
+    background-image: none;
+    color: #1a1917;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: #1a1917;
+    background-image: none;
+}
+
+scrollbar slider {
+    background-color: #393634;
+    background-image: none;
+}
+
+scrollbar slider:hover {
+    background-color: #d4a366;
+}
+
+/* Entry fields */
+entry {
+    background-color: #0f0e0d;
+    background-image: none;
+    color: #f7f7f5;
+    border-color: #393634;
+    caret-color: #d4a366;
+}
+
+entry:focus {
+    border-color: #d4a366;
+    box-shadow: none;
+}
+
+/* Separators */
+separator {
+    background-color: #393634;
+    background-image: none;
+}
+
+/* Labels */
+label {
+    color: #f7f7f5;
+}
+
+label.dim-label, .dim-label {
+    color: #8c8985;
+}
+
+/* Check and radio buttons */
+check, radio {
+    background-color: #262422;
+    background-image: none;
+    border-color: #393634;
+}
+
+check:checked, radio:checked {
+    background-color: #d4a366;
+    background-image: none;
+    border-color: #d4a366;
+    color: #1a1917;
+}
+
+/* Tooltips */
+tooltip, tooltip.background {
+    background-color: #262422;
+    background-image: none;
+    color: #f7f7f5;
+    border-color: #d4a366;
+}
+
+/* Spinbuttons */
+spinbutton {
+    background-color: #0f0e0d;
+    background-image: none;
+    color: #f7f7f5;
+    border-color: #393634;
+}
+
+/* Toolbar */
+toolbar, .toolbar {
+    background-color: #1a1917;
+    background-image: none;
+    border-color: #393634;
+}
+
+/* Info bars */
+infobar {
+    background-color: #262422;
+    background-image: none;
+}
+
+/* Stack switcher */
+stackswitcher button {
+    background-image: none;
+    background-color: #1a1917;
+    color: #8c8985;
+}
+
+stackswitcher button:checked {
+    background-image: none;
+    background-color: #262422;
+    color: #f7f7f5;
+    border-bottom: 2px solid #d4a366;
+}
+
+/* Paned separator */
+paned > separator {
+    background-color: #393634;
+    background-image: none;
+}

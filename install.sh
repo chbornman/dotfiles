@@ -98,6 +98,18 @@ install_shared() {
     mkdir -p ~/.config/waybar-hovermenu
     link "$DOTFILES/shared/waybar-hovermenu/config.toml" ~/.config/waybar-hovermenu/config.toml
 
+    # Yazi
+    mkdir -p ~/.config/yazi
+    link "$DOTFILES/shared/yazi/yazi.toml"   ~/.config/yazi/yazi.toml
+    link "$DOTFILES/shared/yazi/theme.toml"  ~/.config/yazi/theme.toml
+    link "$DOTFILES/shared/yazi/keymap.toml" ~/.config/yazi/keymap.toml
+
+    # GTK themes (Capstan Cloud)
+    mkdir -p ~/.config/gtk-3.0
+    link "$DOTFILES/shared/gtk-3.0/gtk.css" ~/.config/gtk-3.0/gtk.css
+    mkdir -p ~/.config/gtk-4.0
+    link "$DOTFILES/shared/gtk-4.0/gtk.css" ~/.config/gtk-4.0/gtk.css
+
     # Ghostty
     mkdir -p ~/.config/ghostty
     link "$DOTFILES/shared/ghostty/config" ~/.config/ghostty/config

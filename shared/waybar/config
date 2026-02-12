@@ -4,7 +4,7 @@
     "height": 32,
     "spacing": 0,
 
-    "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "custom/screenshot", "custom/screenrecord", "hyprland/submap"],
+    "modules-left": ["hyprland/workspaces", "custom/caffeine", "custom/mail", "custom/localsend", "custom/whisper", "custom/screenshot", "custom/screenrecord", "hyprland/submap"],
     "modules-center": [],
     "modules-right": ["custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "custom/calendar"],
 
@@ -98,6 +98,14 @@
         "format": "{}",
         "on-click": "~/projects/asahi-whisper-daemon/toggle_stream.sh",
         "on-click-right": "~/projects/asahi-whisper-daemon/switch_model.sh",
+        "tooltip": true
+    },
+
+    "custom/caffeine": {
+        "exec": "~/.local/bin/waybar-caffeine",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/caffeine-toggle",
         "tooltip": true
     },
 

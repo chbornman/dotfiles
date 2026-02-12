@@ -1,0 +1,21 @@
+#!/bin/bash
+# Waybar module for caffeine (stay-awake toggle)
+# Outputs JSON status, watches state file for changes via inotifywait
+
+STATEFILE="/tmp/caffeine-active"
+WATCH_DIR="/tmp"
+
+output() {
+    if [ -f "$STATEFILE" ]; then
+        printf '{"text": "\uf0f4", "tooltip": "Caffeine active — idle/sleep/lock inhibited\\nClick to deactivate", "class": "active"}\n'
+    else
+        printf '{"text": "\uf0f4", "tooltip": "Caffeine inactive\\nClick to keep system awake", "class": "inactive"}\n'
+    fi
+}
+
+output
+
+while true; do
+    inotifywait -qq -e create -e delete -e modify -t 30 "$WATCH_DIR" --include 'caffeine-active' 2>/dev/null
+    output
+done

@@ -1,0 +1,16 @@
+#!/bin/bash
+# Restart waybar and hovermenu daemon together
+# Ensures hovermenu socket is ready before waybar starts
+
+killall waybar 2>/dev/null
+kill "$(pgrep -f waybar-hovermenu)" 2>/dev/null
+sleep 0.3
+
+~/.local/bin/waybar-hovermenu &disown
+
+# Wait for socket
+while [ ! -S /tmp/waybar-hovermenu.sock ]; do
+    sleep 0.1
+done
+
+waybar &disown

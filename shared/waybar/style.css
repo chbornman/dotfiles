@@ -118,6 +118,24 @@ window#waybar {
     color: #8c8985;
 }
 
+/* Caffeine module */
+#custom-caffeine {
+    padding: 0 12px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-caffeine:hover {
+    color: #f7f7f5;
+}
+
+#custom-caffeine.active {
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
 /* Screenshot module */
 #custom-screenshot {
     padding: 0 12px;

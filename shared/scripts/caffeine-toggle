@@ -1,0 +1,26 @@
+#!/bin/bash
+# Toggle caffeine mode on/off
+# When active, inhibits idle/sleep/lid-switch via systemd-inhibit,
+# preventing hypridle from dimming, locking, or suspending.
+
+STATEFILE="/tmp/caffeine-active"
+PIDFILE="/tmp/caffeine-inhibit.pid"
+
+if [ -f "$STATEFILE" ]; then
+    # Turn off: kill the inhibitor process and clean up
+    if [ -f "$PIDFILE" ]; then
+        kill "$(cat "$PIDFILE")" 2>/dev/null
+        rm -f "$PIDFILE"
+    fi
+    rm -f "$STATEFILE"
+else
+    # Turn on: launch systemd-inhibit in background
+    # Inhibit idle (prevents hypridle timeouts), sleep, and lid switch
+    systemd-inhibit --what=idle:sleep:handle-lid-switch \
+        --who="caffeine" \
+        --why="User requested stay-awake mode" \
+        --mode=block \
+        sleep infinity &
+    echo $! > "$PIDFILE"
+    touch "$STATEFILE"
+fi

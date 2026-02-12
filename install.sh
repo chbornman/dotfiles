@@ -32,10 +32,29 @@ link() {
     # Ensure parent directory exists
     mkdir -p "$(dirname "$dst")"
 
+    # Skip if destination already points to the correct source
+    if [ -L "$dst" ] && [ "$(readlink "$dst")" = "$src" ]; then
+        info "$(basename "$dst") → $src (already linked)"
+        return
+    fi
+
+    # Resolve the real path of src to detect circular links
+    local real_src
+    real_src="$(realpath "$src")"
+    local real_dst_dir
+    real_dst_dir="$(realpath "$(dirname "$dst")")"
+
     # Handle existing files
     if [ -L "$dst" ]; then
         rm "$dst"
     elif [ -e "$dst" ]; then
+        # Don't back up if the real paths match (same file via dir symlink)
+        local real_dst
+        real_dst="$(realpath "$dst")"
+        if [ "$real_src" = "$real_dst" ]; then
+            info "$(basename "$dst") → $src (already correct)"
+            return
+        fi
         local backup="${dst}.bak.$(date +%Y%m%d_%H%M%S)"
         warn "Backing up $dst → $backup"
         mv "$dst" "$backup"
@@ -99,13 +118,15 @@ install_shared() {
     # Starship
     link "$DOTFILES/shared/starship/starship.toml" ~/.config/starship.toml
 
-    # Shared scripts
+    # Shared scripts — link each into ~/.local/bin
+    # If ~/.local/bin is a dir symlink (into machines/<x>/.local/bin),
+    # we create symlinks to shared scripts inside that target directory.
     mkdir -p ~/.local/bin
-    link "$DOTFILES/shared/scripts/screenshot"  ~/.local/bin/screenshot
-    link "$DOTFILES/shared/scripts/screenrecord" ~/.local/bin/screenrecord
-    link "$DOTFILES/shared/scripts/vol"              ~/.local/bin/vol
-    link "$DOTFILES/shared/scripts/waybar-screenshot"  ~/.local/bin/waybar-screenshot
-    link "$DOTFILES/shared/scripts/waybar-screenrecord" ~/.local/bin/waybar-screenrecord
+    for script in "$DOTFILES"/shared/scripts/*; do
+        if [ -f "$script" ]; then
+            link "$script" ~/.local/bin/"$(basename "$script")"
+        fi
+    done
 
     # Nvim (stow-style, if the shared nvim dir has .config/nvim structure)
     if [ -d "$DOTFILES/shared/nvim/.config/nvim" ]; then
@@ -148,10 +169,10 @@ install_machine() {
     link "$machine_dir/machine.conf"   ~/.config/hypr/machine.conf
     link "$machine_dir/autostart.conf" ~/.config/hypr/autostart.conf
 
-    # Machine-specific scripts
+    # Machine-specific scripts (skip symlinks — those are shared script entries)
     if [ -d "$machine_dir/.local/bin" ]; then
         for script in "$machine_dir/.local/bin"/*; do
-            if [ -f "$script" ]; then
+            if [ -f "$script" ] && [ ! -L "$script" ]; then
                 link "$script" ~/.local/bin/"$(basename "$script")"
             fi
         done

@@ -55,3 +55,8 @@ default-timeout=5000
 [app-name=screenshot]
 default-timeout=5000
 on-button-left=exec makoctl dismiss; ghostty -e yazi "$(cat /tmp/last-screenshot)"
+
+# Screen recording notifications - click to open in file manager
+[app-name=screenrecord]
+default-timeout=5000
+on-button-left=exec makoctl dismiss; ghostty -e yazi "$(cat /tmp/last-screenrecord)"

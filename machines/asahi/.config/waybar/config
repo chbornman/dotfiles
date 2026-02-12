@@ -4,9 +4,9 @@
     "height": 32,
     "spacing": 0,
 
-    "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "hyprland/submap"],
+    "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "custom/screenshot", "custom/screenrecord", "hyprland/submap"],
     "modules-center": [],
-    "modules-right": ["custom/screencast", "custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "custom/calendar"],
+    "modules-right": ["custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "custom/calendar"],
 
     "hyprland/workspaces": {
         "format": "{id}",
@@ -64,11 +64,24 @@
         "on-click-right": "~/.local/bin/hovermenu-ctl action bluetooth"
     },
 
-    "custom/screencast": {
-        "exec": "pgrep wf-recorder && echo 'REC' || echo ''",
-        "interval": 1,
+    "custom/screenshot": {
+        "exec": "~/.local/bin/waybar-screenshot",
+        "return-type": "json",
         "format": "{}",
-        "on-click": "pkill wf-recorder || wf-recorder -f ~/Videos/screencast-$(date +%Y%m%d-%H%M%S).mp4"
+        "on-click": "~/.local/bin/screenshot area",
+        "on-click-right": "~/.local/bin/screenshot screen",
+        "on-click-middle": "~/.local/bin/screenshot window",
+        "tooltip": true
+    },
+
+    "custom/screenrecord": {
+        "exec": "~/.local/bin/waybar-screenrecord",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/screenrecord area",
+        "on-click-right": "~/.local/bin/screenrecord screen",
+        "on-click-middle": "~/.local/bin/screenrecord window",
+        "tooltip": true
     },
 
     "custom/mail": {

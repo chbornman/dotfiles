@@ -1,256 +1,210 @@
 #!/bin/bash
+# Dotfiles installer - symlinks shared and machine-specific configs
+# Detects machine by hostname: margo, asahi
 
 set -e
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SHARED_PACKAGES=(tmux nvim claude bash fish starship git)
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HOSTNAME=$(hostname)
 
-# Colors for output
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-info() { echo -e "${GREEN}[INFO]${NC} $1"; }
-warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-error() { echo -e "${RED}[ERROR]${NC} $1"; }
-header() { echo -e "${BLUE}[====]${NC} $1"; }
+info()   { echo -e "${GREEN}[OK]${NC} $1"; }
+warn()   { echo -e "${YELLOW}[!!]${NC} $1"; }
+error()  { echo -e "${RED}[ERR]${NC} $1"; }
+header() { echo -e "\n${BLUE}===${NC} $1"; }
 
-# Check if stow is installed
-check_stow() {
-    if ! command -v stow &> /dev/null; then
-        error "GNU Stow is not installed."
-        echo "Install it with your package manager:"
-        echo "  Arch:   sudo pacman -S stow"
-        echo "  Ubuntu: sudo apt install stow"
-        echo "  macOS:  brew install stow"
-        exit 1
+# Create a symlink, backing up existing files
+link() {
+    local src="$1"
+    local dst="$2"
+
+    if [ ! -e "$src" ]; then
+        warn "Source does not exist: $src"
+        return
     fi
+
+    # Ensure parent directory exists
+    mkdir -p "$(dirname "$dst")"
+
+    # Handle existing files
+    if [ -L "$dst" ]; then
+        rm "$dst"
+    elif [ -e "$dst" ]; then
+        local backup="${dst}.bak.$(date +%Y%m%d_%H%M%S)"
+        warn "Backing up $dst → $backup"
+        mv "$dst" "$backup"
+    fi
+
+    ln -s "$src" "$dst"
+    info "$(basename "$dst") → $src"
 }
 
-# Backup existing config if it exists and isn't a symlink
-backup_if_exists() {
-    local target="$1"
-    if [[ -e "$target" && ! -L "$target" ]]; then
-        local backup="${target}.backup.$(date +%Y%m%d_%H%M%S)"
-        warn "Backing up existing $target to $backup"
-        mv "$target" "$backup"
-    elif [[ -L "$target" ]]; then
-        # Remove existing symlink
-        rm "$target"
-    fi
-}
-
-# Stow a package from a specific directory
-stow_package() {
-    local pkg="$1"
-    local stow_dir="$2"
-    info "Stowing $pkg from $stow_dir..."
-
-    case "$pkg" in
-        tmux)
-            backup_if_exists "$HOME/.tmux.conf"
-            ;;
-        nvim)
-            backup_if_exists "$HOME/.config/nvim"
-            ;;
-        claude)
-            backup_if_exists "$HOME/.claude"
-            ;;
-        bash)
-            backup_if_exists "$HOME/.bashrc"
-            backup_if_exists "$HOME/.bash_profile"
-            backup_if_exists "$HOME/.config/bash"
-            ;;
-        fish)
-            backup_if_exists "$HOME/.config/fish/config.fish"
-            backup_if_exists "$HOME/.config/fish/fish_plugins"
-            backup_if_exists "$HOME/.config/fish/fish_variables"
-            backup_if_exists "$HOME/.config/fish/functions"
-            backup_if_exists "$HOME/.config/fish/completions"
-            ;;
-        starship)
-            backup_if_exists "$HOME/.config/starship.toml"
-            ;;
-        git)
-            backup_if_exists "$HOME/.gitconfig"
-            ;;
-        margo)
-            # Margo machine (Omarchy/Hyprland)
-            # Hyprland
-            backup_if_exists "$HOME/.config/hypr/hyprland.conf"
-            backup_if_exists "$HOME/.config/hypr/bindings.conf"
-            backup_if_exists "$HOME/.config/hypr/monitors.conf"
-            backup_if_exists "$HOME/.config/hypr/input.conf"
-            backup_if_exists "$HOME/.config/hypr/envs.conf"
-            backup_if_exists "$HOME/.config/hypr/windows.conf"
-            backup_if_exists "$HOME/.config/hypr/looknfeel.conf"
-            backup_if_exists "$HOME/.config/hypr/autostart.conf"
-            backup_if_exists "$HOME/.config/hypr/hypridle.conf"
-            backup_if_exists "$HOME/.config/hypr/hyprlock.conf"
-            backup_if_exists "$HOME/.config/hypr/hyprsunset.conf"
-            backup_if_exists "$HOME/.config/hypr/nvidia-fixes.conf"
-            backup_if_exists "$HOME/.config/hypr/xdph.conf"
-            # Waybar
-            backup_if_exists "$HOME/.config/waybar/config.jsonc"
-            backup_if_exists "$HOME/.config/waybar/style.css"
-            # Terminal
-            backup_if_exists "$HOME/.config/ghostty/config"
-            # Fish
-            backup_if_exists "$HOME/.config/fish/config.fish"
-            backup_if_exists "$HOME/.config/fish/conf.d/margo.fish"
-            backup_if_exists "$HOME/.config/fish/conf.d/aliases.fish"
-            backup_if_exists "$HOME/.config/fish/functions"
-            # Other
-            backup_if_exists "$HOME/.config/starship.toml"
-            backup_if_exists "$HOME/.config/btop/btop.conf"
-            backup_if_exists "$HOME/.config/walker/config.toml"
-            ;;
-        asahi|mid2012_mbp|i3)
-            # Machine-specific packages - backup all config directories
-            backup_if_exists "$HOME/.config/sway"
-            backup_if_exists "$HOME/.config/waybar"
-            backup_if_exists "$HOME/.config/mako"
-            backup_if_exists "$HOME/.config/swaylock"
-            backup_if_exists "$HOME/.config/i3"
-            backup_if_exists "$HOME/.config/polybar"
-            backup_if_exists "$HOME/.config/rofi"
-            backup_if_exists "$HOME/.config/alacritty"
-            backup_if_exists "$HOME/.config/dunst"
-            backup_if_exists "$HOME/.local/bin"
+# Determine machine
+detect_machine() {
+    case "$HOSTNAME" in
+        margo*)  echo "margo" ;;
+        asahi*)  echo "asahi" ;;
+        *)
+            warn "Unknown hostname '$HOSTNAME'. Specify machine as argument."
+            echo ""
             ;;
     esac
-
-    stow -d "$stow_dir" -t "$HOME" "$pkg"
 }
 
-# Install TPM (Tmux Plugin Manager)
+install_shared() {
+    header "Shared configs"
+
+    # Hyprland shared configs (sourced by machine hyprland.conf)
+    mkdir -p ~/.config/hypr/shared
+    link "$DOTFILES/shared/hypr/hyprland.conf"  ~/.config/hypr/shared/hyprland.conf
+    link "$DOTFILES/shared/hypr/bindings.conf"   ~/.config/hypr/shared/bindings.conf
+    link "$DOTFILES/shared/hypr/windows.conf"    ~/.config/hypr/shared/windows.conf
+    link "$DOTFILES/shared/hypr/hypridle.conf"   ~/.config/hypr/shared/hypridle.conf
+
+    # Hyprlock
+    link "$DOTFILES/shared/hyprlock/hyprlock.conf" ~/.config/hypr/hyprlock.conf
+
+    # Waybar
+    mkdir -p ~/.config/waybar
+    link "$DOTFILES/shared/waybar/config"    ~/.config/waybar/config
+    link "$DOTFILES/shared/waybar/style.css" ~/.config/waybar/style.css
+
+    # Waybar-hovermenu
+    mkdir -p ~/.config/waybar-hovermenu
+    link "$DOTFILES/shared/waybar-hovermenu/config.toml" ~/.config/waybar-hovermenu/config.toml
+
+    # Ghostty
+    mkdir -p ~/.config/ghostty
+    link "$DOTFILES/shared/ghostty/config" ~/.config/ghostty/config
+
+    # Mako
+    mkdir -p ~/.config/mako
+    link "$DOTFILES/shared/mako/config" ~/.config/mako/config
+
+    # Wofi
+    mkdir -p ~/.config/wofi
+    link "$DOTFILES/shared/wofi/config"    ~/.config/wofi/config
+    link "$DOTFILES/shared/wofi/style.css" ~/.config/wofi/style.css
+
+    # Fish
+    mkdir -p ~/.config/fish
+    link "$DOTFILES/shared/fish/config.fish" ~/.config/fish/config.fish
+
+    # Starship
+    link "$DOTFILES/shared/starship/starship.toml" ~/.config/starship.toml
+
+    # Shared scripts
+    mkdir -p ~/.local/bin
+    link "$DOTFILES/shared/scripts/screenshot"  ~/.local/bin/screenshot
+    link "$DOTFILES/shared/scripts/screenrecord" ~/.local/bin/screenrecord
+    link "$DOTFILES/shared/scripts/vol"              ~/.local/bin/vol
+    link "$DOTFILES/shared/scripts/waybar-screenshot"  ~/.local/bin/waybar-screenshot
+    link "$DOTFILES/shared/scripts/waybar-screenrecord" ~/.local/bin/waybar-screenrecord
+
+    # Nvim (stow-style, if the shared nvim dir has .config/nvim structure)
+    if [ -d "$DOTFILES/shared/nvim/.config/nvim" ]; then
+        link "$DOTFILES/shared/nvim/.config/nvim" ~/.config/nvim
+    elif [ -d "$DOTFILES/nvim/.config/nvim" ]; then
+        link "$DOTFILES/nvim/.config/nvim" ~/.config/nvim
+    fi
+
+    # Git
+    if [ -f "$DOTFILES/shared/git/.gitconfig" ]; then
+        link "$DOTFILES/shared/git/.gitconfig" ~/.gitconfig
+    fi
+
+    # Tmux
+    if [ -f "$DOTFILES/shared/tmux/.tmux.conf" ]; then
+        link "$DOTFILES/shared/tmux/.tmux.conf" ~/.tmux.conf
+    fi
+
+    # Claude
+    if [ -d "$DOTFILES/shared/claude/.claude" ]; then
+        link "$DOTFILES/shared/claude/.claude" ~/.claude
+    elif [ -d "$DOTFILES/claude/.claude" ]; then
+        link "$DOTFILES/claude/.claude" ~/.claude
+    fi
+}
+
+install_machine() {
+    local machine="$1"
+    local machine_dir="$DOTFILES/machines/$machine"
+
+    if [ ! -d "$machine_dir" ]; then
+        error "Machine directory not found: $machine_dir"
+        exit 1
+    fi
+
+    header "Machine: $machine"
+
+    # Hyprland entry point and machine config
+    link "$machine_dir/hyprland.conf"  ~/.config/hypr/hyprland.conf
+    link "$machine_dir/machine.conf"   ~/.config/hypr/machine.conf
+    link "$machine_dir/autostart.conf" ~/.config/hypr/autostart.conf
+
+    # Machine-specific scripts
+    if [ -d "$machine_dir/.local/bin" ]; then
+        for script in "$machine_dir/.local/bin"/*; do
+            if [ -f "$script" ]; then
+                link "$script" ~/.local/bin/"$(basename "$script")"
+            fi
+        done
+    fi
+
+    # Machine-specific fish
+    if [ -f "$machine_dir/fish-machine.fish" ]; then
+        link "$machine_dir/fish-machine.fish" ~/.config/fish/fish-machine.fish
+    fi
+}
+
 install_tpm() {
     local tpm_dir="$HOME/.tmux/plugins/tpm"
-    if [[ ! -d "$tpm_dir" ]]; then
+    if [ ! -d "$tpm_dir" ]; then
         info "Installing Tmux Plugin Manager..."
         git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
-        info "TPM installed. Press prefix + I in tmux to install plugins."
-    else
-        info "TPM already installed."
     fi
 }
 
-# List available packages
-list_packages() {
-    header "Available Packages:"
+# ============================================================================
+# MAIN
+# ============================================================================
+
+echo "=========================================="
+echo "  Dotfiles Installer"
+echo "=========================================="
+
+MACHINE="${1:-$(detect_machine)}"
+
+if [ -z "$MACHINE" ]; then
     echo
-    echo "Shared packages (work on all machines):"
-    for pkg in "${SHARED_PACKAGES[@]}"; do
-        if [[ -d "$DOTFILES_DIR/shared/$pkg" ]]; then
-            echo "  - $pkg"
-        fi
-    done
-    echo
-    echo "Machine-specific packages:"
-    if [[ -d "$DOTFILES_DIR/machines" ]]; then
-        for machine in "$DOTFILES_DIR/machines"/*; do
-            if [[ -d "$machine" ]]; then
-                echo "  - $(basename "$machine")"
-            fi
-        done
-    fi
-    echo
-    info "Current hostname: $HOSTNAME"
-    echo
-}
+    echo "Usage: $0 <machine>"
+    echo "  Machines: margo, asahi"
+    exit 1
+fi
 
-# Main
-main() {
-    echo "=========================================="
-    echo "  Dotfiles Installation Script"
-    echo "=========================================="
-    echo
+echo "Machine: $MACHINE"
+echo "Dotfiles: $DOTFILES"
 
-    check_stow
+install_shared
+install_machine "$MACHINE"
+install_tpm
 
-    cd "$DOTFILES_DIR"
-
-    # Show help if requested
-    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-        echo "Usage: $0 [OPTIONS] [PACKAGES...]"
-        echo
-        echo "Options:"
-        echo "  -h, --help     Show this help message"
-        echo "  -l, --list     List available packages"
-        echo "  shared         Install all shared packages"
-        echo "  <machine>      Install machine-specific package (e.g., asahi, mid2012_mbp)"
-        echo
-        echo "Examples:"
-        echo "  $0 shared asahi           # Install shared packages + asahi configs"
-        echo "  $0 tmux nvim              # Install only tmux and nvim from shared"
-        echo "  $0                        # Install all shared packages for current machine"
-        exit 0
-    fi
-
-    # List packages if requested
-    if [[ "$1" == "-l" || "$1" == "--list" ]]; then
-        list_packages
-        exit 0
-    fi
-
-    # Determine what to install
-    INSTALL_SHARED=false
-    MACHINE_PACKAGES=()
-    SELECTED_SHARED=()
-
-    if [[ $# -eq 0 ]]; then
-        # No args: install all shared packages
-        INSTALL_SHARED=true
-        SELECTED_SHARED=("${SHARED_PACKAGES[@]}")
-    else
-        # Parse arguments
-        for arg in "$@"; do
-            if [[ "$arg" == "shared" ]]; then
-                INSTALL_SHARED=true
-                SELECTED_SHARED=("${SHARED_PACKAGES[@]}")
-            elif [[ -d "$DOTFILES_DIR/machines/$arg" ]]; then
-                MACHINE_PACKAGES+=("$arg")
-            elif [[ -d "$DOTFILES_DIR/shared/$arg" ]]; then
-                SELECTED_SHARED+=("$arg")
-            else
-                warn "Package '$arg' not found, skipping..."
-            fi
-        done
-    fi
-
-    # Install shared packages
-    if [[ ${#SELECTED_SHARED[@]} -gt 0 ]]; then
-        header "Installing shared packages..."
-        for pkg in "${SELECTED_SHARED[@]}"; do
-            if [[ -d "$DOTFILES_DIR/shared/$pkg" ]]; then
-                stow_package "$pkg" "$DOTFILES_DIR/shared"
-            fi
-        done
-    fi
-
-    # Install machine-specific packages
-    if [[ ${#MACHINE_PACKAGES[@]} -gt 0 ]]; then
-        header "Installing machine-specific packages..."
-        for machine in "${MACHINE_PACKAGES[@]}"; do
-            if [[ -d "$DOTFILES_DIR/machines/$machine" ]]; then
-                stow_package "$machine" "$DOTFILES_DIR/machines"
-            fi
-        done
-    fi
-
-    # Post-install tasks
-    install_tpm
-
-    echo
-    info "Installation complete!"
-    echo
-    echo "Next steps:"
-    echo "  1. Restart your shell or run: source ~/.bashrc"
-    echo "  2. Open tmux and press prefix + I to install plugins"
-    echo "  3. Open nvim to let Lazy.nvim install plugins"
-}
-
-main "$@"
+header "Done!"
+echo
+echo "Next steps:"
+echo "  1. Reload fish: source ~/.config/fish/config.fish"
+echo "  2. Reload Hyprland: SUPER+SHIFT+C"
+echo "  3. Open tmux and press prefix + I to install plugins"
+echo "  4. Open nvim to let Lazy.nvim install plugins"
+echo
+echo "Greetd setup (requires sudo):"
+echo "  sudo cp $DOTFILES/shared/greetd/config.toml /etc/greetd/config.toml"
+echo "  sudo systemctl disable sddm"
+echo "  sudo systemctl enable greetd"
+echo

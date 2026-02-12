@@ -1,0 +1,10 @@
+width=500
+height=400
+location=center
+allow_markup=true
+allow_images=true
+insensitive=true
+hide_scroll=true
+no_actions=true
+matching=contains
+prompt=

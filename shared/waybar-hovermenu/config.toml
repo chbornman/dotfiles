@@ -1,0 +1,75 @@
+# Waybar Hovermenu Configuration
+
+[daemon]
+# Template for launching TUI apps. {title} and {command} are replaced.
+terminal_cmd = "ghostty --title='{title}' --font-size=9 -e {command}"
+waybar_height = 32
+socket_path = "/tmp/waybar-hovermenu.sock"
+# Global toggle: set to true to enable hover-to-open menus (with auto-close).
+# When false (default), menus open/close via click only.
+hover = false
+
+[modules.audio]
+enabled = true
+kind = "gui"
+command = "pavucontrol"
+window_class = "org.pulseaudio.pavucontrol"
+size = [600, 450]
+position = "top-right"
+action = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+
+[modules.bluetooth]
+enabled = true
+kind = "tui"
+command = "bluetui"
+size = [600, 450]
+position = "top-right"
+action = "bluetoothctl show | grep -q 'Powered: yes' && bluetoothctl power off || bluetoothctl power on"
+
+[modules.network]
+enabled = true
+kind = "tui"
+command = "impala"
+size = [600, 450]
+position = "top-right"
+action = "nmcli radio wifi | grep -q enabled && nmcli radio wifi off || nmcli radio wifi on"
+
+[modules.cpu]
+enabled = true
+kind = "tui"
+command = "/usr/bin/btop"
+size = [900, 650]
+position = "top-right"
+poll_interval = 3
+
+[modules.battery]
+enabled = true
+kind = "tui"
+command = "~/.local/bin/powertui"
+size = [600, 450]
+position = "top-right"
+poll_interval = 30
+
+[modules.mail]
+enabled = true
+kind = "tui"
+command = "~/.cargo/bin/mailtui"
+size = [600, 450]
+position = "top-left"
+action = "mbsync -a"
+watch_dir = "~/.local/share/mail"
+
+[modules.calendar]
+enabled = true
+kind = "tui"
+command = "~/.local/bin/calentui"
+size = [600, 450]
+position = "top-right"
+
+[modules.localsend]
+enabled = true
+kind = "gui"
+command = "localsend"
+window_class = "localsend"
+size = [400, 500]
+position = "top-left"

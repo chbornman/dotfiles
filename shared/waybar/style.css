@@ -1,0 +1,196 @@
+/* Waybar - Capstan Cloud theme */
+
+* {
+    font-family: "Source Code Pro", "Font Awesome 6 Free Solid";
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #000000;
+    color: #f7f7f5;
+}
+
+#workspaces button {
+    padding: 0;
+    min-width: 24px;
+    min-height: 24px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 50%;
+    margin: 4px 3px;
+    transition: background-color 50ms ease-out, color 50ms ease-out;
+}
+
+#workspaces button:hover {
+    background-color: #262422;
+    color: #f7f7f5;
+}
+
+/* Hyprland active */
+#workspaces button.active {
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+#workspaces button.urgent {
+    background-color: #ff4d4f;
+    color: #f7f7f5;
+}
+
+/* Workspace has windows (not empty) - dark brass */
+#workspaces button:not(.empty):not(.active) {
+    background-color: #4a3828;
+    color: #d4a366;
+}
+
+#workspaces button:not(.empty):not(.active):hover {
+    background-color: #5a4535;
+    color: #f7f7f5;
+}
+
+#submap {
+    padding: 0 8px;
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+#custom-calendar,
+#custom-mail,
+#custom-localsend,
+#custom-audio,
+#custom-cpu,
+#custom-battery,
+#custom-network,
+#custom-bluetooth {
+    padding: 0 12px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-calendar:hover,
+#custom-mail:hover,
+#custom-localsend:hover,
+#custom-audio:hover,
+#custom-cpu:hover,
+#custom-battery:hover,
+#custom-network:hover,
+#custom-bluetooth:hover {
+    color: #f7f7f5;
+}
+
+#custom-calendar.active,
+#custom-mail.active,
+#custom-localsend.active,
+#custom-audio.active,
+#custom-cpu.active,
+#custom-battery.active,
+#custom-network.active,
+#custom-bluetooth.active,
+#custom-calendar.pinned,
+#custom-mail.pinned,
+#custom-localsend.pinned,
+#custom-audio.pinned,
+#custom-cpu.pinned,
+#custom-battery.pinned,
+#custom-network.pinned,
+#custom-bluetooth.pinned {
+    background-color: #d4a366;
+    color: #1a1917;
+}
+
+#battery.charging {
+    color: #d4a366;
+}
+
+#battery.warning:not(.charging) {
+    color: #faad14;
+}
+
+#battery.critical:not(.charging) {
+    color: #ff4d4f;
+}
+
+#battery.full {
+    color: #8c8985;
+}
+
+/* Screenshot module */
+#custom-screenshot {
+    padding: 0 12px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-screenshot:hover {
+    color: #f7f7f5;
+}
+
+/* Screen recording module */
+#custom-screenrecord {
+    padding: 0 12px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-screenrecord:hover {
+    color: #f7f7f5;
+}
+
+#custom-screenrecord.recording {
+    color: #ff4d4f;
+    background-color: #4a2828;
+    font-weight: bold;
+}
+
+/* Whisper dictation module */
+#custom-whisper {
+    padding: 0 12px;
+    font-size: 14px;
+    color: #8c8985;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    margin: 4px 3px;
+}
+
+#custom-whisper.ready {
+    color: #d4a366;
+    background-color: #4a3828;
+}
+
+#custom-whisper.recording {
+    color: #ff4d4f;
+    background-color: #4a3828;
+}
+
+#custom-whisper.processing {
+    color: #1a1917;
+    background-color: #d4a366;
+}
+
+#custom-whisper.error {
+    color: #f38ba8;
+    opacity: 0.5;
+}
+
+#custom-whisper.streaming {
+    color: #ff0000;
+    background-color: #4a3828;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+#custom-whisper:hover {
+    background: #45475a;
+}

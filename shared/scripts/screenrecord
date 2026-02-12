@@ -1,0 +1,68 @@
+#!/bin/bash
+# Screen recording script with toggle support and clickable notifications
+
+RECORDINGS_DIR="$HOME/Downloads"
+PIDFILE="/tmp/screenrecord.pid"
+MODEFILE="/tmp/screenrecord.mode"
+
+# If already recording, stop and notify
+if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    kill -SIGINT "$(cat "$PIDFILE")"
+    wait "$(cat "$PIDFILE")" 2>/dev/null
+
+    FILEPATH="$(cat /tmp/last-screenrecord)"
+    FILENAME="$(basename "$FILEPATH")"
+    START="$(cat /tmp/screenrecord.start 2>/dev/null || echo "$(date +%s)")"
+    DURATION=$(( $(date +%s) - START ))
+
+    rm -f "$PIDFILE" "$MODEFILE" /tmp/screenrecord.start
+
+    notify-send -a "screenrecord" \
+        "Recording saved" \
+        "$FILENAME (${DURATION}s) (click to open)"
+    exit 0
+fi
+
+# Determine mode from argument
+MODE="${1:-area}"
+
+FILENAME="screenrecord-$(date +%Y%m%d-%H%M%S).mp4"
+FILEPATH="$RECORDINGS_DIR/$FILENAME"
+
+case "$MODE" in
+    area)
+        GEOMETRY="$(slurp)"
+        [ -z "$GEOMETRY" ] && exit 1
+        wf-recorder --audio -g "$GEOMETRY" -f "$FILEPATH" &
+        ;;
+    screen)
+        wf-recorder --audio -f "$FILEPATH" &
+        ;;
+    window)
+        GEOMETRY="$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"
+        wf-recorder --audio -g "$GEOMETRY" -f "$FILEPATH" &
+        ;;
+    *)
+        echo "Usage: screenrecord [area|screen|window]"
+        exit 1
+        ;;
+esac
+
+PID=$!
+
+# Check if wf-recorder started
+sleep 0.3
+if ! kill -0 "$PID" 2>/dev/null; then
+    notify-send -a "screenrecord" "Recording failed" "wf-recorder could not start"
+    exit 1
+fi
+
+# Save state
+echo "$PID" > "$PIDFILE"
+echo "$MODE" > "$MODEFILE"
+echo "$FILEPATH" > /tmp/last-screenrecord
+date +%s > /tmp/screenrecord.start
+
+notify-send -a "screenrecord" \
+    "Recording started" \
+    "$MODE mode — press same key to stop"

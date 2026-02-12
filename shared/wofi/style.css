@@ -1,0 +1,73 @@
+/* Wofi Capstan Cloud Theme */
+
+* {
+    font-family: monospace;
+    font-size: 11px;
+}
+
+window {
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+* {
+    outline: none;
+}
+
+#input {
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    min-height: 0px;
+    opacity: 0;
+}
+
+#input:focus {
+    margin: 5px;
+    padding: 8px;
+    background-color: #262422;
+    border: 1px solid #d4a366;
+    border-radius: 4px;
+    color: #f7f7f5;
+    opacity: 1;
+}
+
+#inner-box {
+    background-color: #1a1917;
+    margin: 0px;
+    padding: 5px;
+}
+
+#outer-box {
+    background-color: #1a1917;
+    border: 2px solid #d4a366;
+    border-radius: 8px;
+}
+
+#scroll {
+    margin: 0px;
+}
+
+#text {
+    color: #f7f7f5;
+    padding: 5px;
+}
+
+#entry {
+    padding: 5px;
+    margin: 2px;
+    background-color: #1a1917;
+    border-radius: 4px;
+}
+
+#entry:selected {
+    background-color: #d4a366;
+    color: #1a1917;
+    font-weight: bold;
+}
+
+#entry:hover {
+    background-color: #393634;
+}

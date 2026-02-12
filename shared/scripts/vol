@@ -1,0 +1,62 @@
+#!/bin/bash
+# Volume control script with notification support
+# Direct 0-100% mapping, capped at 100% to prevent crackling/over-amplification
+
+STEP=5  # Volume step size
+
+get_volume() {
+    pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -n1 | tr -d '%'
+}
+
+get_mute_status() {
+    pactl get-sink-mute @DEFAULT_SINK@ | grep -q 'yes' && echo "muted" || echo "unmuted"
+}
+
+send_notification() {
+    local vol=$(get_volume)
+    local mute=$(get_mute_status)
+
+    if [ "$mute" = "muted" ]; then
+        notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
+            -h int:value:0 "Volume: Muted" -u low
+    else
+        notify-send -t 1000 -h string:x-canonical-private-synchronous:volume \
+            -h int:value:$vol "Volume: ${vol}%" -u low
+    fi
+}
+
+case "$1" in
+    up)
+        if [ "$(get_mute_status)" = "muted" ]; then
+            pactl set-sink-mute @DEFAULT_SINK@ 0
+            pactl set-sink-volume @DEFAULT_SINK@ ${STEP}%
+        else
+            current=$(get_volume)
+            new=$((current + STEP))
+            [ "$new" -gt 100 ] && new=100
+            pactl set-sink-volume @DEFAULT_SINK@ ${new}%
+        fi
+        send_notification
+        ;;
+    down)
+        current=$(get_volume)
+        new=$((current - STEP))
+        if [ "$new" -lt "$STEP" ]; then
+            pactl set-sink-mute @DEFAULT_SINK@ 1
+        else
+            pactl set-sink-volume @DEFAULT_SINK@ ${new}%
+        fi
+        send_notification
+        ;;
+    mute)
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        send_notification
+        ;;
+    get)
+        get_volume
+        ;;
+    *)
+        echo "Usage: $0 {up|down|mute|get}"
+        exit 1
+        ;;
+esac

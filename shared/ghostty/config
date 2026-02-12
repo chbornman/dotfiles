@@ -1,0 +1,74 @@
+# Ghostty Terminal Emulator Configuration
+# Capstan Cloud Theme
+
+# Window settings
+window-width = 100
+window-height = 30
+window-padding-x = 4
+window-padding-y = 4
+
+# Font
+font-family = monospace
+font-size = 14
+
+# Capstan Cloud Color Scheme
+background = #0f0e0d
+foreground = #f7f7f5
+
+# Cursor
+cursor-color = #d4a366
+cursor-text = #0f0e0d
+
+# Selection
+selection-background = #d4a366
+selection-foreground = #f7f7f5
+
+# Black
+palette = 0=#1a1917
+palette = 8=#524f4c
+
+# Red
+palette = 1=#ff4d4f
+palette = 9=#ff7875
+
+# Green
+palette = 2=#95de64
+palette = 10=#b7eb8f
+
+# Yellow
+palette = 3=#d4a366
+palette = 11=#ffd591
+
+# Blue
+palette = 4=#597ef7
+palette = 12=#85a5ff
+
+# Magenta
+palette = 5=#b37feb
+palette = 13=#d3adf7
+
+# Cyan
+palette = 6=#5cdbd3
+palette = 14=#87e8de
+
+# White
+palette = 7=#8c8985
+palette = 15=#f7f7f5
+
+# Opacity
+background-opacity = 0.9
+
+# Scrollback
+scrollback-limit = 10000
+
+# Shell integration
+shell-integration = detect
+
+# Window title
+window-title-font-family = monospace
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
+
+# Map numpad enter to regular enter
+keybind = kp_enter=text:\x0d

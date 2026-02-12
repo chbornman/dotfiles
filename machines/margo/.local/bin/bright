@@ -1,0 +1,4 @@
+#!/bin/bash
+# Brightness control - margo (desktop, no backlight)
+# No-op: desktop monitors use hardware OSD for brightness
+echo "No backlight device on this machine"

@@ -1,0 +1,34 @@
+# Starship prompt - Capstan Cloud theme
+add_newline = false
+command_timeout = 200
+format = "[$directory$git_branch$git_status]($style)$character"
+
+[character]
+error_symbol = "[✗](bold #ff4d4f)"
+success_symbol = "[❯](bold #d4a366)"
+
+[directory]
+truncation_length = 2
+truncation_symbol = "…/"
+repo_root_style = "bold #d4a366"
+repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+style = "#f7f7f5"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "italic #8fa5ae"
+
+[git_status]
+format     = '[$all_status]($style)'
+style      = "#d4a366"
+ahead      = "⇡${count} "
+diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
+behind     = "⇣${count} "
+conflicted = " "
+up_to_date = " "
+untracked  = "? "
+modified   = " "
+stashed    = ""
+staged     = ""
+renamed    = ""
+deleted    = ""

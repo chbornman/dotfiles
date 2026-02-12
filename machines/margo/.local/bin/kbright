@@ -1,0 +1,3 @@
+#!/bin/bash
+# Keyboard backlight control - margo (desktop, no keyboard backlight)
+echo "No keyboard backlight on this machine"

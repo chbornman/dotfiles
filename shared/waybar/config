@@ -1,0 +1,110 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 0,
+
+    "modules-left": ["hyprland/workspaces", "custom/mail", "custom/localsend", "custom/whisper", "custom/screenshot", "custom/screenrecord", "hyprland/submap"],
+    "modules-center": [],
+    "modules-right": ["custom/audio", "custom/cpu", "custom/battery", "custom/bluetooth", "custom/network", "custom/calendar"],
+
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "hyprland/submap": {
+        "format": "{}"
+    },
+
+    "custom/calendar": {
+        "exec": "~/.local/bin/hovermenu-ctl follow calendar",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click calendar"
+    },
+
+    "custom/audio": {
+        "exec": "~/.local/bin/hovermenu-ctl follow audio",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click audio",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action audio"
+    },
+
+    "custom/cpu": {
+        "exec": "~/.local/bin/hovermenu-ctl follow cpu",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click cpu"
+    },
+
+    "custom/battery": {
+        "exec": "~/.local/bin/hovermenu-ctl follow battery",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click battery"
+    },
+
+    "custom/network": {
+        "exec": "~/.local/bin/hovermenu-ctl follow network",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click network",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action network"
+    },
+
+    "custom/bluetooth": {
+        "exec": "~/.local/bin/hovermenu-ctl follow bluetooth",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click bluetooth",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action bluetooth"
+    },
+
+    "custom/screenshot": {
+        "exec": "~/.local/bin/waybar-screenshot",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/screenshot area",
+        "on-click-right": "~/.local/bin/screenshot screen",
+        "on-click-middle": "~/.local/bin/screenshot window",
+        "tooltip": true
+    },
+
+    "custom/screenrecord": {
+        "exec": "~/.local/bin/waybar-screenrecord",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/screenrecord area",
+        "on-click-right": "~/.local/bin/screenrecord screen",
+        "on-click-middle": "~/.local/bin/screenrecord window",
+        "tooltip": true
+    },
+
+    "custom/mail": {
+        "exec": "~/.local/bin/hovermenu-ctl follow mail",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click mail",
+        "on-click-right": "~/.local/bin/hovermenu-ctl action mail"
+    },
+
+    "custom/whisper": {
+        "exec": "~/projects/asahi-whisper-daemon/waybar_whisper.py",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/projects/asahi-whisper-daemon/toggle_stream.sh",
+        "on-click-right": "~/projects/asahi-whisper-daemon/switch_model.sh",
+        "tooltip": true
+    },
+
+    "custom/localsend": {
+        "exec": "~/.local/bin/hovermenu-ctl follow localsend",
+        "return-type": "json",
+        "format": "{}",
+        "on-click": "~/.local/bin/hovermenu-ctl click localsend"
+    }
+}

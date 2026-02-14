@@ -1,13 +1,13 @@
 /* Waybar - Capstan Cloud theme */
 
 * {
-    font-family: "Source Code Pro", "Font Awesome 6 Free Solid";
+    font-family: "Source Code Pro", "Font Awesome 7 Free Solid", "Font Awesome 6 Free Solid";
     font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: #000000;
+    background-color: transparent;
     color: #f7f7f5;
 }
 
@@ -63,12 +63,17 @@ window#waybar {
 #custom-cpu,
 #custom-battery,
 #custom-network,
-#custom-bluetooth {
+#custom-bluetooth,
+#custom-caffeine,
+#custom-screenshot,
+#custom-screenrecord,
+#custom-whisper {
     padding: 0 12px;
     color: #8c8985;
     background-color: #1a1a1a;
     border-radius: 16px;
     margin: 4px 3px;
+    min-height: 24px;
 }
 
 #custom-calendar:hover,
@@ -119,14 +124,6 @@ window#waybar {
 }
 
 /* Caffeine module */
-#custom-caffeine {
-    padding: 0 12px;
-    color: #8c8985;
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    margin: 4px 3px;
-}
-
 #custom-caffeine:hover {
     color: #f7f7f5;
 }
@@ -137,27 +134,11 @@ window#waybar {
 }
 
 /* Screenshot module */
-#custom-screenshot {
-    padding: 0 12px;
-    color: #8c8985;
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    margin: 4px 3px;
-}
-
 #custom-screenshot:hover {
     color: #f7f7f5;
 }
 
 /* Screen recording module */
-#custom-screenrecord {
-    padding: 0 12px;
-    color: #8c8985;
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    margin: 4px 3px;
-}
-
 #custom-screenrecord:hover {
     color: #f7f7f5;
 }
@@ -169,15 +150,6 @@ window#waybar {
 }
 
 /* Whisper dictation module */
-#custom-whisper {
-    padding: 0 12px;
-    font-size: 14px;
-    color: #8c8985;
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    margin: 4px 3px;
-}
-
 #custom-whisper.ready {
     color: #d4a366;
     background-color: #4a3828;
